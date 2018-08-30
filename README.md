@@ -1,4 +1,4 @@
 # AutoGrader
-## Authors: Alex Derr, Test, Test
+## Authors: Alex Derr
 
 Web app to automatically grade code files in an academic setting
