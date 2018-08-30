@@ -11506,11 +11506,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alex\\Desktop\\AutoGrader\\AutoGrader\\AutoGrader.csproj",
+      "projectUniqueName": "C:\\Users\\Alex\\Source\\Repos\\AutoGrader\\AutoGrader\\AutoGrader\\AutoGrader.csproj",
       "projectName": "AutoGrader",
-      "projectPath": "C:\\Users\\Alex\\Desktop\\AutoGrader\\AutoGrader\\AutoGrader.csproj",
+      "projectPath": "C:\\Users\\Alex\\Source\\Repos\\AutoGrader\\AutoGrader\\AutoGrader\\AutoGrader.csproj",
       "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alex\\Desktop\\AutoGrader\\AutoGrader\\obj\\",
+      "outputPath": "C:\\Users\\Alex\\Source\\Repos\\AutoGrader\\AutoGrader\\AutoGrader\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
