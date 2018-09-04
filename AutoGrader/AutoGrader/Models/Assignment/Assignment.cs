@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assignment
+namespace AutoGrader.Models.Assignment
 { 
     public class Assignment
     {
