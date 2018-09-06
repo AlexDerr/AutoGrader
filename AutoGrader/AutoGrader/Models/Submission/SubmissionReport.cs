@@ -16,6 +16,8 @@ namespace AutoGrader.Models.Submission
 
         public int SubmissionId { get; set; }
 
+        public int ReportId { get; set; }
+
         public int AssignmentId { get; set; }
 
         public DateTime SubmissionTime { get; set; }
