@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace AutoGrader.Models.SubmissionReport
+namespace AutoGrader.Models.Submission
 {
-    public class SubmissionReport
+    public class Submission
     {
-        public SubmissionReport()
+        public Submission()
         {
         }
 
@@ -19,11 +16,7 @@ namespace AutoGrader.Models.SubmissionReport
 
         public DateTime SubmissionTime { get; set; }
 
-        public int ExecutionTime { get; set; }
-
         public string SourceCodeFileName { get; set; }
-
-        public bool[] TestCases { get; set; }
 
         public string Language { get; set; }
     }
