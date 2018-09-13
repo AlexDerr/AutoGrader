@@ -2,15 +2,15 @@
 
 namespace AutoGrader.Models.Submission
 {
-    public class Submission
+    public class SubmissionInput
     {
-        public Submission()
+        public SubmissionInput()
         {
         }
 
-        public int UserId { get; set; }
+        public int SubmissionInputId { get; set; }
 
-        public int SubmissionId { get; set; }
+        public int UserId { get; set; }
 
         public int AssignmentId { get; set; }
 

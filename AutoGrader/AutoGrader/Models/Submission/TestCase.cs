@@ -5,15 +5,17 @@ using System.Threading.Tasks;
 
 namespace AutoGrader.Models.TestCaseReport
 {
-    public class TestCaseReport
+    public class TestCase
     {
-        public TestCaseReport()
+        public TestCase()
         {
         }
 
         public bool PassFail { get; set; }
 
-        public string CompilerOutput { get; set; }
+        // public string CodeOutput { get; set; }
+
+        public string Feedback { get; set; }
 
         public int Runtime { get; set; }
     }

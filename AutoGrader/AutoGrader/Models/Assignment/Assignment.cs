@@ -36,5 +36,3 @@ namespace AutoGrader.Models.Assignment
         public List<string> Languages { get; set; }
     }
 }
-
-
