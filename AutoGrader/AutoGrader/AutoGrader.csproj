@@ -20,5 +20,6 @@
     <Compile Remove="Migrations\20180913195937_AddAssignmentTable.cs" />
     <Compile Remove="Migrations\20180913195937_AddAssignmentTable.Designer.cs" />
     <Compile Remove="Migrations\AutoGraderDbContextModelSnapshot.cs" />
+    <Compile Remove="runner.cs" />
   </ItemGroup>
 </Project>
