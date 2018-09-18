@@ -35,8 +35,7 @@ namespace AutoGrader
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            services.AddDbContext<AutoGraderDbContext>(contextOptions => contextOptions.UseNpgsql(Configuration.GetConnectionString("Default")));
+            services.AddEntityFrameworkNpgsql().AddDbContext<AutoGraderDbContext>(contextOptions => contextOptions.UseNpgsql(Configuration.GetConnectionString("Default")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
