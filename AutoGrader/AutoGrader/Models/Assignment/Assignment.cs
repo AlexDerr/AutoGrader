@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 
 namespace AutoGrader.Models.Assignment
-{ 
+{
     public class Assignment
     {
-	    public Assignment()
-	    {
-            InputFileNames = new List<string>();
-            OutputFileNames = new List<string>();
-            Feedbacks = new List<string>();
+        public Assignment()
+        {
             Languages = new List<string>();
-	    }
+            IO = new List<AssignmentIO>();
+        }
 
         public int Id { get; set; }
 
@@ -23,11 +21,7 @@ namespace AutoGrader.Models.Assignment
 
         public string Description { get; set; }
 
-        public List<string> InputFileNames { get; set; }
-
-        public List<string> OutputFileNames { get; set; }
-
-        public List<string> Feedbacks { get; set; }
+        public List<AssignmentIO> IO { get; set;}
 
         public int MemoryLimit { get; set; }
 
