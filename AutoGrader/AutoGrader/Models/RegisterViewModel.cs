@@ -2,7 +2,7 @@
 
 namespace AutoGrader.Models
 {
-    public class RegisterModel
+    public class RegisterViewModel
     {
         [DisplayName("First Name")]
         public string FirstName { get; set; }
