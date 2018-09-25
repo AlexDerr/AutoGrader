@@ -17,6 +17,7 @@ namespace AutoGrader.Methods.AssignmentMethod
 
         public void UpdateAssignment(Assignment assignment)
         {
+            // Figure out assignemnt id
             // Call method to update assignment to database
             // for list size of IO 
             //       Check if it exists
