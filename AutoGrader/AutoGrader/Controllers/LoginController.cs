@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoGrader.DataAccess;
 using AutoGrader.Models;
+using AutoGrader.Models.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoGrader.Controllers
 {
@@ -17,11 +20,11 @@ namespace AutoGrader.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                //TODO - login
+                //Todo - Logic connecting to the backend for successful login
             }
             else
             {
@@ -37,22 +40,33 @@ namespace AutoGrader.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                if(model.Password == model.ConfirmPassword)
+                if (model.Password != model.ConfirmPassword)
                 {
-
+                    ModelState.AddModelError("", "Passwords do not match.");
+                    return View(model);
                 }
-                //TODO - register user
+
+                if (model.IsInstructor == true)
+                {
+                    //Todo - register instructor into the DB and route them to their home page
+                }
+                else if (model.IsStudent == true)
+                {
+                    //Todo - register student into the DB and route them to their home page
+                }
             }
             else
             {
                 ModelState.AddModelError("", "Invalid registration");
+                return View(model);
             }
 
             return View(model);
+
         }
     }
 }
