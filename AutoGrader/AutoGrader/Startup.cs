@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoGrader.DataAccess;
+using AutoGrader.DataAccess.Services.SubmissionServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,6 +37,10 @@ namespace AutoGrader
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddEntityFrameworkNpgsql().AddDbContext<AutoGraderDbContext>(contextOptions => contextOptions.UseNpgsql(Configuration.GetConnectionString("Default")));
+
+            services.AddScoped<AssignmentDataService, AssignmentDataService>();
+            services.AddScoped<SubmissionInputService, SubmissionInputService>();
+            services.AddScoped<SubmissionOutputService, SubmissionOutputService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
