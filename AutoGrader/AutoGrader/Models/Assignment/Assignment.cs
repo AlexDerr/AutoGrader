@@ -26,7 +26,7 @@ namespace AutoGrader.Models.Assignment
 
         public string Description { get; set; }
 
-        public List<AssignmentIO> IO { get; set;}
+        public List<AssignmentIO> IO { get; set; }
 
         public int MemoryLimit { get; set; }
 
