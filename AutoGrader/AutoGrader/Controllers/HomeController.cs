@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using AutoGrader.Models;
+using Microsoft.AspNetCore.Http;
+using AutoGrader.Models.Submission;
+using AutoGrader.Models.ViewModels;
 
 namespace AutoGrader.Controllers
 {
@@ -27,6 +26,21 @@ namespace AutoGrader.Controllers
             ViewData["Message"] = "Your contact page.";
 
             return View();
+        }
+
+        public IActionResult SubmitAssignment()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SubmitAssignment(SubmissionInputViewModel input)
+        {
+            SubmissionInput submission = new SubmissionInput(input);
+
+            //Todo - add other fields to submission, save to DB, other business logic
+
+            return View("Index");
         }
 
         public IActionResult Privacy()

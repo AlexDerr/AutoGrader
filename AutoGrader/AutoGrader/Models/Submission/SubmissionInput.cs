@@ -1,11 +1,14 @@
-﻿using System;
+﻿using AutoGrader.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace AutoGrader.Models.Submission
 {
     public class SubmissionInput
     {
-        public SubmissionInput()
+        public SubmissionInput(SubmissionInputViewModel input)
         {
+            this.SourceCode = input.SourceCode;
         }
 
         public int SubmissionInputId { get; set; }
@@ -19,5 +22,7 @@ namespace AutoGrader.Models.Submission
         public string SourceCodeFileName { get; set; }
 
         public string Language { get; set; }
+
+        public string SourceCode { get; set; }
     }
 }
