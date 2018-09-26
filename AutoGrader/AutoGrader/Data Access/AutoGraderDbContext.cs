@@ -1,4 +1,5 @@
 ﻿using AutoGrader.Models.Assignment;
+using AutoGrader.Models.Submission;
 using AutoGrader.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace AutoGrader.DataAccess
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<SubmissionInput> SubmissionInputs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
