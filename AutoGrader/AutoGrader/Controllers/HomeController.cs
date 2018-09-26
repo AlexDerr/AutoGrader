@@ -43,6 +43,19 @@ namespace AutoGrader.Controllers
             return View("Index");
         }
 
+        public IActionResult CreateAssignment()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAssignment(AssignmentViewModel assignment)
+        {
+            //Todo - create the assignment and save it in the db
+
+            return View("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();

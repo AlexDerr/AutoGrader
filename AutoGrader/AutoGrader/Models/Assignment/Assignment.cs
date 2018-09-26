@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoGrader.Models.Submission;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -31,5 +33,7 @@ namespace AutoGrader.Models.Assignment
         public int TimeLimit { get; set; }
 
         public List<string> Languages { get; set; }
+
+        public List<SubmissionInput> Submissions { get; set; }
     }
 }
