@@ -1,5 +1,5 @@
-﻿using System;
-using AutoGrader.Models.Assignment;
+﻿using AutoGrader.Models.Assignment;
+using AutoGrader.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoGrader.DataAccess
@@ -9,6 +9,8 @@ namespace AutoGrader.DataAccess
         public AutoGraderDbContext(DbContextOptions<AutoGraderDbContext> contextOptions) : base(contextOptions) { }
 
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Student> Students { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
