@@ -3,8 +3,6 @@ namespace AutoGrader.DataAccess
 {
     public class AssignmentDataService : Service
     {
-        public AssignmentDataService()
-        {
-        }
+        public AssignmentDataService(AutoGraderDbContext dbContext) : base(dbContext) { }
     }
 }
