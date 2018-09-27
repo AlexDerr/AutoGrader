@@ -28,43 +28,43 @@ namespace ShellHelper
             return result;
         }
 
-        public static CompileCheckOutput Compile(this SubmissionInput obj){ //need to make it into an object
-            WriteToFile((obj.SubmissionInputId).ToString()+"."+obj.Language, obj.Code);
+        public static bool Compile(this Submission obj){ //need to make it into an object
+            WriteToFile((obj.SubmissionId).ToString()+"."+obj.Input.Language, obj.Input.SourceCode);
 
-            CompileCheckOutput Compiled = new CompileCheckOutput();
+            bool Compiled;
+            string CompiledFeedback;
 
-            if(obj.Language == "cpp"){
-                Compiled.CompilerOutput = obj.CompileCpp();
+            if(obj.Input.Language == Language.Cpp){
+                CompiledFeedback = obj.CompileCpp();
             }
-            else if(obj.Language == "java"){
-                Compiled.CompilerOutput = obj.CompileJava();
+            else if(obj.Input.Language == Language.Java){
+                CompiledFeedback = obj.CompileJava();
             }
 
             //determine if the file was compiled
-            if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionInputId + " | wc -l").Bash() ) == 2){
-                Compiled.Compiled = true;
+            if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionId + " | wc -l").Bash() ) == 2){
+                Compiled = true;
             }
             else {
-                Compiled.Compiled = false;
+                Compiled = false;
             }
-
 
             return Compiled;
         }
 
-        public static string CompileCpp(this SubmissionInput obj){
-            return ("g++ " + obj.SubmissionInputId + ".cpp -o " + obj.SubmissionInputId +".out").Bash();
+        private static string CompileCpp(this Submission obj){
+            return ("g++ " + obj.SubmissionId + ".cpp -o " + obj.SubmissionId +".out").Bash();
         }
 
-        public static string CompileJava(this SubmissionInput obj){
-            return (("java " + obj.SubmissionInputId.ToString()).Bash());
+        private static string CompileJava(this Submission obj){
+            return (("java " + obj.SubmissionId.ToString()).Bash());
         }
 
-        public static SubmissionOutput Run(this SubmissionOutput obj){
+        public static Submission Run(this Submission obj){
             //need to pull input list from server
             string input = "hello world";
-            string CmdLineInput = ("./"+obj.SubmissionInputId +".out < " + input);
-            obj.Language = CmdLineInput.Bash();
+            string CmdLineInput = ("./"+obj.SubmissionId +".out < " + input);
+            //obj.Input.Language = CmdLineInput.Bash();
             return obj;
         }
 
@@ -72,8 +72,8 @@ namespace ShellHelper
              System.IO.File.WriteAllText(name, text);
         }
 
-        public static void Compare(this SubmissionInput obj, string input, string output){
-            WriteToFile(obj.SubmissionInputId+".txt", obj.Code);
+        public static void Compare(this Submission obj, string input, string output){
+            WriteToFile(obj.SubmissionId+".txt", obj.Input.SourceCode);
         }
 
         public static int GetInputList(this int ID){
