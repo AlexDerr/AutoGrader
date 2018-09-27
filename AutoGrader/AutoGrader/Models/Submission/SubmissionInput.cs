@@ -6,7 +6,7 @@ namespace AutoGrader.Models.Submission
 {
     public class SubmissionInput
     {
-        public SubmissionInput(SubmissionInputViewModel input)
+        public SubmissionInput()
         {
         }
 

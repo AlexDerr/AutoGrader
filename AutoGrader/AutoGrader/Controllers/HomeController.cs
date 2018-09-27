@@ -4,6 +4,8 @@ using AutoGrader.Models;
 using Microsoft.AspNetCore.Http;
 using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
+using System;
+using ShellHelper;
 
 namespace AutoGrader.Controllers
 {
@@ -36,7 +38,20 @@ namespace AutoGrader.Controllers
         [HttpPost]
         public ActionResult SubmitAssignment(SubmissionInputViewModel input)
         {
-            SubmissionInput submission = new SubmissionInput(input);
+            Submission submission = new Submission();
+
+            submission.Input.SourceCode = input.SourceCode;
+            submission.Input.Language = Language.Cpp;
+
+            if (submission.Compile())
+            {
+                return View("Index");
+            }
+            else
+            {
+                submission.Output.Compiled = false;
+            }
+
 
             //Todo - add other fields to submission, save to DB, other business logic
 
