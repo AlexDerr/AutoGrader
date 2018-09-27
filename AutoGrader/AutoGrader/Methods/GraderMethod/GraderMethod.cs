@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AutoGrader.Methods.Grader
+namespace AutoGrader.Methods.GraderMethod
 {
-    public class Grader
+    public class GraderMethod
     {
         public void GradeSubmission(Assignment assignment, SubmissionInput submission)
         {
@@ -33,7 +33,6 @@ namespace AutoGrader.Methods.Grader
             //      call the grading function passing an object that contains ** 2d array of input output files/or assignment ID **, source code, language, runtime, and submission id
             //      get back a list of objects in the same amount as the num of test cases, that each contain pass/fail bool, compiler/runner output, and runtime 
             //      Update the database for the report ID to say which test cases were passed and save the output string for each
-
         }
     }
 }

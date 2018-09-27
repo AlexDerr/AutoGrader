@@ -23,5 +23,13 @@ namespace AutoGrader.Methods.AssignmentMethod
             //       Check if it exists
             //       Call method to update/add IO to the database
         }
+
+        public List<Assignment> GetAssignments(int InstructorID)
+        {
+            List<Assignment> assignments = new List<Assignment>();
+            // for all instructor assignments
+            //      add each to a list of assignments
+            return assignments;
+        }
     }
 }
