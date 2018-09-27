@@ -14,7 +14,7 @@ namespace AutoGrader.DataAccess
             return autoGraderDbContext.Assignments.ToList();
         }
 
-        public Assignment GetSubmissionInputById(int id)
+        public Assignment GetAssignmentById(int id)
         {
             return GetAssignments().FirstOrDefault(e => e.Id == id);
         }

@@ -12,8 +12,7 @@ namespace AutoGrader.DataAccess
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Student> Students { get; set; }
-        public DbSet<SubmissionInput> SubmissionInputs { get; set; }
-        public DbSet<SubmissionOutput> SubmissionOutputs { get; set; }
+        public DbSet<Submission> Submissions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
