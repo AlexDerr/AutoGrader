@@ -17,6 +17,8 @@ namespace AutoGrader.Models.Submission
 
         public int Runtime { get; set; }
 
+        public string CompileOutput { get; set; }
+
         public List<TestCase> TestCases { get; set; }
     }
 }
