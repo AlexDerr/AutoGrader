@@ -8,21 +8,10 @@ namespace AutoGrader.Models.Submission
     {
         public SubmissionInput(SubmissionInputViewModel input)
         {
-            this.SourceCode = input.SourceCode;
         }
 
-        public int SubmissionInputId { get; set; }
-
-        public int UserId { get; set; }
-
-        public int AssignmentId { get; set; }
-
-        public DateTime SubmissionTime { get; set; }
-
-        public string SourceCodeFileName { get; set; }
-
-        public string Language { get; set; }
-
         public string SourceCode { get; set; }
+
+        public Language Language { get; set; }
     }
 }
