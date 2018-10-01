@@ -29,7 +29,7 @@ namespace ShellHelper
         }
 
         public static bool Compile(this Submission obj){ //need to make it into an object
-            WriteToFile((obj.SubmissionId).ToString()+"."+obj.Input.Language, obj.Input.SourceCode);
+            WriteToFile(((obj.SubmissionId).ToString()+"."+obj.Input.Language).ToLower(), obj.Input.SourceCode);
 
             bool Compiled;
             string CompiledFeedback;
@@ -70,7 +70,8 @@ namespace ShellHelper
             //need to pull input list from server
             
             string CmdLineInput = ("./"+obj.SubmissionId +".out");
-            obj.Output.TestCases[0].CodeOutput = CmdLineInput.Bash();
+            //obj.Output.TestCases[0].CodeOutput = CmdLineInput.Bash();
+            System.Console.WriteLine(CmdLineInput.Bash());
             return obj;
         }
 
