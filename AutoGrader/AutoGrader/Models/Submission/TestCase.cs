@@ -13,7 +13,7 @@ namespace AutoGrader.Models.TestCaseReport
 
         public bool PassFail { get; set; }
 
-        // public string CodeOutput { get; set; }
+         public string CodeOutput { get; set; }
 
         public string Feedback { get; set; }
 

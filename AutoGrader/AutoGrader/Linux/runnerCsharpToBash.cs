@@ -42,12 +42,7 @@ namespace ShellHelper
             }
 
             //determine if the file was compiled
-            if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionId + " | wc -l").Bash() ) == 2){
-                Compiled = true;
-            }
-            else {
-                Compiled = false;
-            }
+            Compiled = obj.IsCompiled();
 
             return Compiled;
         }
@@ -62,10 +57,21 @@ namespace ShellHelper
 
         public static Submission Run(this Submission obj){
             //need to pull input list from server
-            string input = "hello world";
-            string CmdLineInput = ("./"+obj.SubmissionId +".out < " + input);
-            //obj.Input.Language = CmdLineInput.Bash();
+            
+            string CmdLineInput = ("./"+obj.SubmissionId +".out");
+            obj.Output.TestCases[0].CodeOutput = CmdLineInput.Bash();
             return obj;
+        }
+
+        public static bool IsCompiled(this Submission obj){
+            bool Compiled;
+            if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionId + " | wc -l").Bash() ) == 2){
+                Compiled = true;
+            }
+            else {
+                Compiled = false;
+            }
+            return Compiled;
         }
 
         public static void WriteToFile(string name, string text){
