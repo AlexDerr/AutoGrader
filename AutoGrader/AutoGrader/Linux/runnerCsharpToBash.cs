@@ -29,12 +29,16 @@ namespace ShellHelper
         }
 
         public static bool Compile(this Submission obj){ //need to make it into an object
-            WriteToFile(((obj.SubmissionId).ToString()+"."+obj.Input.Language).ToLower(), obj.Input.SourceCode);
+
 
             bool Compiled;
             string CompiledFeedback;
 
-            if(obj.Input.Language == Language.Cpp){
+
+            if(obj.Input.Language == Language.C){
+                CompiledFeedback = obj.CompileC();
+            }
+            else if(obj.Input.Language == Language.Cpp){
                 CompiledFeedback = obj.CompileCpp();
             }
             else if(obj.Input.Language == Language.Java){
@@ -47,17 +51,25 @@ namespace ShellHelper
             return Compiled;
         }
 
+        private static string CompileC(this Submission obj){
+            WriteToFile(obj.SubmissionId+".c", obj.Input.SourceCode);
+            return ("gcc " + obj.SubmissionId + ".c -o " + obj.SubmissionId +".out").Bash();
+        }
+
         private static string CompileCpp(this Submission obj){
+            WriteToFile(obj.SubmissionId+".cpp", obj.Input.SourceCode);
             return ("g++ " + obj.SubmissionId + ".cpp -o " + obj.SubmissionId +".out").Bash();
         }
 
         private static string CompileJava(this Submission obj){
-            return (("java " + obj.SubmissionId.ToString()).Bash());
+            WriteToFile(obj.SubmissionId+".jar", obj.Input.SourceCode);
+            ("javac " + obj.SubmissionId + ".jar").Bash();
+            return ("java " + obj.SubmissionId).Bash();
         }
 
         public static bool IsCompiled(this Submission obj){
             bool Compiled;
-            if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionId + " | wc -l").Bash() ) == 2){
+            if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionId + " | wc -l").Bash() ) >= 2){
                 Compiled = true;
             }
             else {
