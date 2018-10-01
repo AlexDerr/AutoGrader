@@ -55,14 +55,6 @@ namespace ShellHelper
             return (("java " + obj.SubmissionId.ToString()).Bash());
         }
 
-        public static Submission Run(this Submission obj){
-            //need to pull input list from server
-            
-            string CmdLineInput = ("./"+obj.SubmissionId +".out");
-            obj.Output.TestCases[0].CodeOutput = CmdLineInput.Bash();
-            return obj;
-        }
-
         public static bool IsCompiled(this Submission obj){
             bool Compiled;
             if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionId + " | wc -l").Bash() ) == 2){
@@ -72,6 +64,22 @@ namespace ShellHelper
                 Compiled = false;
             }
             return Compiled;
+        }
+
+        public static Submission Run(this Submission obj){
+            //need to pull input list from server
+            
+            string CmdLineInput = ("./"+obj.SubmissionId +".out");
+            obj.Output.TestCases[0].CodeOutput = CmdLineInput.Bash();
+            return obj;
+        }
+
+        public static Submission CompileAndRun(this Submission obj){
+            bool Compiled = obj.Compile();
+            if(Compiled){
+                obj.Run();
+            }
+            return obj;
         }
 
         public static void WriteToFile(string name, string text){
