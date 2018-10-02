@@ -45,6 +45,7 @@ namespace AutoGrader.Controllers
 
             if (submission.Compile())
             {
+                submission.Run();
                 return View("Index");
             }
             else
