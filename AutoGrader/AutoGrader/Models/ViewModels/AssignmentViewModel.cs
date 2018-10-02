@@ -17,7 +17,7 @@ namespace AutoGrader.Models.ViewModels
 
         public string Description { get; set; }
 
-        public List<AssignmentIO> IO { get; set; }
+        public List<TestCase> IO { get; set; }
 
         public int MemoryLimit { get; set; }
 

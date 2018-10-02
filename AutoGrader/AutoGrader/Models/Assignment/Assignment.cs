@@ -11,7 +11,7 @@ namespace AutoGrader.Models.Assignment
         public Assignment()
         {
             Languages = new List<string>();
-            IO = new List<AssignmentIO>();
+            TestCases = new List<TestCase>();
         }
 
         public int Id { get; set; }
@@ -26,7 +26,7 @@ namespace AutoGrader.Models.Assignment
 
         public string Description { get; set; }
 
-        public List<AssignmentIO> IO { get; set; }
+        public List<TestCase> TestCases { get; set; }
 
         public int MemoryLimit { get; set; }
 

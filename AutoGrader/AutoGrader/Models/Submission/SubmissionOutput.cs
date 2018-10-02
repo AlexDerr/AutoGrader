@@ -1,5 +1,4 @@
-﻿using AutoGrader.Models.TestCaseReport;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ namespace AutoGrader.Models.Submission
     {
         public SubmissionOutput()
         {
-            TestCases = new List<TestCase>();
+            TestCases = new List<TestCaseReport>();
         }
 
         public bool Compiled { get; set; }
@@ -19,6 +18,6 @@ namespace AutoGrader.Models.Submission
 
         public string CompileOutput { get; set; }
 
-        public List<TestCase> TestCases { get; set; }
+        public List<TestCaseReport> TestCases { get; set; }
     }
 }
