@@ -24,5 +24,7 @@ namespace AutoGrader.Models.ViewModels
         public int TimeLimit { get; set; }
 
         public List<string> Languages { get; set; }
+
+        public List<string> TestCases { get; set; }
     }
 }

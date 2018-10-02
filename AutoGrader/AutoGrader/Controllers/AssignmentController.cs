@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoGrader.DataAccess;
 using AutoGrader.Models.Assignment;
+using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,13 +27,14 @@ namespace AutoGrader.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Create(Assignment newAssignment)
+        [HttpPost]
+        public async Task<IActionResult> Create(AssignmentViewModel model)
         {
             if(!ModelState.IsValid) {
-                return View("Index", newAssignment);
+                return View("Index", model);
             }
 
-            dbContext.Assignments.Add(newAssignment);
+            //dbContext.Assignments.Add(model);
             await dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
