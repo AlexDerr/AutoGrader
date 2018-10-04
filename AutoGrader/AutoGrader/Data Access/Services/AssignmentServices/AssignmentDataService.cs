@@ -18,5 +18,10 @@ namespace AutoGrader.DataAccess
         {
             return GetAssignments().FirstOrDefault(e => e.Id == id);
         }
+
+        public void AddAssignment(Assignment assignment)
+        {
+            autoGraderDbContext.Assignments.Add(assignment);
+        }
     }
 }

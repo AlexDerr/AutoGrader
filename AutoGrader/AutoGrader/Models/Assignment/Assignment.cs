@@ -1,4 +1,5 @@
 ﻿using AutoGrader.Models.Submission;
+using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,19 @@ namespace AutoGrader.Models.Assignment
         {
             Languages = new List<string>();
             TestCases = new List<TestCase>();
+        }
+
+        public Assignment(AssignmentViewModel model)
+        {
+            this.Name = model.Name;
+            this.StartDate = model.StartDate;
+            this.EndDate = model.EndDate;
+            this.Description = model.Description;
+            this.MemoryLimit = model.MemoryLimit;
+            this.TimeLimit = model.TimeLimit;
+            this.Languages = model.Languages;
+            this.TestCases.Add(new TestCase(model.TestCase1Input, model.TestCase1Output));
+            this.TestCases.Add(new TestCase(model.TestCase2Input, model.TestCase2Output));
         }
 
         public int Id { get; set; }

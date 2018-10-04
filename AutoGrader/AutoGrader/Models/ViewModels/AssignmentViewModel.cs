@@ -33,11 +33,16 @@ namespace AutoGrader.Models.ViewModels
         [Required]
         public List<string> Languages { get; set; }
 
-        [Required, DisplayName("Test Case 1")]
-        public string TestCase1 { get; set; }
+        [Required, DisplayName("Test Case 1 Input")]
+        public string TestCase1Input { get; set; }
 
-        [DisplayName("Test Case 2")]
-        public string TestCase2 { get; set; }
+        [Required, DisplayName("Test Case 1 Output")]
+        public string TestCase1Output { get; set; }
 
+        [DisplayName("Test Case 2 Input")]
+        public string TestCase2Input { get; set; }
+
+        [DisplayName("Test Case 2 Output")]
+        public string TestCase2Output { get; set; }
     }
 }

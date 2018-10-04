@@ -19,5 +19,10 @@ namespace AutoGrader.DataAccess
         {
             return GetSubmissions().FirstOrDefault(e => e.SubmissionId == id);
         }
+
+        public void AddSubmission(Submission submission)
+        {
+            autoGraderDbContext.Submissions.Add(submission);
+        }
     }
 }
