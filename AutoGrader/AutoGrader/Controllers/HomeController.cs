@@ -30,48 +30,6 @@ namespace AutoGrader.Controllers
             return View();
         }
 
-        public IActionResult SubmitAssignment()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult SubmitAssignment(SubmissionInputViewModel input)
-        {
-            Submission submission = new Submission();
-
-            submission.Input.SourceCode = input.SourceCode;
-            submission.Input.Language = Language.Cpp;
-
-            if (submission.Compile())
-            {
-                submission.Run();
-                return View("Index");
-            }
-            else
-            {
-                submission.Output.Compiled = false;
-            }
-
-
-            //Todo - add other fields to submission, save to DB, other business logic
-
-            return View("Index");
-        }
-
-        public IActionResult CreateAssignment()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CreateAssignment(AssignmentViewModel assignment)
-        {
-            //Todo - create the assignment and save it in the db
-
-            return View("Index");
-        }
-
         public IActionResult Privacy()
         {
             return View();
