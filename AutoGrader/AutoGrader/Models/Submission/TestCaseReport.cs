@@ -11,7 +11,7 @@ namespace AutoGrader.Models.Submission
         {
         }
 
-        public bool PassFail { get; set; }
+        public bool Pass { get; set; }
 
         public string CodeInput { get; set; }
 
