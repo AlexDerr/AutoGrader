@@ -1,5 +1,6 @@
 ﻿using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
+using ShellHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,12 @@ namespace AutoGrader.Methods.GraderMethod
 {
     public class GraderMethod
     {
-        public void GradeSubmission(Assignment assignment, Submission submission)
+        public void GradeSubmission(Submission submission)
         {
+            //if (submission.Compile())
+            //{
+                
+            //}
             // Send the Submission to the compiler and get the output back
             // Object returned with contain a pass or fail bool, and compiler output
             
@@ -24,5 +29,10 @@ namespace AutoGrader.Methods.GraderMethod
             // Update the database for the report ID to say which test cases were passed and save the output string for each
             // return submission / submission output to the user
         }
+
+        //public void TimedRun(this Submission obj)
+        //{
+
+        //}
     }
 }

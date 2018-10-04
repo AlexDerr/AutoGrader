@@ -8,20 +8,13 @@ namespace AutoGrader.Methods.AssignmentMethod
 {
     public class AssignmentMethod
     {
-        public void AddAssignment(Assignment assignment)
-        {
-            // Call method to add assignment to database
-            // for list size of IO 
-            //       Call method to add IO to the database
-        }
-
         public void UpdateAssignment(Assignment assignment)
         {
             // Figure out assignemnt id
-            // Call method to update assignment to database
-            // for list size of IO 
+            // Call service to update assignment to database
+            // for list size of test cases 
             //       Check if it exists
-            //       Call method to update/add IO to the database
+            //       Call method to update/add test cases to the database
         }
 
         public List<Assignment> GetAssignments(int InstructorID)

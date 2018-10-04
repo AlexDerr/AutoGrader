@@ -45,8 +45,10 @@ namespace AutoGrader.Controllers
 
             if (submission.Compile())
             {
+                var watch = System.Diagnostics.Stopwatch.StartNew();
                 submission.Run();
-                return View("Index");
+                watch.Stop();
+                submission.Output.Runtime = (int)watch.ElapsedMilliseconds;
             }
             else
             {
