@@ -32,17 +32,16 @@ namespace ShellHelper
 
 
             bool Compiled;
-            string CompiledFeedback;
 
 
             if(obj.Input.Language == Language.C){
-                CompiledFeedback = obj.CompileC();
+                obj.Output.CompileOutput = obj.CompileC();
             }
             else if(obj.Input.Language == Language.Cpp){
-                CompiledFeedback = obj.CompileCpp();
+                obj.Output.CompileOutput = obj.CompileCpp();
             }
             else if(obj.Input.Language == Language.Java){
-                CompiledFeedback = obj.CompileJava();
+                obj.Output.CompileOutput = obj.CompileJava();
             }
 
             //determine if the file was compiled
@@ -78,20 +77,22 @@ namespace ShellHelper
             return Compiled;
         }
 
-        public static Submission Run(this Submission obj){
-            //need to pull input list from server
-            
-            string CmdLineInput = ("./"+obj.SubmissionId +".out");
-            //obj.Output.TestCases[0].CodeOutput = CmdLineInput.Bash();
-            System.Console.WriteLine(CmdLineInput.Bash());
+        public static Submission RunAndCompare(this Submission obj){
+            for(int TestCaseNumber = 0; TestCaseNumber < obj.Output.TestCases.Count; TestCaseNumber++){
+                obj.Run(TestCaseNumber);
+                obj.Compare(TestCaseNumber);
+            }
+
             return obj;
+            
         }
 
-        public static Submission CompileAndRun(this Submission obj){
-            bool Compiled = obj.Compile();
-            if(Compiled){
-                obj.Run();
-            }
+        public static Submission Run(this Submission obj, int TestCaseNumber){
+            WriteToFile(obj.SubmissionId+"input.txt", obj.Output.TestCases[TestCaseNumber].CodeInput);
+
+            string CmdLineInput = ("./"+obj.SubmissionId +".out < " + obj.SubmissionId+"input.txt");
+            obj.Output.TestCases[TestCaseNumber].CodeOutput = CmdLineInput.Bash();
+
             return obj;
         }
 
@@ -103,10 +104,16 @@ namespace ShellHelper
             WriteToFile(obj.SubmissionId+".txt", obj.Input.SourceCode);
         }
 
-        public static int GetInputList(this int ID){
 
-            return 1;
+        public static Submission Compare (this Submission obj, int TestCaseNumber){
+            if(obj.Output.TestCases[TestCaseNumber].CodeOutput.Trim() == obj.Output.TestCases[TestCaseNumber].ExpectedOutput.Trim()){
+                obj.Output.TestCases[TestCaseNumber].Pass = true;
+            }
+            else{
+                obj.Output.TestCases[TestCaseNumber].Pass = false;
+            }
 
+            return obj;
         }
 
     }
