@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AutoGrader.Models.TestCaseReport
+namespace AutoGrader.Models.Submission
 {
-    public class TestCase
+    public class TestCaseReport
     {
-        public TestCase()
+        public TestCaseReport()
         {
         }
 
         public bool PassFail { get; set; }
 
-         public string CodeOutput { get; set; }
+        public string CodeInput { get; set; }
+
+        public string CodeOutput { get; set; }
+
+        public string ExpectedOutput { get; set; }
 
         public string Feedback { get; set; }
 
