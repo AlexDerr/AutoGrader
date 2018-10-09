@@ -12,6 +12,8 @@ namespace AutoGrader.Models.Submission
             TestCases = new List<TestCaseReport>();
         }
 
+        public int Id { get; set; }
+
         public bool Compiled { get; set; }
 
         public int Runtime { get; set; }
