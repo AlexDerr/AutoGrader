@@ -79,7 +79,7 @@ namespace AutoGrader.Controllers
 
             await dbContext.SaveChangesAsync();
 
-            return View("Index");
+            return View("SubmitAssignment");
         }
     }
 }
