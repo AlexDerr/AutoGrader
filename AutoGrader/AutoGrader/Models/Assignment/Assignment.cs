@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AutoGrader.Models.Assignment
 {
@@ -48,6 +49,6 @@ namespace AutoGrader.Models.Assignment
 
         public List<string> Languages { get; set; }
 
-        public List<SubmissionInput> Submissions { get; set; }
+        List<SubmissionInput> Submissions { get; set; }
     }
 }

@@ -70,8 +70,16 @@ namespace AutoGrader.Controllers
 
                 if (submission.Compile())
                 {
-                    submission.Run(1);
-                    return View("Index");
+                    for (int i = 0; i < submission.Output.TestCases.Count; i++)
+                    {
+                        var watch = System.Diagnostics.Stopwatch.StartNew();
+                        submission.Run(i);
+                        watch.Stop();
+                        if (submission.Output.Runtime < (double)watch.ElapsedMilliseconds)
+                        {
+                            submission.Output.Runtime = (double)watch.ElapsedMilliseconds;
+                        }
+                    }
                 }
                 else
                 {
