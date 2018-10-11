@@ -49,6 +49,6 @@ namespace AutoGrader.Models.Assignment
 
         public List<string> Languages { get; set; }
 
-        List<SubmissionInput> Submissions { get; set; }
+        public List<SubmissionInput> Submissions { get; set; }
     }
 }
