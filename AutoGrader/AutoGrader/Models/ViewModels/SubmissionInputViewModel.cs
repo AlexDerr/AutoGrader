@@ -6,5 +6,7 @@ namespace AutoGrader.Models.ViewModels
     {
         [DisplayName("Source Code")]
         public string SourceCode { get; set; }
+
+        public int AssignmentId { get; set; }
     }
 }

@@ -40,8 +40,10 @@ namespace AutoGrader.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult SubmitAssignment()
+        public IActionResult SubmitAssignment(int AssignmentId)
         {
+            ViewData.Add("AssignmentId", AssignmentId);
+
             return View();
         }
 
@@ -54,9 +56,17 @@ namespace AutoGrader.Controllers
 
                 submission.Input.SourceCode = input.SourceCode;
                 submission.Input.Language = Language.Cpp;
+                submission.AssignmentId = input.AssignmentId;
 
                 SubmissionService submissionService = new SubmissionService(dbContext);
                 submissionService.AddSubmission(submission);
+
+                AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+                Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
+
+                assignment.Submissions.Add(submission.Input);
+
+                //Update on this assignment in the db
 
                 if (submission.Compile())
                 {
@@ -71,7 +81,7 @@ namespace AutoGrader.Controllers
 
             await dbContext.SaveChangesAsync();
 
-            return View("Index");
+            return View("SubmitAssignment");
         }
     }
 }
