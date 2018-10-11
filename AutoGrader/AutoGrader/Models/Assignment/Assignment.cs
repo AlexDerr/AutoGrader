@@ -18,6 +18,9 @@ namespace AutoGrader.Models.Assignment
 
         public Assignment(AssignmentViewModel model)
         {
+            Languages = new List<string>();
+            TestCases = new List<TestCase>();
+
             this.Name = model.Name;
             this.StartDate = model.StartDate;
             this.EndDate = model.EndDate;
