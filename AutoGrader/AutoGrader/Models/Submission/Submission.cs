@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace AutoGrader.Models.Submission
 {
-    public enum Language { C, Cpp, Java };
-
     public class Submission
     {
         public Submission() 
