@@ -67,14 +67,14 @@ namespace ShellHelper
         }
 
         public static bool IsCompiled(this Submission obj){
-            bool Compiled;
             if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionId + " | wc -l").Bash() ) >= 2){
-                Compiled = true;
+                obj.Output.Compiled = true;
             }
             else {
-                Compiled = false;
+                obj.Output.Compiled = false;
             }
-            return Compiled;
+
+            return obj.Output.Compiled;
         }
 
         public static Submission RunAndCompare(this Submission obj){
@@ -87,7 +87,7 @@ namespace ShellHelper
             
         }
 
-        public static Submission Run(this Submission obj, int TestCaseNumber){
+        public static Submission Run(this Submission obj, int TestCaseNumber = 0){
             WriteToFile(obj.SubmissionId+"input.txt", obj.Output.TestCases[TestCaseNumber].CodeInput);
 
             string CmdLineInput = ("./"+obj.SubmissionId +".out < " + obj.SubmissionId+"input.txt");
