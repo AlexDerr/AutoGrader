@@ -1,4 +1,5 @@
-﻿using AutoGrader.Models.Submission;
+﻿using AutoGrader.Models.Enums;
+using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -12,8 +13,8 @@ namespace AutoGrader.Models.Assignment
     {
         public Assignment()
         {
-            Languages = new List<string>();
             TestCases = new List<TestCase>();
+            Languages = new List<Language>();
         }
 
         public Assignment(AssignmentViewModel model)
@@ -47,7 +48,7 @@ namespace AutoGrader.Models.Assignment
 
         public int TimeLimit { get; set; }
 
-        public List<string> Languages { get; set; }
+        public List<Language> Languages { get; set; }
 
         public List<SubmissionInput> Submissions { get; set; }
     }

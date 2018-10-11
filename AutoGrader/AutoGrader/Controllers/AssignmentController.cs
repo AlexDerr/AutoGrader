@@ -6,6 +6,7 @@ using AutoGrader.DataAccess;
 using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
+using AutoGrader.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using ShellHelper;
 
