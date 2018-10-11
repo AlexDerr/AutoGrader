@@ -54,15 +54,18 @@ namespace AutoGrader.Controllers
             {
                 Submission submission = new Submission();
 
-                submission.Input.SourceCode = input.SourceCode;
-                submission.Input.Language = Language.Cpp;
                 submission.AssignmentId = input.AssignmentId;
+
+                AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+                Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
+
+                submission.Input.SourceCode = input.SourceCode;
+                submission.Input.Language = assignment.Languages.First();
 
                 SubmissionService submissionService = new SubmissionService(dbContext);
                 submissionService.AddSubmission(submission);
 
-                AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-                Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
+
 
                 assignment.Submissions.Add(submission.Input);
 
