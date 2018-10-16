@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using AutoGrader.DataAccess;
+using AutoGrader.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -31,7 +32,7 @@ namespace AutoGrader.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<List<string>>("Languages");
+                    b.Property<List<Language>>("Languages");
 
                     b.Property<int>("MemoryLimit");
 
@@ -119,11 +120,15 @@ namespace AutoGrader.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("AssignmentId");
+
                     b.Property<int>("Language");
 
                     b.Property<string>("SourceCode");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignmentId");
 
                     b.ToTable("SubmissionInputs");
                 });
@@ -252,6 +257,13 @@ namespace AutoGrader.Migrations
                     b.HasOne("AutoGrader.Models.Submission.SubmissionOutput", "Output")
                         .WithMany()
                         .HasForeignKey("OutputId");
+                });
+
+            modelBuilder.Entity("AutoGrader.Models.Submission.SubmissionInput", b =>
+                {
+                    b.HasOne("AutoGrader.Models.Assignment.Assignment")
+                        .WithMany("Submissions")
+                        .HasForeignKey("AssignmentId");
                 });
 
             modelBuilder.Entity("AutoGrader.Models.Submission.TestCaseReport", b =>
