@@ -1,6 +1,5 @@
 ﻿using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
-using AutoGrader.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +32,7 @@ namespace AutoGrader.Models.ViewModels
         public int TimeLimit { get; set; }
 
         [Required]
-        public List<Language> Languages { get; set; }
+        public List<String> Languages { get; set; }
 
         [Required, DisplayName("Test Case 1 Input")]
         public string TestCase1Input { get; set; }

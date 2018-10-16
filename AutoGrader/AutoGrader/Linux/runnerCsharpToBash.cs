@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using AutoGrader.Models.Enums;
 using AutoGrader.Models.Submission;
 
 namespace ShellHelper
@@ -35,13 +34,13 @@ namespace ShellHelper
             bool Compiled;
 
 
-            if(obj.Input.Language == Language.C){
+            if(obj.Input.Language == "C"){
                 obj.Output.CompileOutput = obj.CompileC();
             }
-            else if(obj.Input.Language == Language.Cpp){
+            else if(obj.Input.Language == "C++"){
                 obj.Output.CompileOutput = obj.CompileCpp();
             }
-            else if(obj.Input.Language == Language.Java){
+            else if(obj.Input.Language == "Java"){
                 obj.Output.CompileOutput = obj.CompileJava();
             }
 

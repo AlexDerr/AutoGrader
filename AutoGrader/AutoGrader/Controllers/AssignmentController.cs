@@ -6,7 +6,6 @@ using AutoGrader.DataAccess;
 using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
-using AutoGrader.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using ShellHelper;
 
@@ -56,7 +55,7 @@ namespace AutoGrader.Controllers
                 Submission submission = new Submission();
 
                 submission.Input.SourceCode = input.SourceCode;
-                submission.Input.Language = Language.Cpp;
+                submission.Input.Language = "C++";
                 submission.AssignmentId = input.AssignmentId;
 
                 SubmissionService submissionService = new SubmissionService(dbContext);

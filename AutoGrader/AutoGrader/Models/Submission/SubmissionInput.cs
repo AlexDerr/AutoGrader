@@ -1,5 +1,4 @@
-﻿using AutoGrader.Models.Enums;
-using AutoGrader.Models.ViewModels;
+﻿using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System;
 
@@ -15,6 +14,6 @@ namespace AutoGrader.Models.Submission
 
         public string SourceCode { get; set; }
 
-        public Language Language { get; set; }
+        public string Language { get; set; }
     }
 }
