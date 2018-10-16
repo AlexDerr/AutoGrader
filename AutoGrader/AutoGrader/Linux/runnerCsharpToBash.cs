@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using AutoGrader.Models.Enums;
 using AutoGrader.Models.Submission;
 
 namespace ShellHelper

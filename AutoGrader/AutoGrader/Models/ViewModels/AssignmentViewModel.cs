@@ -1,6 +1,5 @@
 ﻿using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
-using AutoGrader.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

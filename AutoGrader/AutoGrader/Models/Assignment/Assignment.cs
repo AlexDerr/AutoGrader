@@ -1,5 +1,4 @@
-﻿using AutoGrader.Models.Enums;
-using AutoGrader.Models.Submission;
+﻿using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System;
