@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoGrader.Migrations
 {
     [DbContext(typeof(AutoGraderDbContext))]
-    [Migration("20181011194007_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20181016184129_FixLangEnum")]
+    partial class FixLangEnum
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -123,7 +123,7 @@ namespace AutoGrader.Migrations
 
                     b.Property<int?>("AssignmentId");
 
-                    b.Property<int>("Language");
+                    b.Property<string>("Language");
 
                     b.Property<string>("SourceCode");
 

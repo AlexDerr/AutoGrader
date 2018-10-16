@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AutoGrader.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class FixLangEnum : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -126,7 +126,7 @@ namespace AutoGrader.Migrations
                     Description = table.Column<string>(nullable: true),
                     MemoryLimit = table.Column<int>(nullable: false),
                     TimeLimit = table.Column<int>(nullable: false),
-                    Languages = table.Column<List<String>>(nullable: true),
+                    Languages = table.Column<List<string>>(nullable: true),
                     ClassId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -147,7 +147,7 @@ namespace AutoGrader.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     SourceCode = table.Column<string>(nullable: true),
-                    Language = table.Column<int>(nullable: false),
+                    Language = table.Column<string>(nullable: true),
                     AssignmentId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

@@ -14,12 +14,14 @@ namespace AutoGrader.Models.Assignment
         {
             TestCases = new List<TestCase>();
             Languages = new List<String>();
+            Submissions = new List<SubmissionInput>();
         }
 
         public Assignment(AssignmentViewModel model)
         {
             Languages = new List<String>();
             TestCases = new List<TestCase>();
+            Submissions = new List<SubmissionInput>();
 
             this.Name = model.Name;
             this.StartDate = model.StartDate;

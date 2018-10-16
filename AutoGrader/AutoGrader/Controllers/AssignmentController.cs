@@ -40,11 +40,14 @@ namespace AutoGrader.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult SubmitAssignment(int AssignmentId)
+        public IActionResult SubmitAssignment(int Id)
         {
-            ViewData.Add("AssignmentId", AssignmentId);
+            SubmissionInputViewModel model = new SubmissionInputViewModel
+            {
+                AssignmentId = Id
+            };
 
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -89,7 +92,7 @@ namespace AutoGrader.Controllers
 
             await dbContext.SaveChangesAsync();
 
-            return View("SubmitAssignment");
+            return RedirectToAction("StudentHome", "Student");
         }
     }
 }
