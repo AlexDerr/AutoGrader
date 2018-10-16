@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AutoGrader.Models.Enums;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -127,7 +126,7 @@ namespace AutoGrader.Migrations
                     Description = table.Column<string>(nullable: true),
                     MemoryLimit = table.Column<int>(nullable: false),
                     TimeLimit = table.Column<int>(nullable: false),
-                    Languages = table.Column<List<Language>>(nullable: true),
+                    Languages = table.Column<List<String>>(nullable: true),
                     ClassId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

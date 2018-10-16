@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using AutoGrader.DataAccess;
-using AutoGrader.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -34,7 +33,7 @@ namespace AutoGrader.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<List<Language>>("Languages");
+                    b.Property<List<string>>("Languages");
 
                     b.Property<int>("MemoryLimit");
 
