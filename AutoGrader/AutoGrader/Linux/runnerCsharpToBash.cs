@@ -34,13 +34,13 @@ namespace ShellHelper
             bool Compiled;
 
 
-            if(obj.Input.Language == "C"){
+            if(obj.Input.Language == "c"){
                 obj.Output.CompileOutput = obj.CompileC();
             }
-            else if(obj.Input.Language == "C++"){
+            else if(obj.Input.Language == "cpp"){
                 obj.Output.CompileOutput = obj.CompileCpp();
             }
-            else if(obj.Input.Language == "Java"){
+            else if(obj.Input.Language == "java"){
                 obj.Output.CompileOutput = obj.CompileJava();
             }
 
@@ -61,9 +61,8 @@ namespace ShellHelper
         }
 
         private static string CompileJava(this Submission obj){
-            WriteToFile(obj.SubmissionId+".jar", obj.Input.SourceCode);
-            ("javac " + obj.SubmissionId + ".jar").Bash();
-            return ("java " + obj.SubmissionId).Bash();
+            WriteToFile(obj.SubmissionId+".java", obj.Input.SourceCode);
+            return ("javac " + obj.SubmissionId + ".java").Bash();
         }
 
         public static bool IsCompiled(this Submission obj){
@@ -89,19 +88,38 @@ namespace ShellHelper
 
         public static Submission Run(this Submission obj, int TestCaseNumber = 0){
             WriteToFile(obj.SubmissionId+"input.txt", obj.Output.TestCases[TestCaseNumber].CodeInput);
+            if(obj.Input.Language == "c"){
+                return obj.RunC(TestCaseNumber);
+            }
+            else if(obj.Input.Language == "cpp"){
+                return obj.RunCpp(TestCaseNumber);
+            }
+            else if(obj.Input.Language == "Java"){
+                return obj.RunJava(TestCaseNumber);
+            }
+            return obj;
+        }
 
+        public static Submission RunC(this Submission obj, int TestCaseNumber){
             string CmdLineInput = ("./"+obj.SubmissionId +".out < " + obj.SubmissionId+"input.txt");
             obj.Output.TestCases[TestCaseNumber].CodeOutput = CmdLineInput.Bash();
+            return obj;
+        }
 
+        public static Submission RunCpp(this Submission obj, int TestCaseNumber){
+            string CmdLineInput = ("./"+obj.SubmissionId +".out < " + obj.SubmissionId+"input.txt");
+            obj.Output.TestCases[TestCaseNumber].CodeOutput = CmdLineInput.Bash();
+            return obj;
+        }
+
+        public static Submission RunJava(this Submission obj, int TestCaseNumber){
+            string CmdLineInput = ("java "+obj.SubmissionId +" < " + obj.SubmissionId+"input.txt");
+            obj.Output.TestCases[TestCaseNumber].CodeOutput = CmdLineInput.Bash();
             return obj;
         }
 
         public static void WriteToFile(string name, string text){
              System.IO.File.WriteAllText(name, text);
-        }
-
-        public static void Compare(this Submission obj, string input, string output){
-            WriteToFile(obj.SubmissionId+".txt", obj.Input.SourceCode);
         }
 
 
