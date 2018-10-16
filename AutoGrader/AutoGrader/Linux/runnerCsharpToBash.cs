@@ -34,13 +34,13 @@ namespace ShellHelper
             bool Compiled;
 
 
-            if(obj.Input.Language == "c"){
+            if(obj.Input.Language == "C"){
                 obj.Output.CompileOutput = obj.CompileC();
             }
-            else if(obj.Input.Language == "cpp"){
+            else if(obj.Input.Language == "C++"){
                 obj.Output.CompileOutput = obj.CompileCpp();
             }
-            else if(obj.Input.Language == "java"){
+            else if(obj.Input.Language == "Java"){
                 obj.Output.CompileOutput = obj.CompileJava();
             }
 
@@ -88,10 +88,10 @@ namespace ShellHelper
 
         public static Submission Run(this Submission obj, int TestCaseNumber = 0){
             WriteToFile(obj.SubmissionId+"input.txt", obj.Output.TestCases[TestCaseNumber].CodeInput);
-            if(obj.Input.Language == "c"){
+            if(obj.Input.Language == "C"){
                 return obj.RunC(TestCaseNumber);
             }
-            else if(obj.Input.Language == "cpp"){
+            else if(obj.Input.Language == "C++"){
                 return obj.RunCpp(TestCaseNumber);
             }
             else if(obj.Input.Language == "Java"){
