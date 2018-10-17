@@ -88,6 +88,8 @@ namespace AutoGrader.Controllers
                 {
                     submission.Output.Compiled = false;
                 }
+
+                dbContext.Assignments.Update(assignment);
             }
 
             await dbContext.SaveChangesAsync();
