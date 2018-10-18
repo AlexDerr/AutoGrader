@@ -12,12 +12,17 @@ namespace AutoGrader.Models.Assignment
     {
         public Assignment()
         {
-            Languages = new List<string>();
             TestCases = new List<TestCase>();
+            Languages = new List<String>();
+            Submissions = new List<SubmissionInput>();
         }
 
         public Assignment(AssignmentViewModel model)
         {
+            Languages = new List<String>();
+            TestCases = new List<TestCase>();
+            Submissions = new List<SubmissionInput>();
+
             this.Name = model.Name;
             this.StartDate = model.StartDate;
             this.EndDate = model.EndDate;
@@ -47,7 +52,7 @@ namespace AutoGrader.Models.Assignment
 
         public int TimeLimit { get; set; }
 
-        public List<string> Languages { get; set; }
+        public List<String> Languages { get; set; }
 
         public List<SubmissionInput> Submissions { get; set; }
     }

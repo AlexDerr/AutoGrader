@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AutoGrader.Migrations
 {
-    public partial class Initial : Migration
+    public partial class FixLangEnum : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,20 +48,6 @@ namespace AutoGrader.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubmissionInputs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    SourceCode = table.Column<string>(nullable: true),
-                    Language = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubmissionInputs", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubmissionOutputs",
                 columns: table => new
                 {
@@ -99,35 +85,6 @@ namespace AutoGrader.Migrations
                         name: "FK_Class_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Submissions",
-                columns: table => new
-                {
-                    SubmissionId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    UserId = table.Column<int>(nullable: false),
-                    AssignmentId = table.Column<int>(nullable: false),
-                    SubmissionTime = table.Column<DateTime>(nullable: false),
-                    InputId = table.Column<int>(nullable: true),
-                    OutputId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Submissions", x => x.SubmissionId);
-                    table.ForeignKey(
-                        name: "FK_Submissions_SubmissionInputs_InputId",
-                        column: x => x.InputId,
-                        principalTable: "SubmissionInputs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Submissions_SubmissionOutputs_OutputId",
-                        column: x => x.OutputId,
-                        principalTable: "SubmissionOutputs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -184,6 +141,27 @@ namespace AutoGrader.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubmissionInputs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    SourceCode = table.Column<string>(nullable: true),
+                    Language = table.Column<string>(nullable: true),
+                    AssignmentId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubmissionInputs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubmissionInputs_Assignments_AssignmentId",
+                        column: x => x.AssignmentId,
+                        principalTable: "Assignments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TestCase",
                 columns: table => new
                 {
@@ -205,6 +183,35 @@ namespace AutoGrader.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Submissions",
+                columns: table => new
+                {
+                    SubmissionId = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    UserId = table.Column<int>(nullable: false),
+                    AssignmentId = table.Column<int>(nullable: false),
+                    SubmissionTime = table.Column<DateTime>(nullable: false),
+                    InputId = table.Column<int>(nullable: true),
+                    OutputId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Submissions", x => x.SubmissionId);
+                    table.ForeignKey(
+                        name: "FK_Submissions_SubmissionInputs_InputId",
+                        column: x => x.InputId,
+                        principalTable: "SubmissionInputs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Submissions_SubmissionOutputs_OutputId",
+                        column: x => x.OutputId,
+                        principalTable: "SubmissionOutputs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Assignments_ClassId",
                 table: "Assignments",
@@ -219,6 +226,11 @@ namespace AutoGrader.Migrations
                 name: "IX_Class_StudentId",
                 table: "Class",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubmissionInputs_AssignmentId",
+                table: "SubmissionInputs",
+                column: "AssignmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Submissions_InputId",
@@ -256,10 +268,10 @@ namespace AutoGrader.Migrations
                 name: "SubmissionInputs");
 
             migrationBuilder.DropTable(
-                name: "Assignments");
+                name: "SubmissionOutputs");
 
             migrationBuilder.DropTable(
-                name: "SubmissionOutputs");
+                name: "Assignments");
 
             migrationBuilder.DropTable(
                 name: "Class");

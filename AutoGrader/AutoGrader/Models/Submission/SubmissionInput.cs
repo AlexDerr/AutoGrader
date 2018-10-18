@@ -14,6 +14,6 @@ namespace AutoGrader.Models.Submission
 
         public string SourceCode { get; set; }
 
-        public Language Language { get; set; }
+        public string Language { get; set; }
     }
 }
