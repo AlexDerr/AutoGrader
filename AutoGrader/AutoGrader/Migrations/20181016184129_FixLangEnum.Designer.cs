@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoGrader.Migrations
 {
     [DbContext(typeof(AutoGraderDbContext))]
-    [Migration("20181010182858_Initial")]
-    partial class Initial
+    [Migration("20181016184129_FixLangEnum")]
+    partial class FixLangEnum
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,11 +121,15 @@ namespace AutoGrader.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Language");
+                    b.Property<int?>("AssignmentId");
+
+                    b.Property<string>("Language");
 
                     b.Property<string>("SourceCode");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignmentId");
 
                     b.ToTable("SubmissionInputs");
                 });
@@ -254,6 +258,13 @@ namespace AutoGrader.Migrations
                     b.HasOne("AutoGrader.Models.Submission.SubmissionOutput", "Output")
                         .WithMany()
                         .HasForeignKey("OutputId");
+                });
+
+            modelBuilder.Entity("AutoGrader.Models.Submission.SubmissionInput", b =>
+                {
+                    b.HasOne("AutoGrader.Models.Assignment.Assignment")
+                        .WithMany("Submissions")
+                        .HasForeignKey("AssignmentId");
                 });
 
             modelBuilder.Entity("AutoGrader.Models.Submission.TestCaseReport", b =>
