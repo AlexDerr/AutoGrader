@@ -32,7 +32,7 @@ namespace ShellHelper
 
 
             bool Compiled;
-
+            obj.SubmissionId = Math.abs(obj.SubmissionId);
 
             if(obj.Input.Language == "C"){
                 obj.Output.CompileOutput = obj.CompileC();
