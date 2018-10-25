@@ -63,13 +63,13 @@ namespace AutoGrader.Controllers
 
                 SubmissionService submissionService = new SubmissionService(dbContext);
                 submissionService.AddSubmission(submission);
+                await dbContext.SaveChangesAsync(); // SubmissionId now set on local submission
+
 
                 AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
                 Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
 
                 assignment.Submissions.Add(submission.Input);
-
-                //Update on this assignment in the db
 
                 if (submission.Compile())
                 {
