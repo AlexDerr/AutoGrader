@@ -1,6 +1,8 @@
-﻿namespace AutoGrader.Models.Users
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace AutoGrader.Models.Users
 {
-    public class User
+    public class User : IdentityUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
