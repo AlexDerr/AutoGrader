@@ -17,14 +17,17 @@ namespace ShellHelper
                     FileName = "/bin/bash",
                     Arguments = $"-c \"{escapedArgs}\"",
                     RedirectStandardOutput = true,
+                    RedirectStandardError = true,
                     UseShellExecute = false,
                     CreateNoWindow = true,
                 }
             };
             
             process.Start();
-            string result = process.StandardOutput.ReadToEnd();
+            string error   = process.StandardError.ReadToEnd();
+            string output  = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
+            string result = error + output; 
             return result;
         }
 
@@ -32,7 +35,6 @@ namespace ShellHelper
 
 
             bool Compiled;
-            obj.SubmissionId = Math.Abs(obj.SubmissionId);
 
             if(obj.Input.Language == "C"){
                 obj.Output.CompileOutput = obj.CompileC();
@@ -57,7 +59,8 @@ namespace ShellHelper
 
         private static string CompileCpp(this Submission obj){
             WriteToFile(obj.SubmissionId+".cpp", obj.Input.SourceCode);
-            return ("g++ " + obj.SubmissionId + ".cpp -o " + obj.SubmissionId +".out").Bash();
+            string test =  (("g++ " + obj.SubmissionId + ".cpp -o " + obj.SubmissionId +".out").Bash());
+            return ("hello world" + test);
         }
 
         private static string CompileJava(this Submission obj){
