@@ -12,7 +12,7 @@ namespace AutoGrader.Models.Assignment
     {
         public Assignment()
         {
-            TestCases = new List<TestCase>();
+            TestCases = new List<TestCaseSpecification>();
             Languages = new List<String>();
             Submissions = new List<SubmissionInput>();
         }
@@ -20,7 +20,7 @@ namespace AutoGrader.Models.Assignment
         public Assignment(AssignmentViewModel model)
         {
             Languages = new List<String>();
-            TestCases = new List<TestCase>();
+            TestCases = new List<TestCaseSpecification>();
             Submissions = new List<SubmissionInput>();
 
             this.Name = model.Name;
@@ -30,8 +30,8 @@ namespace AutoGrader.Models.Assignment
             this.MemoryLimit = model.MemoryLimit;
             this.TimeLimit = model.TimeLimit;
             this.Languages = model.Languages;
-            this.TestCases.Add(new TestCase(model.TestCase1Input, model.TestCase1Output));
-            this.TestCases.Add(new TestCase(model.TestCase2Input, model.TestCase2Output));
+            this.TestCases.Add(new TestCaseSpecification(model.TestCase1Input, model.TestCase1Output));
+            this.TestCases.Add(new TestCaseSpecification(model.TestCase2Input, model.TestCase2Output));
         }
 
         public int Id { get; set; }
@@ -46,7 +46,7 @@ namespace AutoGrader.Models.Assignment
 
         public string Description { get; set; }
 
-        public List<TestCase> TestCases { get; set; }
+        public List<TestCaseSpecification> TestCases { get; set; }
 
         public int MemoryLimit { get; set; }
 
