@@ -23,6 +23,7 @@ namespace AutoGrader.Methods.GraderMethod
             //      Print out compiler output
             //      Mark all test cases on the report as failed in submissionOutput
             // else
+            //      Call the method to populate CodeInput, ExpectedOutput, Feedback -- Add in 10/30
             //      call the grading function passing the submission, ** 2d array of input output files/or assignment ID **, source code, language, runtime, and submission id
             //      get back the submission with the chekced fields updated
             

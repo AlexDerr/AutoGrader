@@ -23,7 +23,7 @@ namespace AutoGrader.Models.ViewModels
         [Required]
         public string Description { get; set; }
 
-        public List<TestCase> IO { get; set; }
+        public List<TestCaseSpecification> IO { get; set; }
 
         [Required, DisplayName("Memory Limit")]
         public int MemoryLimit { get; set; }
