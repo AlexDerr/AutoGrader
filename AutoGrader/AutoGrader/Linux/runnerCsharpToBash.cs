@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Diagnostics;
 using AutoGrader.Models.Submission;
 
@@ -9,25 +10,41 @@ namespace ShellHelper
         public static string Bash(this string cmd)
         {
             var escapedArgs = cmd.Replace("\"", "\\\"");
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+
+            startInfo.Arguments =  $"-c \"{escapedArgs}\"";
+            startInfo.FileName = "/bin/bash";
+
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
+            startInfo.CreateNoWindow = true;
+
             
-            var process = new Process()
+            StringBuilder error = new StringBuilder();
+            StringBuilder output = new StringBuilder();
+
+            using (Process myProcess = Process.Start(startInfo))
             {
-                StartInfo = new ProcessStartInfo
+                myProcess.OutputDataReceived += delegate(object sender, DataReceivedEventArgs e)
                 {
-                    FileName = "/bin/bash",
-                    Arguments = $"-c \"{escapedArgs}\"",
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                }
-            };
-            
-            process.Start();
-            string error   = process.StandardError.ReadToEnd();
-            string output  = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-            string result = error + output; 
+                    output.Append(e.Data);
+                };
+                myProcess.ErrorDataReceived += delegate(object sender, DataReceivedEventArgs e)
+                {
+                    error.Append(e.Data);            
+                };
+
+                myProcess.BeginErrorReadLine();
+                myProcess.BeginOutputReadLine();
+
+                myProcess.WaitForExit();
+
+            }
+
+            string result = output.ToString() + error.ToString();
+
             return result;
         }
 
@@ -60,11 +77,11 @@ namespace ShellHelper
         private static string CompileCpp(this Submission obj){
             WriteToFile(obj.SubmissionId+".cpp", obj.Input.SourceCode);
             string test =  (("g++ " + obj.SubmissionId + ".cpp -o " + obj.SubmissionId +".out").Bash());
-            return ("hello world" + test);
+            return (test);
         }
 
         private static string CompileJava(this Submission obj){
-            WriteToFile(obj.SubmissionId+".java", obj.Input.SourceCode);
+            WriteToFile(obj.SubmissionId+".jPava", obj.Input.SourceCode);
             return ("javac " + obj.SubmissionId + ".java").Bash();
         }
 
@@ -101,6 +118,32 @@ namespace ShellHelper
                 return obj.RunJava(TestCaseNumber);
             }
             return obj;
+        }
+
+
+        public static Submission RunProcess(this Submission obj, string cmd){
+
+                    var escapedArgs = cmd.Replace("\"", "\\\"");
+            
+                    var process = new Process()
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = "/bin/bash",
+                            Arguments = $"-c \"{escapedArgs}\"",
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            UseShellExecute = false,
+                            CreateNoWindow = true,
+                        }
+                    };
+                    
+                    process.Start();
+                    string error   = process.StandardError.ReadToEnd();
+                    string output  = process.StandardOutput.ReadToEnd();
+                    process.WaitForExit();
+                    string result = error + output; 
+                    return obj;
         }
 
         public static Submission RunC(this Submission obj, int TestCaseNumber){
