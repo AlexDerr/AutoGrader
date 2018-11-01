@@ -24,5 +24,7 @@ namespace AutoGrader.Models.Assignment
         public string ExpectedOutput { get; set; }
 
         public string Feedback { get; set; }
+
+        public int AssignmentId { get; set; }
     }
 }
