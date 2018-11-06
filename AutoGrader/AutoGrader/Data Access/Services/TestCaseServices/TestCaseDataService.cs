@@ -9,24 +9,24 @@ namespace AutoGrader.DataAccess
     {
         public TestCaseDataService(AutoGraderDbContext dbContext) : base(dbContext) { }
 
-        public IEnumerable<TestCase> GetTestCases()
+        public IEnumerable<TestCaseSpecification> GetTestCasesSpecifications()
         {
-            return autoGraderDbContext.TestCases.ToList();
+            return autoGraderDbContext.TestCaseSpecifications.ToList();
         }
 
-        public TestCase GetTestCaseById(int id)
+        public TestCaseSpecification GetTestCaseById(int id)
         {
-            return GetTestCases().FirstOrDefault(e => e.ID == id);
+            return GetTestCasesSpecifications().FirstOrDefault(e => e.ID == id);
         }
 
-        public void AddTestCase(TestCase testCase)
+        public void AddTestCase(TestCaseSpecification testCase)
         {
-            autoGraderDbContext.TestCases.Add(testCase);
+            autoGraderDbContext.TestCaseSpecifications.Add(testCase);
         }
 
-        public IEnumerable<TestCase> GetTestCaseByAssignmentId(int id)
+        public IEnumerable<TestCaseSpecification> GetTestCaseByAssignmentId(int id)
         {
-            return autoGraderDbContext.TestCases.Where(e => e.AssignmentId == id);
+            return autoGraderDbContext.TestCaseSpecifications.Where(e => e.AssignmentId == id);
         }
     }
 }
