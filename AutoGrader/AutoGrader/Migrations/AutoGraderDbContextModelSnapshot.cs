@@ -50,12 +50,12 @@ namespace AutoGrader.Migrations
                     b.ToTable("Assignments");
                 });
 
-            modelBuilder.Entity("AutoGrader.Models.Assignment.TestCase", b =>
+            modelBuilder.Entity("AutoGrader.Models.Assignment.TestCaseSpecification", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AssignmentId");
+                    b.Property<int>("AssignmentId");
 
                     b.Property<string>("ExpectedOutput");
 
@@ -67,7 +67,7 @@ namespace AutoGrader.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("TestCase");
+                    b.ToTable("TestCaseSpecifications");
                 });
 
             modelBuilder.Entity("AutoGrader.Models.Class", b =>
@@ -87,7 +87,7 @@ namespace AutoGrader.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Class");
+                    b.ToTable("Classes");
                 });
 
             modelBuilder.Entity("AutoGrader.Models.Submission.Submission", b =>
@@ -179,7 +179,13 @@ namespace AutoGrader.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp");
+
                     b.Property<string>("Email");
+
+                    b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
 
@@ -189,7 +195,27 @@ namespace AutoGrader.Migrations
 
                     b.Property<string>("LastName");
 
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail");
+
+                    b.Property<string>("NormalizedUserName");
+
                     b.Property<string>("Password");
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName");
 
                     b.Property<string>("Username");
 
@@ -203,7 +229,13 @@ namespace AutoGrader.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp");
+
                     b.Property<string>("Email");
+
+                    b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
 
@@ -213,7 +245,27 @@ namespace AutoGrader.Migrations
 
                     b.Property<string>("LastName");
 
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail");
+
+                    b.Property<string>("NormalizedUserName");
+
                     b.Property<string>("Password");
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName");
 
                     b.Property<string>("Username");
 
@@ -229,11 +281,12 @@ namespace AutoGrader.Migrations
                         .HasForeignKey("ClassId");
                 });
 
-            modelBuilder.Entity("AutoGrader.Models.Assignment.TestCase", b =>
+            modelBuilder.Entity("AutoGrader.Models.Assignment.TestCaseSpecification", b =>
                 {
                     b.HasOne("AutoGrader.Models.Assignment.Assignment")
                         .WithMany("TestCases")
-                        .HasForeignKey("AssignmentId");
+                        .HasForeignKey("AssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AutoGrader.Models.Class", b =>

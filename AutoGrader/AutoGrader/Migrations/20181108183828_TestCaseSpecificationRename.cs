@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AutoGrader.Migrations
 {
-    public partial class FixLangEnum : Migration
+    public partial class TestCaseSpecificationRename : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,6 +13,19 @@ namespace AutoGrader.Migrations
                 name: "Instructors",
                 columns: table => new
                 {
+                    UserName = table.Column<string>(nullable: true),
+                    NormalizedUserName = table.Column<string>(nullable: true),
+                    NormalizedEmail = table.Column<string>(nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
@@ -32,6 +45,19 @@ namespace AutoGrader.Migrations
                 name: "Students",
                 columns: table => new
                 {
+                    UserName = table.Column<string>(nullable: true),
+                    NormalizedUserName = table.Column<string>(nullable: true),
+                    NormalizedEmail = table.Column<string>(nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
@@ -63,7 +89,7 @@ namespace AutoGrader.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Class",
+                name: "Classes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -74,15 +100,15 @@ namespace AutoGrader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Class", x => x.Id);
+                    table.PrimaryKey("PK_Classes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Class_Instructors_InstructorId",
+                        name: "FK_Classes_Instructors_InstructorId",
                         column: x => x.InstructorId,
                         principalTable: "Instructors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Class_Students_StudentId",
+                        name: "FK_Classes_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -133,9 +159,9 @@ namespace AutoGrader.Migrations
                 {
                     table.PrimaryKey("PK_Assignments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Assignments_Class_ClassId",
+                        name: "FK_Assignments_Classes_ClassId",
                         column: x => x.ClassId,
-                        principalTable: "Class",
+                        principalTable: "Classes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -162,7 +188,7 @@ namespace AutoGrader.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestCase",
+                name: "TestCaseSpecifications",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -170,17 +196,17 @@ namespace AutoGrader.Migrations
                     Input = table.Column<string>(nullable: true),
                     ExpectedOutput = table.Column<string>(nullable: true),
                     Feedback = table.Column<string>(nullable: true),
-                    AssignmentId = table.Column<int>(nullable: true)
+                    AssignmentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestCase", x => x.ID);
+                    table.PrimaryKey("PK_TestCaseSpecifications", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_TestCase_Assignments_AssignmentId",
+                        name: "FK_TestCaseSpecifications_Assignments_AssignmentId",
                         column: x => x.AssignmentId,
                         principalTable: "Assignments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -218,13 +244,13 @@ namespace AutoGrader.Migrations
                 column: "ClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Class_InstructorId",
-                table: "Class",
+                name: "IX_Classes_InstructorId",
+                table: "Classes",
                 column: "InstructorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Class_StudentId",
-                table: "Class",
+                name: "IX_Classes_StudentId",
+                table: "Classes",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -243,14 +269,14 @@ namespace AutoGrader.Migrations
                 column: "OutputId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestCase_AssignmentId",
-                table: "TestCase",
-                column: "AssignmentId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TestCaseReports_SubmissionOutputId",
                 table: "TestCaseReports",
                 column: "SubmissionOutputId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestCaseSpecifications_AssignmentId",
+                table: "TestCaseSpecifications",
+                column: "AssignmentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -259,10 +285,10 @@ namespace AutoGrader.Migrations
                 name: "Submissions");
 
             migrationBuilder.DropTable(
-                name: "TestCase");
+                name: "TestCaseReports");
 
             migrationBuilder.DropTable(
-                name: "TestCaseReports");
+                name: "TestCaseSpecifications");
 
             migrationBuilder.DropTable(
                 name: "SubmissionInputs");
@@ -274,7 +300,7 @@ namespace AutoGrader.Migrations
                 name: "Assignments");
 
             migrationBuilder.DropTable(
-                name: "Class");
+                name: "Classes");
 
             migrationBuilder.DropTable(
                 name: "Instructors");
