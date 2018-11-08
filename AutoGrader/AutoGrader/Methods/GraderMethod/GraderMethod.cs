@@ -9,9 +9,9 @@ using AutoGrader.DataAccess;
 
 namespace AutoGrader.Methods.GraderMethod
 {
-    public class GraderMethod
+    public static class GraderMethod
     {
-        public void GradeSubmission(Submission submission, AutoGraderDbContext dbContext)
+        public static void GradeSubmission(Submission submission, AutoGraderDbContext dbContext)
         {
             TestCaseDataService testCaseDataService = new TestCaseDataService(dbContext);
             IEnumerable<TestCaseSpecification> testCaseSpecifications = testCaseDataService.GetTestCaseByAssignmentId(submission.AssignmentId);
@@ -24,7 +24,7 @@ namespace AutoGrader.Methods.GraderMethod
                 submission.Output.TestCases.Add(testCaseReport);
             }
 
-            if (submission.Compile())
+/*             if (submission.Compile())
             {
                 submission.RunAndCompare();
             }
@@ -38,7 +38,7 @@ namespace AutoGrader.Methods.GraderMethod
 
             SubmissionService submissionService = new SubmissionService(dbContext);
             submissionService.AddSubmission(submission);
-
+*/
             // Send the Submission to the compiler and get the output back
             // Object returned with contain a pass or fail bool, and compiler output
             
