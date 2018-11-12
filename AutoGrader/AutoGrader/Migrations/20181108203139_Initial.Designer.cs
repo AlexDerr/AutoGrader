@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoGrader.Migrations
 {
     [DbContext(typeof(AutoGraderDbContext))]
-    [Migration("20181016184129_FixLangEnum")]
-    partial class FixLangEnum
+    [Migration("20181108203139_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -181,17 +181,41 @@ namespace AutoGrader.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp");
+
                     b.Property<string>("Email");
+
+                    b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
 
-                    b.Property<bool>("IsInstructor");
-
-                    b.Property<bool>("IsStudent");
-
                     b.Property<string>("LastName");
 
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail");
+
+                    b.Property<string>("NormalizedUserName");
+
                     b.Property<string>("Password");
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("Role");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName");
 
                     b.Property<string>("Username");
 
@@ -205,17 +229,41 @@ namespace AutoGrader.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp");
+
                     b.Property<string>("Email");
+
+                    b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
 
-                    b.Property<bool>("IsInstructor");
-
-                    b.Property<bool>("IsStudent");
-
                     b.Property<string>("LastName");
 
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail");
+
+                    b.Property<string>("NormalizedUserName");
+
                     b.Property<string>("Password");
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("Role");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName");
 
                     b.Property<string>("Username");
 

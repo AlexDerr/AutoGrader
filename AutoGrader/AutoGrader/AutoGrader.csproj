@@ -14,16 +14,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
-    <Folder Include="Data Access\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Data Access\Services\" />
     <Folder Include="Data Access\Services\AssignmentServices\" />
     <Folder Include="Data Access\Services\SubmissionServices\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Migrations\20180913195937_AddAssignmentTable.cs" />
-    <Compile Remove="Migrations\20180913195937_AddAssignmentTable.Designer.cs" />
-    <Compile Remove="Migrations\AutoGraderDbContextModelSnapshot.cs" />
     <Compile Remove="runner.cs" />
     <Compile Remove="Data Access\Services\SubmissionServices\SubmissionInputService.cs" />
     <Compile Remove="Data Access\Services\SubmissionServices\SubmissionOutputService.cs" />
