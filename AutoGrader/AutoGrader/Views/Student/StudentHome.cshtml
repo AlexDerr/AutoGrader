@@ -4,7 +4,7 @@
     ViewData["Title"] = "Student Home";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>My Current Assignments</h2>
 
 <table class="table">
     <thead>
@@ -64,3 +64,5 @@
 }
     </tbody>
 </table>
+
+<a asp-controller="Assignment" asp-action="ViewAllAssignments">View All Assignments</a>
