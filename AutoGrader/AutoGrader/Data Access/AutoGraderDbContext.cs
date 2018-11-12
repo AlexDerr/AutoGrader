@@ -1,4 +1,5 @@
-﻿using AutoGrader.Models.Assignment;
+﻿using AutoGrader.Models;
+using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
 using AutoGrader.Models.Users;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ namespace AutoGrader.DataAccess
         public DbSet<SubmissionInput> SubmissionInputs { get; set; }
         public DbSet<SubmissionOutput> SubmissionOutputs { get; set; }
         public DbSet<TestCaseReport> TestCaseReports { get; set; }
+        public DbSet<Class> Classes { get; set; }
+        public DbSet<TestCaseSpecification> TestCaseSpecifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

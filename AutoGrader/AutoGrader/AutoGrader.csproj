@@ -16,11 +16,14 @@
     <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Data Access\Services\AssignmentServices\" />
     <Folder Include="Data Access\Services\SubmissionServices\" />
+    <Folder Include="Data Access\Services\ClassServices\" />
+    <Folder Include="Data Access\Services\TestCaseServices\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="runner.cs" />
     <Compile Remove="Data Access\Services\SubmissionServices\SubmissionInputService.cs" />
     <Compile Remove="Data Access\Services\SubmissionServices\SubmissionOutputService.cs" />
     <Compile Remove="runnerCsharpToBash.cs" />
+    <Compile Remove="Data Access\Services\TestCaseServices\TestCase.cs" />
   </ItemGroup>
 </Project>

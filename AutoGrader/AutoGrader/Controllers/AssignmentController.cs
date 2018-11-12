@@ -8,6 +8,7 @@ using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ShellHelper;
+using AutoGrader.Methods.GraderMethod;
 
 namespace AutoGrader.Controllers
 {
@@ -71,12 +72,16 @@ namespace AutoGrader.Controllers
 
                 assignment.Submissions.Add(submission.Input);
 
-                if (submission.Compile())
+                
+                GraderMethod.GradeSubmission(submission, dbContext);
+
+                if(submission.Compile())
                 {
                     for (int i = 0; i < submission.Output.TestCases.Count; i++)
                     {
                         var watch = System.Diagnostics.Stopwatch.StartNew();
                         submission.Run(i);
+                        submission.Compare(i);
                         watch.Stop();
                         if (submission.Output.Runtime < (double)watch.ElapsedMilliseconds)
                         {

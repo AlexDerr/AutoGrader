@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Diagnostics;
 using AutoGrader.Models.Submission;
 
@@ -8,27 +9,48 @@ namespace ShellHelper
     {
         public static string Bash(this string cmd)
         {
-            var escapedArgs = cmd.Replace("\"", "\\\"");
+        
+            ProcessStartInfo StartInfo = BashProcess(cmd);
             
-            var process = new Process()
+            StringBuilder error = new StringBuilder();
+            StringBuilder output = new StringBuilder();
+
+            using (Process myProcess = Process.Start(StartInfo))
             {
-                StartInfo = new ProcessStartInfo
+                myProcess.OutputDataReceived += delegate(object sender, DataReceivedEventArgs e)
                 {
-                    FileName = "/bin/bash",
-                    Arguments = $"-c \"{escapedArgs}\"",
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                }
-            };
-            
-            process.Start();
-            string error   = process.StandardError.ReadToEnd();
-            string output  = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-            string result = error + output; 
+                    output.Append(e.Data);
+                };
+                myProcess.ErrorDataReceived += delegate(object sender, DataReceivedEventArgs e)
+                {
+                    error.Append(e.Data);            
+                };
+
+                myProcess.BeginErrorReadLine();
+                myProcess.BeginOutputReadLine();
+
+                myProcess.WaitForExit();
+
+            }
+
+            string result = output.ToString() + error.ToString();
+
             return result;
+        }
+
+        private static ProcessStartInfo BashProcess(string cmd){
+            var escapedArgs = cmd.Replace("\"", "\\\"");
+
+            ProcessStartInfo StartInfo = new ProcessStartInfo();
+
+            StartInfo.Arguments =  $"-c \"{escapedArgs}\"";
+            StartInfo.FileName = "/bin/bash";
+
+            StartInfo.UseShellExecute = false;
+            StartInfo.RedirectStandardOutput = true;
+            StartInfo.RedirectStandardError = true;
+            StartInfo.CreateNoWindow = true;
+            return StartInfo;
         }
 
         public static bool Compile(this Submission obj){ //need to make it into an object
@@ -60,11 +82,11 @@ namespace ShellHelper
         private static string CompileCpp(this Submission obj){
             WriteToFile(obj.SubmissionId+".cpp", obj.Input.SourceCode);
             string test =  (("g++ " + obj.SubmissionId + ".cpp -o " + obj.SubmissionId +".out").Bash());
-            return ("hello world" + test);
+            return (test);
         }
 
         private static string CompileJava(this Submission obj){
-            WriteToFile(obj.SubmissionId+".java", obj.Input.SourceCode);
+            WriteToFile(obj.SubmissionId+".jPava", obj.Input.SourceCode);
             return ("javac " + obj.SubmissionId + ".java").Bash();
         }
 
@@ -103,21 +125,87 @@ namespace ShellHelper
             return obj;
         }
 
+
+        public static Submission RunProcess(this Submission obj, int TestCaseNumber, string cmd){
+            ProcessStartInfo StartInfo = BashProcess(cmd);
+            
+            StringBuilder error = new StringBuilder();
+            StringBuilder output = new StringBuilder();
+
+            using (Process myProcess = Process.Start(StartInfo))
+            {
+                myProcess.OutputDataReceived += delegate(object sender, DataReceivedEventArgs e)
+                {
+                    output.Append(e.Data);
+                };
+
+                myProcess.ErrorDataReceived += delegate(object sender, DataReceivedEventArgs e)
+                {
+                    error.Append(e.Data);            
+                };
+
+                myProcess.BeginErrorReadLine();
+                myProcess.BeginOutputReadLine();
+/*
+                do
+                {
+                    if (!myProcess.HasExited)
+                    {
+                        // Refresh the current process property values.
+                        myProcess.Refresh();
+
+                        // Display current process statistics.
+                        if(myProcess. > obj.){
+                        
+                        }
+                        Console.WriteLine("  base priority: {0}",
+                            myProcess.BasePriority);
+                        Console.WriteLine("  priority class: {0}",
+                            myProcess.PriorityClass);
+                        Console.WriteLine("  user processor time: {0}",
+                            myProcess.UserProcessorTime);
+                        Console.WriteLine("  privileged processor time: {0}",
+                            myProcess.PrivilegedProcessorTime);
+                        Console.WriteLine("  total processor time: {0}",
+                            myProcess.TotalProcessorTime);
+                        Console.WriteLine("  PagedSystemMemorySize64: {0}",
+                            myProcess.PagedSystemMemorySize64);
+                        Console.WriteLine("  PagedMemorySize64: {0}",
+                           myProcess.PagedMemorySize64);
+
+                        // Update the values for the overall peak memory statistics.
+                        peakPagedMem = myProcess.PeakPagedMemorySize64;
+                        peakWorkingSet = myProcess.PeakWorkingSet64;
+                    }
+                }
+                while (!myProcess.WaitForExit(1000));
+*/
+
+                myProcess.WaitForExit();
+
+
+            }
+
+
+            obj.Output.TestCases[TestCaseNumber].CodeOutput =  output.ToString() + error.ToString();
+            return obj;
+        }
+
         public static Submission RunC(this Submission obj, int TestCaseNumber){
             string CmdLineInput = ("./"+obj.SubmissionId +".out < " + obj.SubmissionId+"input.txt");
-            obj.Output.TestCases[TestCaseNumber].CodeOutput = CmdLineInput.Bash();
+            obj.RunProcess(TestCaseNumber, CmdLineInput);
             return obj;
         }
 
         public static Submission RunCpp(this Submission obj, int TestCaseNumber){
             string CmdLineInput = ("./"+obj.SubmissionId +".out < " + obj.SubmissionId+"input.txt");
-            obj.Output.TestCases[TestCaseNumber].CodeOutput = CmdLineInput.Bash();
+            obj.RunProcess(TestCaseNumber, CmdLineInput);
             return obj;
         }
 
         public static Submission RunJava(this Submission obj, int TestCaseNumber){
             string CmdLineInput = ("java "+obj.SubmissionId +" < " + obj.SubmissionId+"input.txt");
-            obj.Output.TestCases[TestCaseNumber].CodeOutput = CmdLineInput.Bash();
+            obj.RunProcess(TestCaseNumber, CmdLineInput);
             return obj;
         }
 
@@ -126,7 +214,7 @@ namespace ShellHelper
         }
 
 
-        public static Submission Compare (this Submission obj, int TestCaseNumber){
+        public static Submission Compare (this Submission obj, int TestCaseNumber = 0){
             if(obj.Output.TestCases[TestCaseNumber].CodeOutput.Trim() == obj.Output.TestCases[TestCaseNumber].ExpectedOutput.Trim()){
                 obj.Output.TestCases[TestCaseNumber].Pass = true;
             }

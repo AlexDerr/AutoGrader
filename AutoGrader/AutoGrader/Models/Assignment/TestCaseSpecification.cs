@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace AutoGrader.Models.Assignment
 {
-    public class TestCase
+    public class TestCaseSpecification
     {
-        public TestCase()
+        public TestCaseSpecification()
         {
         }
 
-        public TestCase(string Input, string Output)
+        public TestCaseSpecification(string Input, string Output)
         {
             this.Input = Input;
             this.ExpectedOutput = Output;
@@ -24,5 +24,7 @@ namespace AutoGrader.Models.Assignment
         public string ExpectedOutput { get; set; }
 
         public string Feedback { get; set; }
+
+        public int AssignmentId { get; set; }
     }
 }

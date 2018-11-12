@@ -9,6 +9,7 @@ namespace AutoGrader.Models.Submission
     {
         public TestCaseReport()
         {
+            
         }
 
         public int Id { get; set; }
