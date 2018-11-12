@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static AutoGrader.Areas.Identity.Pages.Account.RegisterModel;
 
 namespace AutoGrader.Models.Users
 {
@@ -11,15 +12,13 @@ namespace AutoGrader.Models.Users
         {
 
         }
-        public Student(RegisterViewModel model)
+        public Student(User model)
         {
             this.FirstName = model.FirstName;
             this.LastName = model.LastName;
-            this.Username = model.Username;
+            this.UserName = model.UserName;
             this.Email = model.Email;
-            this.IsInstructor = model.IsInstructor;
-            this.IsStudent = model.IsStudent;
-            this.Password = model.Password;
+            this.Role = model.Role;
         }
 
         public List<Class> Classes { get; set; }
