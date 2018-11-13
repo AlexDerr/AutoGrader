@@ -21,6 +21,8 @@ namespace AutoGrader.Models.Submission
 
         public string CompileOutput { get; set; }
 
+        public int MemoryLimit { get; set; }
+
         public List<TestCaseReport> TestCases { get; set; }
     }
 }

@@ -55,9 +55,5 @@ namespace AutoGrader.Methods.GraderMethod
             // return submission / submission output to the user
         }
 
-        //public void TimedRun(this Submission obj)
-        //{
-
-        //}
     }
 }
