@@ -24,6 +24,6 @@ namespace AutoGrader.Models
         public string Name { get; set; }
         public string ClassKey { get; set; }
         public int InstructorId { get; set; }
-        public List<Assignment.Assignment> Assignments { get; set; }
+        public List<Assignment.Assignment> Assignments {get; set;}
     }
 }

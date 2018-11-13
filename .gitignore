@@ -262,3 +262,16 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+AutoGrader/AutoGrader/Migrations/20181108183828_TestCaseSpecificationRename.cs
+AutoGrader/AutoGrader/Migrations/20181108183828_TestCaseSpecificationRename.Designer.cs
+AutoGrader/AutoGrader/Migrations/20181108203139_Initial.cs
+AutoGrader/AutoGrader/Migrations/20181108203139_Initial.Designer.cs
+AutoGrader/AutoGrader/Migrations/20181112170718_NoPass.cs
+AutoGrader/AutoGrader/Migrations/20181112170718_NoPass.Designer.cs
+AutoGrader/AutoGrader/Migrations/20181113203502_Initial.cs
+AutoGrader/AutoGrader/Migrations/20181113203502_Initial.Designer.cs
+AutoGrader/AutoGrader/Migrations/Authentication/20181108203224_Initial.cs
+AutoGrader/AutoGrader/Migrations/Authentication/20181108203224_Initial.Designer.cs
+AutoGrader/AutoGrader/Migrations/Authentication/20181113203527_Initial.cs
+AutoGrader/AutoGrader/Migrations/Authentication/20181113203527_Initial.Designer.cs
+AutoGrader/AutoGrader/Migrations/AutoGraderDbContextModelSnapshot.cs
