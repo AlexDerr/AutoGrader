@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using AutoGrader.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AutoGrader.Migrations
 {
     [DbContext(typeof(AutoGraderDbContext))]
-    partial class AutoGraderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181108203139_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,6 +201,8 @@ namespace AutoGrader.Migrations
 
                     b.Property<string>("NormalizedUserName");
 
+                    b.Property<string>("Password");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -244,6 +248,8 @@ namespace AutoGrader.Migrations
                     b.Property<string>("NormalizedEmail");
 
                     b.Property<string>("NormalizedUserName");
+
+                    b.Property<string>("Password");
 
                     b.Property<string>("PasswordHash");
 

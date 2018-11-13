@@ -6,13 +6,39 @@ using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
 using System;
 using ShellHelper;
+using Microsoft.AspNetCore.Identity;
+using AutoGrader.Data_Access.Services.UserDataService;
+using AutoGrader.DataAccess;
+using AutoGrader.Models.Users;
 
 namespace AutoGrader.Controllers
 {
     public class HomeController : Controller
     {
+        private AutoGraderDbContext dbContext;
+        private SignInManager<IdentityUser> SignInManager;
+        private UserManager<IdentityUser> UserManager;
+
+        public HomeController(AutoGraderDbContext autoGraderDbContext, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        {
+            this.dbContext = autoGraderDbContext;
+            this.UserManager = userManager;
+            this.SignInManager = signInManager;
+        }
+
         public IActionResult Index()
         {
+            if (SignInManager.IsSignedIn(User))
+            {
+                UserDataService userDataService = new UserDataService(dbContext);
+                User user = userDataService.GetUserByUsername(UserManager.GetUserName(User));
+
+                if (user.Role == "Student")
+                    return RedirectToAction("StudentHome", "Student", user);
+                else
+                    return RedirectToAction("InstructorHome", "Instructor", user);
+            }
+
             return View();
         }
 

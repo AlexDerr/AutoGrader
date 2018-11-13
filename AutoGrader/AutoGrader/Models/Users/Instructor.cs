@@ -9,15 +9,13 @@ namespace AutoGrader.Models.Users
     {
         public Instructor() { }
 
-        public Instructor(RegisterViewModel model)
+        public Instructor(User model)
         {
             this.FirstName = model.FirstName;
             this.LastName = model.LastName;
-            this.Username = model.Username;
+            this.UserName = model.UserName;
             this.Email = model.Email;
-            this.IsInstructor = model.IsInstructor;
-            this.IsStudent = model.IsStudent;
-            this.Password = model.Password;
+            this.Role = model.Role;
         }
 
         public List<Class> Classes { get; set; }

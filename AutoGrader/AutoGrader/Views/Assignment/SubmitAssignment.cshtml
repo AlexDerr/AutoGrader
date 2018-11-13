@@ -16,7 +16,7 @@
                 <textarea asp-for="SourceCode" class="form-control" style="height: 400px; width: 500px"></textarea>
                 <span asp-validation-for="SourceCode" class="text-danger"></span>
             </div>
-            <div>
+            <div class="hidden">
                 <label asp-for="AssignmentId" class="control-label"></label>
                 <textarea asp-for="AssignmentId" class="form-control" >@Model.AssignmentId</textarea>
             </div>
