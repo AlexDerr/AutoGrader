@@ -10,7 +10,7 @@ namespace AutoGrader.Models.Users
     {
         public Student()
         {
-
+            Classes = new List<Class>();
         }
         public Student(User model)
         {
