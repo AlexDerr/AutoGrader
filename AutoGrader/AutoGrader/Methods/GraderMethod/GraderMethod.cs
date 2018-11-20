@@ -13,6 +13,10 @@ namespace AutoGrader.Methods.GraderMethod
     {
         public static void GradeSubmission(Submission submission, AutoGraderDbContext dbContext)
         {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
+            submission.Output.MemoryLimit = assignment.MemoryLimit;
+
             TestCaseDataService testCaseDataService = new TestCaseDataService(dbContext);
             IEnumerable<TestCaseSpecification> testCaseSpecifications = testCaseDataService.GetTestCaseByAssignmentId(submission.AssignmentId);
             foreach (TestCaseSpecification testCaseSpecification in testCaseSpecifications)
