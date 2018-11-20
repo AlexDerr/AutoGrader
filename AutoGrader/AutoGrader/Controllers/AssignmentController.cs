@@ -21,9 +21,13 @@ namespace AutoGrader.Controllers
             this.dbContext = dbContext;
         }
 
-        public IActionResult CreateAssignment()
+        public IActionResult CreateAssignment(int Id)
         {
-            return View();
+            AssignmentViewModel model = new AssignmentViewModel()
+            {
+                ClassId = Id
+            };
+            return View(model);
         }
 
         [HttpPost]

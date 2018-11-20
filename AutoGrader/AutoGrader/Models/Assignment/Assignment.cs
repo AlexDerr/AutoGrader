@@ -30,6 +30,7 @@ namespace AutoGrader.Models.Assignment
             this.MemoryLimit = model.MemoryLimit;
             this.TimeLimit = model.TimeLimit;
             this.Languages = model.Languages;
+            this.ClassId = model.ClassId;
             this.TestCases.Add(new TestCaseSpecification(model.TestCase1Input, model.TestCase1Output));
             this.TestCases.Add(new TestCaseSpecification(model.TestCase2Input, model.TestCase2Output));
         }
@@ -39,6 +40,8 @@ namespace AutoGrader.Models.Assignment
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
+
+        public int ClassId { get; set; }
 
         public DateTime StartDate { get; set; }
 
