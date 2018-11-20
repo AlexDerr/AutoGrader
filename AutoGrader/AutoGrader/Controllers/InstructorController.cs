@@ -37,7 +37,6 @@ namespace AutoGrader.Controllers
             return View();
         }
 
-        //POst for create class
         [HttpPost]
         public async Task<IActionResult> CreateClass(ClassViewModel model)
         {

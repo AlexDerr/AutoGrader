@@ -17,7 +17,7 @@ namespace AutoGrader.Models
             Assignments = new List<Assignment.Assignment>();
 
             this.Name = model.Name;
-            this.ClassKey = model.ClassKey;
+            //this.ClassKey = model.ClassKey;
         }
 
         public int Id { get; set; }

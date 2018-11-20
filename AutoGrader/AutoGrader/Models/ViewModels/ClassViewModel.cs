@@ -12,7 +12,7 @@ namespace AutoGrader.Models.ViewModels
         [Required]
         public string Name { get; set; }
 
-        [Required, DisplayName("Class Key")]
-        public string ClassKey { get; set; }
+        //[Required, DisplayName("Class Key")]
+        //public string ClassKey { get; set; }
     }
 }
