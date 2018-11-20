@@ -11,9 +11,16 @@ namespace AutoGrader.Data_Access.Services.UserDataService
     {
         public UserDataService(AutoGraderDbContext dbContext) : base(dbContext) { }
 
-        public Student GetUserByUsername(string userName)
+        public User GetUserByUsername(string userName)
         {
-            return autoGraderDbContext.Students.First();
+            User student = autoGraderDbContext.Students.FirstOrDefault(e => e.UserName == userName);
+            if(student != null)
+                return student;
+            else
+            {
+                User instructor = autoGraderDbContext.Instructors.FirstOrDefault(e => e.UserName == userName);
+                return instructor;
+            }
         }
 
         public void AddUser(User user)

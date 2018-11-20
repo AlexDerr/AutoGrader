@@ -19,6 +19,11 @@ namespace AutoGrader.DataAccess.Services.ClassServices
             return GetClasses().FirstOrDefault(e => e.Id == id);
         }
 
+        public Class GetClassByKey(string key)
+        {
+            return autoGraderDbContext.Classes.FirstOrDefault(e => e.ClassKey == key);
+        }
+
         public void AddClass(Class classSection)
         {
             autoGraderDbContext.Classes.Add(classSection);
