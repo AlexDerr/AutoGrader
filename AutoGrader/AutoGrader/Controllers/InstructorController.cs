@@ -26,10 +26,10 @@ namespace AutoGrader.Controllers
 
         public IActionResult InstructorHome(User user)
         {
-            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            IEnumerable<Assignment> assignments = assignmentDataService.GetAssignments();
+            ClassDataService classDataService = new ClassDataService(dbContext);
+            IEnumerable<Class> classes = classDataService.GetClasses();
 
-            return View(assignments);
+            return View(classes);
         }
 
         public IActionResult CreateClass()

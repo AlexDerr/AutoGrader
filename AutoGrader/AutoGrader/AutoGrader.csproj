@@ -18,6 +18,7 @@
     <Folder Include="Data Access\Services\SubmissionServices\" />
     <Folder Include="Data Access\Services\ClassServices\" />
     <Folder Include="Data Access\Services\TestCaseServices\" />
+    <Folder Include="Data Access\Services\New Folder\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="runner.cs" />
