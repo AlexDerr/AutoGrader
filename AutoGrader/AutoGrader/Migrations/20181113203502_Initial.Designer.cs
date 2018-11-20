@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoGrader.Migrations
 {
     [DbContext(typeof(AutoGraderDbContext))]
-    [Migration("20181108203139_Initial")]
+    [Migration("20181113203502_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,12 +52,12 @@ namespace AutoGrader.Migrations
                     b.ToTable("Assignments");
                 });
 
-            modelBuilder.Entity("AutoGrader.Models.Assignment.TestCase", b =>
+            modelBuilder.Entity("AutoGrader.Models.Assignment.TestCaseSpecification", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AssignmentId");
+                    b.Property<int>("AssignmentId");
 
                     b.Property<string>("ExpectedOutput");
 
@@ -69,7 +69,7 @@ namespace AutoGrader.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("TestCase");
+                    b.ToTable("TestCaseSpecifications");
                 });
 
             modelBuilder.Entity("AutoGrader.Models.Class", b =>
@@ -77,7 +77,9 @@ namespace AutoGrader.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("InstructorId");
+                    b.Property<string>("ClassKey");
+
+                    b.Property<int>("InstructorId");
 
                     b.Property<string>("Name");
 
@@ -89,7 +91,7 @@ namespace AutoGrader.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Class");
+                    b.ToTable("Classes");
                 });
 
             modelBuilder.Entity("AutoGrader.Models.Submission.Submission", b =>
@@ -142,6 +144,8 @@ namespace AutoGrader.Migrations
                     b.Property<string>("CompileOutput");
 
                     b.Property<bool>("Compiled");
+
+                    b.Property<int>("MemoryLimit");
 
                     b.Property<double>("Runtime");
 
@@ -201,8 +205,6 @@ namespace AutoGrader.Migrations
 
                     b.Property<string>("NormalizedUserName");
 
-                    b.Property<string>("Password");
-
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -216,8 +218,6 @@ namespace AutoGrader.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName");
-
-                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 
@@ -249,8 +249,6 @@ namespace AutoGrader.Migrations
 
                     b.Property<string>("NormalizedUserName");
 
-                    b.Property<string>("Password");
-
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -265,8 +263,6 @@ namespace AutoGrader.Migrations
 
                     b.Property<string>("UserName");
 
-                    b.Property<string>("Username");
-
                     b.HasKey("Id");
 
                     b.ToTable("Students");
@@ -279,18 +275,20 @@ namespace AutoGrader.Migrations
                         .HasForeignKey("ClassId");
                 });
 
-            modelBuilder.Entity("AutoGrader.Models.Assignment.TestCase", b =>
+            modelBuilder.Entity("AutoGrader.Models.Assignment.TestCaseSpecification", b =>
                 {
                     b.HasOne("AutoGrader.Models.Assignment.Assignment")
                         .WithMany("TestCases")
-                        .HasForeignKey("AssignmentId");
+                        .HasForeignKey("AssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AutoGrader.Models.Class", b =>
                 {
-                    b.HasOne("AutoGrader.Models.Users.Instructor", "Instructor")
+                    b.HasOne("AutoGrader.Models.Users.Instructor")
                         .WithMany("Classes")
-                        .HasForeignKey("InstructorId");
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("AutoGrader.Models.Users.Student")
                         .WithMany("Classes")

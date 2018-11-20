@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoGrader.Migrations.Authentication
 {
     [DbContext(typeof(AuthenticationContext))]
-    [Migration("20181108203224_Initial")]
+    [Migration("20181113203527_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
