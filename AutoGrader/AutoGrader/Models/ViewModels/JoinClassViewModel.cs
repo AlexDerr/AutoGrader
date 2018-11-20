@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace AutoGrader.Models.ViewModels
 {
-    public class ClassViewModel
+    public class JoinClassViewModel
     {
-        [Required]
-        public string Name { get; set; }
-
-        [Required]
-        public int InstructorId { get; set; }
+        public int id { get; set; }
 
         [Required, DisplayName("Class Key")]
         public string ClassKey { get; set; }
