@@ -45,5 +45,7 @@ namespace AutoGrader.Models.ViewModels
 
         [DisplayName("Test Case 2 Output")]
         public string TestCase2Output { get; set; }
+
+        public int ClassId { get; set; }
     }
 }

@@ -29,15 +29,20 @@ namespace AutoGrader.Controllers
             ClassDataService classDataService = new ClassDataService(dbContext);
             IEnumerable<Class> classes = classDataService.GetClasses();
 
+            ViewData.Add("InstructorId", user.Id);
+
             return View(classes);
         }
 
-        public IActionResult CreateClass()
+        public IActionResult CreateClass(int id)
         {
-            return View();
+            ClassViewModel model = new ClassViewModel()
+            {
+                InstructorId = id
+            };
+            return View(model);
         }
 
-        //POst for create class
         [HttpPost]
         public async Task<IActionResult> CreateClass(ClassViewModel model)
         {

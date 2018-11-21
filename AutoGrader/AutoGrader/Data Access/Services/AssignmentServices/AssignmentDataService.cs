@@ -23,5 +23,10 @@ namespace AutoGrader.DataAccess
         {
             autoGraderDbContext.Assignments.Add(assignment);
         }
+
+        //public IEnumerable<Assignment> GetAssignmentsByUserId(int UserId)
+        //{
+        //    yield return GetAssignments().FirstOrDefault(e => e.ClassId.Students.FirstOrDefault(f => f.Id == UserId).Id == UserId);
+        //}
     }
 }
