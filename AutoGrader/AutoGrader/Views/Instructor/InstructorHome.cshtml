@@ -14,7 +14,8 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Class List
+                @*@Html.DisplayNameFor(model => model.Name)*@
             </th>
             <th></th>
         </tr>
@@ -26,7 +27,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-				<a asp-controller="Assignment" asp-action="CreateAssignment" asp-route-id="@item.Id">Add New Assignment</a> |
+				<a asp-controller="Assignment" asp-action="CreateAssignment" asp-route-id="@item.Id">Add New Assignment</a>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
