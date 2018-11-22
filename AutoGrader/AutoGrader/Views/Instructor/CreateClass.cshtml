@@ -18,11 +18,6 @@
 				<input asp-for="Name" class="form-control" />
 				<span asp-validation-for="Name" class="text-danger"></span>
 			</div>
-			<div class="form-group">
-				<label asp-for="ClassKey" class="control-label"></label>
-				<input asp-for="ClassKey" class="form-control" />
-				<span asp-validation-for="ClassKey" class="text-danger"></span>
-			</div>
 			<div class="hidden">
 				<label asp-for="InstructorId" class="control-label"></label>
 				<textarea asp-for="InstructorId" class="form-control">@Model.InstructorId</textarea>

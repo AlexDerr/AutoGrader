@@ -14,8 +14,5 @@ namespace AutoGrader.Models.ViewModels
 
         [Required]
         public int InstructorId { get; set; }
-
-        [Required, DisplayName("Class Key")]
-        public string ClassKey { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoGrader.Models.Assignment;
 using AutoGrader.Models.ViewModels;
 using System.ComponentModel.DataAnnotations.Schema;
+using AutoGrader.Methods.ClassMethod;
 
 namespace AutoGrader.Models
 {
@@ -18,7 +19,7 @@ namespace AutoGrader.Models
             Assignments = new List<Assignment.Assignment>();
 
             this.Name = model.Name;
-            this.ClassKey = model.ClassKey;
+            this.ClassKey = ClassMethod.GenerateUniqueKey();
             this.InstructorId = model.InstructorId;
         }
 

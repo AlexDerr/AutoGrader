@@ -28,5 +28,10 @@ namespace AutoGrader.DataAccess.Services.ClassServices
         {
             autoGraderDbContext.Classes.Add(classSection);
         }
+
+        public IEnumerable<Class> GetClassesByInstuctorId(int id)
+        {
+            return GetClasses().Where(e => e.InstructorId == id);
+        }
     }
 }
