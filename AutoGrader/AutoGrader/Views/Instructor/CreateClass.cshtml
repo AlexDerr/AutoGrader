@@ -3,6 +3,31 @@
 @{
     ViewData["Title"] = "CreateClass";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    /*
+    UserDataService userDataService = new UserDataService(dbContext);
+    User user = userDataService.GetUserByUsername(UserManager.GetUserName(User));
+
+    if (user.Role == "Student")
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    else
+        Layout = "~/Views/Shared/layout2.cshtml";
+
+    try
+    {
+        if(Model.InstructorId == null)
+        {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+        else
+        {
+            Layout = "~/Views/Shared/layout2.cshtml";
+        }
+    }
+    catch
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*/
 }
 
 <h2>Create Class</h2>
