@@ -12,6 +12,7 @@ using AutoGrader.Methods.GraderMethod;
 using AutoGrader.Models;
 using AutoGrader.Models.Users;
 using AutoGrader.DataAccess.Services.ClassServices;
+using AutoGrader.Methods.ClassMethod;
 
 namespace AutoGrader.Controllers
 {
@@ -27,7 +28,7 @@ namespace AutoGrader.Controllers
         public IActionResult InstructorHome(User user)
         {
             ClassDataService classDataService = new ClassDataService(dbContext);
-            IEnumerable<Class> classes = classDataService.GetClasses();
+            IEnumerable<Class> classes = classDataService.GetClassesByInstuctorId(Convert.ToInt32(user.Id));
 
             ViewData.Add("InstructorId", user.Id);
 
@@ -56,6 +57,14 @@ namespace AutoGrader.Controllers
             await dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Details(int id)
+        {
+            ClassDataService classDataService = new ClassDataService(dbContext);
+            Class c = classDataService.GetClassById(id);
+
+            return View(c);
         }
     }
 }
