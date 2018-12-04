@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoGrader.Models.Assignment;
+using AutoGrader.Models.Submission;
 
 namespace AutoGrader.DataAccess
 {
@@ -27,6 +28,12 @@ namespace AutoGrader.DataAccess
         public void AddAssignment(Assignment assignment)
         {
             autoGraderDbContext.Assignments.Add(assignment);
+        }
+
+        public Submission GetTopSubmissionForStudent(int assignmentId, int studentId)
+        {
+            return autoGraderDbContext.Assignments.FirstOrDefault(a => a.Id == assignmentId)
+            .Submissions.OrderByDescending(s => s.Grade).FirstOrDefault();
         }
 
         //public IEnumerable<Assignment> GetAssignmentsByUserId(int UserId)

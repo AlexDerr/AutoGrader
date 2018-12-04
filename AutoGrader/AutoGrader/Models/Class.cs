@@ -4,6 +4,7 @@ using AutoGrader.Models.Assignment;
 using AutoGrader.Models.ViewModels;
 using System.ComponentModel.DataAnnotations.Schema;
 using AutoGrader.Methods.ClassMethod;
+using AutoGrader.Models;
 
 namespace AutoGrader.Models
 {
@@ -12,13 +13,13 @@ namespace AutoGrader.Models
         public Class()
         {
             Assignments = new List<Assignment.Assignment>();
-            Students = new List<Student>();
+            StudentClasses = new List<StudentClass>();
         }
 
         public Class(ClassViewModel model)
         {
             Assignments = new List<Assignment.Assignment>();
-            Students = new List<Student>();
+            StudentClasses = new List<StudentClass>();
 
             this.Name = model.Name;
             this.ClassKey = ClassMethod.GenerateUniqueKey();
@@ -31,6 +32,6 @@ namespace AutoGrader.Models
         public int InstructorId { get; set; }
         public List<Assignment.Assignment> Assignments { get; set; }
 
-        public List<Student> Students { get; set; }
+        public IEnumerable<StudentClass> StudentClasses { get; set; }
     }
 }

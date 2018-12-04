@@ -29,12 +29,5 @@ namespace AutoGrader.DataAccess
         {
             autoGraderDbContext.Students.Add(student);
         }
-
-        public void AddClass(Student student, Class c)
-        {
-            autoGraderDbContext.Students.Update(student);
-            student.Classes.Add(c);
-            autoGraderDbContext.SaveChanges();
-        }
     }
 }

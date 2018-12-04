@@ -20,10 +20,22 @@ namespace AutoGrader.DataAccess
         public DbSet<TestCaseReport> TestCaseReports { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<TestCaseSpecification> TestCaseSpecifications { get; set; }
+        public DbSet<StudentClass> StudentClasses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<StudentClass>()
+                .HasKey(bc => new { bc.ClassId, bc.StudentId });
+            modelBuilder.Entity<StudentClass>()
+                .HasOne(bc => bc.Class)
+                .WithMany(b => b.StudentClasses)
+                .HasForeignKey(bc => bc.ClassId);
+            modelBuilder.Entity<StudentClass>()
+                .HasOne(bc => bc.Student)
+                .WithMany(c => c.StudentClasses)
+                .HasForeignKey(bc => bc.StudentId);
         }
 
         public DbSet<AutoGrader.Models.ViewModels.JoinClassViewModel> JoinClassViewModel { get; set; }

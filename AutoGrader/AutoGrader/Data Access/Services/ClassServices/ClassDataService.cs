@@ -35,13 +35,15 @@ namespace AutoGrader.DataAccess.Services.ClassServices
         {
             return GetClasses().Where(e => e.InstructorId == id);
         }
-
+        //Removed when added Join table StudentClasses
+        /*
         public void AddStudent(Student student, Class c)
         {
             autoGraderDbContext.Classes.Update(c);
             c.Students.Add(student);
             autoGraderDbContext.SaveChanges();
         }
+        */
 
         public void AddAssignment(Class classSection, Assignment assignment)
         {

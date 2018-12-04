@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using static AutoGrader.Areas.Identity.Pages.Account.RegisterModel;
+﻿using System.Collections.Generic;
+using AutoGrader.Models;
 
 namespace AutoGrader.Models.Users
 {
@@ -10,7 +7,7 @@ namespace AutoGrader.Models.Users
     {
         public Student()
         {
-            Classes = new List<Class>();
+            StudentClasses = new List<StudentClass>();
         }
         public Student(User model)
         {
@@ -19,10 +16,10 @@ namespace AutoGrader.Models.Users
             this.UserName = model.UserName;
             this.Email = model.Email;
             this.Role = model.Role;
-            Classes = new List<Class>();
+            StudentClasses = new List<StudentClass>();
         }
 
-        public List<Class> Classes { get; set; }
+        public IEnumerable<StudentClass> StudentClasses { get; set; }
         public int Id { get; set; }
     }
 }

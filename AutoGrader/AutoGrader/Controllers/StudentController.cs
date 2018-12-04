@@ -1,5 +1,6 @@
 ﻿using AutoGrader.Data_Access.Services.UserDataService;
 using AutoGrader.DataAccess;
+using AutoGrader.DataAccess.Services;
 using AutoGrader.DataAccess.Services.ClassServices;
 using AutoGrader.Models;
 using AutoGrader.Models.Assignment;
@@ -33,7 +34,9 @@ namespace AutoGrader.Controllers
             StudentDataService studentDataService = new StudentDataService(dbContext);
             student = studentDataService.GetStudentByUsername(UserManager.GetUserName(User));
             ViewData["Id"] = student.Id;
-            return View(student.Classes);
+            StudentClassDataService studentClassDataService = new StudentClassDataService(dbContext);
+            var classes = studentClassDataService.GetClassesByStudentId(student.Id);
+            return View(classes);
         }
 
         public IActionResult JoinClass()
@@ -51,9 +54,9 @@ namespace AutoGrader.Controllers
             Class c = classDataService.GetClassByKey(ClassKey);
             //student = studentDataService.GetStudentByUsername(user.UserName);
 
-            classDataService.AddStudent(student, c);
+            StudentClassDataService studentClassDataService = new StudentClassDataService(dbContext);
 
-            studentDataService.AddClass(student, c);
+            studentClassDataService.AddStudentClass(student, c);
 
             await dbContext.SaveChangesAsync();
 
