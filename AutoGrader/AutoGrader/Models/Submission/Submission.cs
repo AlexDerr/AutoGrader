@@ -12,6 +12,7 @@ namespace AutoGrader.Models.Submission
         {
             Input = new SubmissionInput();
             Output = new SubmissionOutput();
+            Grade = 0;
         }
 
         public int SubmissionId { get; set; }
@@ -19,6 +20,8 @@ namespace AutoGrader.Models.Submission
         public int UserId { get; set; }
 
         public int AssignmentId { get; set; }
+
+        public double Grade { get; set; }
 
         public DateTime SubmissionTime { get; set; }
 

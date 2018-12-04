@@ -64,7 +64,19 @@ namespace AutoGrader.Controllers
             ClassDataService classDataService = new ClassDataService(dbContext);
             Class c = classDataService.GetClassById(id);
 
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            var list = assignmentDataService.GetAssignments().Where(e => e.ClassId == c.Id);
+            ViewData["Assignments"] = list;
+
             return View(c);
         }
+
+        //public IActionResult InstructorGrade(User user)
+        //{
+        //    AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+        //    //IEnumerable<Student> students = assignmentDataService.GetAssignments();
+
+        //    //return View(students);
+        //}
     }
 }

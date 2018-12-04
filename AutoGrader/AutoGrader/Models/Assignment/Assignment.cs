@@ -1,4 +1,4 @@
-﻿using AutoGrader.Models.Submission;
+﻿using AutoGrader.Models;
 using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -14,14 +14,14 @@ namespace AutoGrader.Models.Assignment
         {
             TestCases = new List<TestCaseSpecification>();
             Languages = new List<String>();
-            Submissions = new List<SubmissionInput>();
+            Submissions = new List<Submission.Submission>();
         }
 
         public Assignment(AssignmentViewModel model)
         {
             Languages = new List<String>();
             TestCases = new List<TestCaseSpecification>();
-            Submissions = new List<SubmissionInput>();
+            Submissions = new List<Submission.Submission>();
 
             this.Name = model.Name;
             this.StartDate = model.StartDate;
@@ -57,6 +57,6 @@ namespace AutoGrader.Models.Assignment
 
         public List<String> Languages { get; set; }
 
-        public List<SubmissionInput> Submissions { get; set; }
+        public List<Submission.Submission> Submissions { get; set; }
     }
 }

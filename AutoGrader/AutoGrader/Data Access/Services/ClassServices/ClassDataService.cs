@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoGrader.Models;
+using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Users;
 
 namespace AutoGrader.DataAccess.Services.ClassServices
@@ -40,6 +41,12 @@ namespace AutoGrader.DataAccess.Services.ClassServices
             autoGraderDbContext.Classes.Update(c);
             c.Students.Add(student);
             autoGraderDbContext.SaveChanges();
+        }
+
+        public void AddAssignment(Class classSection, Assignment assignment)
+        {
+            autoGraderDbContext.Classes.Update(classSection);
+            classSection.Assignments.Add(assignment);
         }
     }
 }
