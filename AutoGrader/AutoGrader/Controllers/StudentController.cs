@@ -59,5 +59,18 @@ namespace AutoGrader.Controllers
 
             return RedirectToAction("StudentHome", "Student");
         }
+
+        public IActionResult ViewAssignments(int classId)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            IEnumerable<Assignment> assignments = assignmentDataService.GetAssignmentsByClassId(classId);
+
+            StudentDataService studentDataService = new StudentDataService(dbContext);
+            student = studentDataService.GetStudentByUsername(UserManager.GetUserName(User));
+
+            ViewData.Add("StudentId", student.Id);
+
+            return View(assignments);
+        }
     }
 }
