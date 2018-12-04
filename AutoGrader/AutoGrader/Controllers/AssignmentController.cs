@@ -80,30 +80,13 @@ namespace AutoGrader.Controllers
                 Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
 
                 assignment.Submissions.Add(submission);
-<<<<<<< HEAD
-
-=======
->>>>>>> 4099e7ff22aad7994d803865d5532cdbf9013b8b
                 
                 GraderMethod.GradeSubmission(submission, dbContext);
 
                 if(submission.Compile())
                 {
-                    for (int i = 0; i < submission.Output.TestCases.Count; i++)
-                    {
-                        var watch = System.Diagnostics.Stopwatch.StartNew();
-                        submission.Run(i);
-                        submission.Compare(i);
-                        watch.Stop();
-                        if (submission.Output.Runtime < (double)watch.ElapsedMilliseconds)
-                        {
-                            submission.Output.Runtime = (double)watch.ElapsedMilliseconds;
-                        }
-                    }
-                }
-                else
-                {
-                    submission.Output.Compiled = false;
+                    submission.RunAndCompare();
+                    submission.GradeTestCases();
                 }
 
                 dbContext.Assignments.Update(assignment);
