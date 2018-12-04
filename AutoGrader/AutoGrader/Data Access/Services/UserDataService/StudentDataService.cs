@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoGrader.Models;
 using AutoGrader.Models.Users;
 
 namespace AutoGrader.DataAccess
@@ -19,9 +20,21 @@ namespace AutoGrader.DataAccess
             return GetStudents().FirstOrDefault(e => e.Id == id);
         }
 
+        public Student GetStudentByUsername(string username)
+        {
+            return GetStudents().FirstOrDefault(e => e.UserName == username);
+        }
+
         public void AddStudent(Student student)
         {
             autoGraderDbContext.Students.Add(student);
+        }
+
+        public void AddClass(Student student, Class c)
+        {
+            autoGraderDbContext.Students.Update(student);
+            student.Classes.Add(c);
+            autoGraderDbContext.SaveChanges();
         }
     }
 }
