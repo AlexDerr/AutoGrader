@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoGrader.Models;
+using AutoGrader.Models.Assignment;
 
 namespace AutoGrader.DataAccess.Services.ClassServices
 {
@@ -32,6 +33,12 @@ namespace AutoGrader.DataAccess.Services.ClassServices
         public IEnumerable<Class> GetClassesByInstuctorId(int id)
         {
             return GetClasses().Where(e => e.InstructorId == id);
+        }
+
+        public void AddAssignment(Class classSection, Assignment assignment)
+        {
+            autoGraderDbContext.Classes.Update(classSection);
+            classSection.Assignments.Add(assignment);
         }
     }
 }

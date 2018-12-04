@@ -25,6 +25,7 @@ namespace AutoGrader.Controllers
         {
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
             IEnumerable<Assignment> assignments = assignmentDataService.GetAssignments();
+            ViewData.Add("StudentId", user.Id);
 
             //IEnumerable<Assignment> assignments = assignmentDataService.GetAssignmentsByUserId(Int32.Parse(user.Id));
 
@@ -44,7 +45,6 @@ namespace AutoGrader.Controllers
         public async Task<IActionResult> JoinClass(string ClassKey)
         {
             ClassDataService classDataService = new ClassDataService(dbContext);
-
 
             await dbContext.SaveChangesAsync();
 
