@@ -276,3 +276,9 @@ AutoGrader/AutoGrader/Migrations/Authentication/20181113203527_Initial.cs
 AutoGrader/AutoGrader/Migrations/Authentication/20181113203527_Initial.Designer.cs
 AutoGrader/AutoGrader/Migrations/AutoGraderDbContextModelSnapshot.cs
 *.cpp
+*.cpp
+*.cpp
+*.cpp
+AutoGrader/AutoGrader/AutoGrader.csproj
+AutoGrader/AutoGrader/Migrations/Authentication/20181126050857_Test.Designer.cs
+AutoGrader/AutoGrader/AutoGrader.csproj

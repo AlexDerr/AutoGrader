@@ -26,5 +26,6 @@
     <Compile Remove="Data Access\Services\SubmissionServices\SubmissionOutputService.cs" />
     <Compile Remove="runnerCsharpToBash.cs" />
     <Compile Remove="Data Access\Services\TestCaseServices\TestCase.cs" />
+    <Compile Remove="Migrations\Authentication\20181126050857_Test.Designer.cs" />
   </ItemGroup>
 </Project>
