@@ -2,15 +2,20 @@ using System;
 using System.Text;
 using System.Diagnostics;
 using AutoGrader.Models.Submission;
+using System.Security;
+using System.Security.Permissions;
+
 
 namespace ShellHelper
 {
     public static class Shell
     {
+
+        
         public static string Bash(this string cmd)
         {
         
-            ProcessStartInfo StartInfo = BashProcess(cmd);
+            ProcessStartInfo StartInfo = BashObject(cmd);
             
             StringBuilder error = new StringBuilder();
             StringBuilder output = new StringBuilder();
@@ -38,7 +43,7 @@ namespace ShellHelper
             return result;
         }
 
-        private static ProcessStartInfo BashProcess(string cmd){
+        private static ProcessStartInfo BashObject(string cmd){
             var escapedArgs = cmd.Replace("\"", "\\\"");
 
             ProcessStartInfo StartInfo = new ProcessStartInfo();
@@ -125,10 +130,14 @@ namespace ShellHelper
             return obj;
         }
 
-
+        [SecurityPermission(SecurityAction.InheritanceDemand, Flags=SecurityPermissionFlag.UnmanagedCode)]
+        [SecurityPermission(SecurityAction.LinkDemand, Flags=SecurityPermissionFlag.UnmanagedCode)]
         public static Submission RunProcess(this Submission obj, int TestCaseNumber, string cmd){
-            ProcessStartInfo StartInfo = BashProcess(cmd);
+
+
+            ProcessStartInfo StartInfo = BashObject(cmd);
             
+
             StringBuilder error = new StringBuilder();
             StringBuilder output = new StringBuilder();
 
@@ -144,53 +153,42 @@ namespace ShellHelper
                     error.Append(e.Data);            
                 };
 
+
                 myProcess.BeginErrorReadLine();
                 myProcess.BeginOutputReadLine();
-/*
+                double runTime = 0;
+                
                 do
                 {
                     if (!myProcess.HasExited)
                     {
-                        // Refresh the current process property values.
-                        myProcess.Refresh();
-
-                        // Display current process statistics.
-                        if(myProcess. > obj.){
-                        
+                        try{
+                            Process current = Process.GetProcessesByName( obj.SubmissionId.ToString() + ".out" )[0];
+                            runTime = current.UserProcessorTime.TotalMilliseconds;
+                            if(current.UserProcessorTime.TotalMilliseconds > obj.Output.Runtime || current.WorkingSet64/1000 > obj.Output.MemoryLimit){
+                                runTime = current.UserProcessorTime.TotalMilliseconds;
+                                myProcess.Close();
+                                break;
+                           }
                         }
-                        Console.WriteLine("  base priority: {0}",
-                            myProcess.BasePriority);
-                        Console.WriteLine("  priority class: {0}",
-                            myProcess.PriorityClass);
-                        Console.WriteLine("  user processor time: {0}",
-                            myProcess.UserProcessorTime);
-                        Console.WriteLine("  privileged processor time: {0}",
-                            myProcess.PrivilegedProcessorTime);
-                        Console.WriteLine("  total processor time: {0}",
-                            myProcess.TotalProcessorTime);
-                        Console.WriteLine("  PagedSystemMemorySize64: {0}",
-                            myProcess.PagedSystemMemorySize64);
-                        Console.WriteLine("  PagedMemorySize64: {0}",
-                           myProcess.PagedMemorySize64);
-
-                        // Update the values for the overall peak memory statistics.
-                        peakPagedMem = myProcess.PeakPagedMemorySize64;
-                        peakWorkingSet = myProcess.PeakWorkingSet64;
+                        catch(Exception e){
+                            System.Console.WriteLine(e);
+                        }
                     }
                 }
-                while (!myProcess.WaitForExit(1000));
-*/
+                while (!myProcess.WaitForExit(10));
 
-                myProcess.WaitForExit();
 
+//                myProcess.WaitForExit();
+
+                obj.Output.TestCases[TestCaseNumber].CodeOutput = output.ToString() + error.ToString();
+                obj.Output.TestCases[TestCaseNumber].Runtime = (int) runTime;
 
             }
-
-
-            obj.Output.TestCases[TestCaseNumber].CodeOutput =  output.ToString() + error.ToString();
             return obj;
         }
 
+        
         public static Submission RunC(this Submission obj, int TestCaseNumber){
             string CmdLineInput = ("./"+obj.SubmissionId +".out < " + obj.SubmissionId+"input.txt");
             obj.RunProcess(TestCaseNumber, CmdLineInput);
