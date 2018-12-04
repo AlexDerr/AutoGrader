@@ -111,13 +111,5 @@ namespace AutoGrader.Controllers
 
             return RedirectToAction("StudentHome", "Student");
         }
-
-        public IActionResult ViewAssignments(int classId)
-        {
-            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            IEnumerable<Assignment> assignments = assignmentDataService.GetAssignmentsByClassId(classId);
-
-            return View(assignments);
-        }
     }
 }
