@@ -31,6 +31,7 @@ namespace AutoGrader.Models
         public int InstructorId { get; set; }
         public List<Assignment.Assignment> Assignments { get; set; }
 
+        [NotMapped]
         public List<Student> Students { get; set; }
     }
 }

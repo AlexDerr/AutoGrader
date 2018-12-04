@@ -80,8 +80,7 @@ namespace AutoGrader.Controllers
                 AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
                 Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
 
-                assignment.Submissions.Add(submission.Input);
-
+                assignment.Submissions.Add(submission);
                 
                 GraderMethod.GradeSubmission(submission, dbContext);
 

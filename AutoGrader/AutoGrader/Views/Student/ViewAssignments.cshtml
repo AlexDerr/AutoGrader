@@ -32,6 +32,9 @@
                 @Html.DisplayNameFor(model => model.Languages)
             </th>
             <th></th>
+            <th>
+                Best Submission
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -59,7 +62,38 @@
                 @Html.DisplayFor(modelItem => item.Languages)
             </td>
             <td>
-                <a asp-action="SubmitAssignment" asp-route-id="@item.Id">Submit Assignment</a>
+                @{
+                    double best = 0;
+                    foreach (var submisison in item.Submissions)
+                    {
+                        if (Convert.ToInt32(ViewData["StudentId"].ToString()) == submisison.UserId && submisison.Grade > best)
+                        {
+                            best = submisison.Grade;
+                        }
+
+                        //foreach(var test in submisison.Output.TestCases)
+                        //{
+                        //    if (test.Pass)
+                        //    {
+                        //        correct++;
+                        //    }
+                        //}
+
+                        //if (Convert.ToInt32(ViewData["StudentId"].ToString()) == submisison.UserId && (correct / submisison.Output.TestCases.Count) > best)
+                        //{
+                        //    best = (correct / submisison.Output.TestCases.Count);
+                        //}
+                    }
+                }
+                @best%
+            </td>
+            <td>
+                @{
+                    if (DateTime.Now < item.EndDate)
+                    {
+                        <a asp-controller="Assignment" asp-action="SubmitAssignment" asp-route-id="@item.Id">Submit</a>
+                    }
+                }
             </td>
         </tr>
 }
