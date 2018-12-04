@@ -69,7 +69,6 @@ namespace AutoGrader.Controllers
                 Submission submission = new Submission();
 
                 submission.Input.SourceCode = input.SourceCode;
-                submission.Input.Language = "C++";
                 submission.AssignmentId = input.AssignmentId;
 
                 SubmissionService submissionService = new SubmissionService(dbContext);
