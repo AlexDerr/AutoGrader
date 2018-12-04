@@ -9,6 +9,8 @@ using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ShellHelper;
 using AutoGrader.Methods.GraderMethod;
+using AutoGrader.Models;
+using AutoGrader.DataAccess.Services.ClassServices;
 
 namespace AutoGrader.Controllers
 {
@@ -38,6 +40,10 @@ namespace AutoGrader.Controllers
                 Assignment assignment = new Assignment(model);
                 AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
                 assignmentDataService.AddAssignment(assignment);
+
+                ClassDataService classDataService = new ClassDataService(dbContext);
+                Class c = classDataService.GetClassById(assignment.ClassId);
+                c.Assignments.Add(assignment);
             }
 
             await dbContext.SaveChangesAsync();
@@ -104,6 +110,14 @@ namespace AutoGrader.Controllers
             await dbContext.SaveChangesAsync();
 
             return RedirectToAction("StudentHome", "Student");
+        }
+
+        public IActionResult ViewAssignments(int classId)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            IEnumerable<Assignment> assignments = assignmentDataService.GetAssignmentsByClassId(classId);
+
+            return View(assignments);
         }
     }
 }

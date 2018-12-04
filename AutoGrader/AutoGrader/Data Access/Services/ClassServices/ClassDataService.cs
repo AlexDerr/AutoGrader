@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoGrader.Models;
+using AutoGrader.Models.Users;
 
 namespace AutoGrader.DataAccess.Services.ClassServices
 {
@@ -32,6 +33,13 @@ namespace AutoGrader.DataAccess.Services.ClassServices
         public IEnumerable<Class> GetClassesByInstuctorId(int id)
         {
             return GetClasses().Where(e => e.InstructorId == id);
+        }
+
+        public void AddStudent(Student student, Class c)
+        {
+            autoGraderDbContext.Classes.Update(c);
+            c.Students.Add(student);
+            autoGraderDbContext.SaveChanges();
         }
     }
 }

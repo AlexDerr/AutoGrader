@@ -3,6 +3,7 @@ using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
 using AutoGrader.Models.Users;
 using Microsoft.EntityFrameworkCore;
+using AutoGrader.Models.ViewModels;
 
 namespace AutoGrader.DataAccess
 {
@@ -24,5 +25,7 @@ namespace AutoGrader.DataAccess
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<AutoGrader.Models.ViewModels.JoinClassViewModel> JoinClassViewModel { get; set; }
     }
 }

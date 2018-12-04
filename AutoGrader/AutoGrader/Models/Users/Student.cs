@@ -19,6 +19,7 @@ namespace AutoGrader.Models.Users
             this.UserName = model.UserName;
             this.Email = model.Email;
             this.Role = model.Role;
+            Classes = new List<Class>();
         }
 
         public List<Class> Classes { get; set; }
