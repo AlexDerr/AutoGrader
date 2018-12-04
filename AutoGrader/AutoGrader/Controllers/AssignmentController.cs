@@ -69,7 +69,6 @@ namespace AutoGrader.Controllers
                 Submission submission = new Submission();
 
                 submission.Input.SourceCode = input.SourceCode;
-                submission.Input.Language = "C++";
                 submission.AssignmentId = input.AssignmentId;
 
                 SubmissionService submissionService = new SubmissionService(dbContext);
@@ -81,7 +80,10 @@ namespace AutoGrader.Controllers
                 Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
 
                 assignment.Submissions.Add(submission);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4099e7ff22aad7994d803865d5532cdbf9013b8b
                 
                 GraderMethod.GradeSubmission(submission, dbContext);
 
