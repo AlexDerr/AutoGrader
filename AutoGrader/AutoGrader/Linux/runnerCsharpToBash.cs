@@ -223,5 +223,20 @@ namespace ShellHelper
             return obj;
         }
 
+        public static Submission GradeTestCases(this Submission obj){
+            
+            int correct = 0;
+            int total = obj.Output.TestCases.Count;
+            for(int testCaseNumber = 0; testCaseNumber < total; testCaseNumber++){
+                if(obj.Output.TestCases[testCaseNumber].Pass == true){
+                    correct++;
+                }
+            }
+
+            obj.Grade = correct/total;
+
+            return obj;
+        }
+
     }
 }

@@ -85,21 +85,8 @@ namespace AutoGrader.Controllers
 
                 if(submission.Compile())
                 {
-                    for (int i = 0; i < submission.Output.TestCases.Count; i++)
-                    {
-                        var watch = System.Diagnostics.Stopwatch.StartNew();
-                        submission.Run(i);
-                        submission.Compare(i);
-                        watch.Stop();
-                        if (submission.Output.Runtime < (double)watch.ElapsedMilliseconds)
-                        {
-                            submission.Output.Runtime = (double)watch.ElapsedMilliseconds;
-                        }
-                    }
-                }
-                else
-                {
-                    submission.Output.Compiled = false;
+                    submission.RunAndCompare();
+                    submission.GradeTestCases();
                 }
 
                 dbContext.Assignments.Update(assignment);
