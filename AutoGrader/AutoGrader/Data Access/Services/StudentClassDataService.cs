@@ -15,13 +15,13 @@ namespace AutoGrader.DataAccess.Services
         {
             StudentClass sc = new StudentClass(student, c);
 
+            autoGraderDbContext.StudentClasses.Add(sc);
+
+            student.StudentClasses.Prepend(sc);
+            c.StudentsEnrolled.Prepend(sc);
+
             autoGraderDbContext.Students.Update(student);
             autoGraderDbContext.Classes.Update(c);
-            autoGraderDbContext.StudentClasses.Add(sc);
-            IEnumerable<StudentClass> items = new StudentClass[] { sc };
-            student.StudentClasses.Concat(items);
-            c.StudentsEnrolled.Concat(items);
-            autoGraderDbContext.SaveChanges();
         }
 
         public IEnumerable<Class> GetClassesByStudentId(int studentId)

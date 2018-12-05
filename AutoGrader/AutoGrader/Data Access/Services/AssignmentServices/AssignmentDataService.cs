@@ -36,6 +36,14 @@ namespace AutoGrader.DataAccess
             .Submissions.OrderByDescending(s => s.Grade).FirstOrDefault();
         }
 
+
+        public List<Submission> GetStudentSubmissionsOnAssignment(int studentId, int assignmentId)
+        {
+            return autoGraderDbContext.Submissions.Where(s => s.UserId == studentId)
+                .Where(a => a.AssignmentId == assignmentId)
+                .ToList();
+        }
+
         //public IEnumerable<Assignment> GetAssignmentsByUserId(int UserId)
         //{
         //    yield return GetAssignments().FirstOrDefault(e => e.ClassId.Students.FirstOrDefault(f => f.Id == UserId).Id == UserId);
