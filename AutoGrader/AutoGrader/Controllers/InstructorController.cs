@@ -71,11 +71,30 @@ namespace AutoGrader.Controllers
             return View(c);
         }
 
+        public IActionResult InstructorGradeByAssignment(int id)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            Assignment assignment = assignmentDataService.GetAssignmentById(id);
+
+            ViewData["Title"] = "Grades: " + assignment.Name;
+            ViewData["AssignmentName"] = assignment.Name;
+
+            ClassDataService classDatService = new ClassDataService(dbContext);
+            Class c = classDatService.GetClassById(assignment.ClassId);
+
+            var students = c.StudentsEnrolled;
+
+            foreach (var student in students)
+            {
+                ViewData[student.Student.FirstName + student.Student.LastName] = assignmentDataService.GetTopSubmissionForStudent(assignment.Id, student.Student.Id).Grade;
+            }
+
+            return View(students);
+        }
+
         //public IActionResult InstructorGrade(User user)
         //{
-        //    AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-        //    //IEnumerable<Student> students = assignmentDataService.GetAssignments();
-
+        // 
         //    //return View(students);
         //}
     }

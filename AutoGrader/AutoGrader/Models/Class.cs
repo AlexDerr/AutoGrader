@@ -13,13 +13,13 @@ namespace AutoGrader.Models
         public Class()
         {
             Assignments = new List<Assignment.Assignment>();
-            StudentClasses = new List<StudentClass>();
+            StudentsEnrolled = new List<StudentClass>();
         }
 
         public Class(ClassViewModel model)
         {
             Assignments = new List<Assignment.Assignment>();
-            StudentClasses = new List<StudentClass>();
+            StudentsEnrolled = new List<StudentClass>();
 
             this.Name = model.Name;
             this.ClassKey = ClassMethod.GenerateUniqueKey();
@@ -32,6 +32,6 @@ namespace AutoGrader.Models
         public int InstructorId { get; set; }
         public List<Assignment.Assignment> Assignments { get; set; }
 
-        public IEnumerable<StudentClass> StudentClasses { get; set; }
+        public IEnumerable<StudentClass> StudentsEnrolled { get; set; }
     }
 }

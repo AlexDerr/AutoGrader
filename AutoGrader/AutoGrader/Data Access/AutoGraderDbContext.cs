@@ -30,7 +30,7 @@ namespace AutoGrader.DataAccess
                 .HasKey(bc => new { bc.ClassId, bc.StudentId });
             modelBuilder.Entity<StudentClass>()
                 .HasOne(bc => bc.Class)
-                .WithMany(b => b.StudentClasses)
+                .WithMany(b => b.StudentsEnrolled)
                 .HasForeignKey(bc => bc.ClassId);
             modelBuilder.Entity<StudentClass>()
                 .HasOne(bc => bc.Student)

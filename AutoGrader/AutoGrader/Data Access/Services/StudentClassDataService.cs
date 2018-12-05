@@ -20,7 +20,7 @@ namespace AutoGrader.DataAccess.Services
             autoGraderDbContext.StudentClasses.Add(sc);
             IEnumerable<StudentClass> items = new StudentClass[] { sc };
             student.StudentClasses.Concat(items);
-            c.StudentClasses.Concat(items);
+            c.StudentsEnrolled.Concat(items);
             autoGraderDbContext.SaveChanges();
         }
 

@@ -1,9 +1,33 @@
-﻿@model IEnumerable<AutoGrader.Models.Assignment.Assignment>
+﻿@model IEnumerable<AutoGrader.Models.StudentClass>
 
 @{
-    ViewData["Title"] = "InstructorGradeByAssignment";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>InstructorGradeByAssignment</h2>
+<h2>Grades for @ViewData["AssignmentName"].ToString()</h2>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Student List
+            </th>
+            <th>
+                Best Submission
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var student in Model)
+{
+    <tr>
+        <td>
+            @student.Student.FirstName @student.Student.LastName
+        </td>
+        <td>
+            @ViewData[student.Student.FirstName + student.Student.LastName]
+        </td>
+    </tr>
+}
+    </tbody>
+</table>
