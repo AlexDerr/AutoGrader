@@ -1,5 +1,4 @@
-﻿using AutoGrader.Data_Access.Services.UserDataService;
-using AutoGrader.DataAccess;
+﻿using AutoGrader.DataAccess;
 using AutoGrader.DataAccess.Services;
 using AutoGrader.DataAccess.Services.ClassServices;
 using AutoGrader.Models;
@@ -8,9 +7,7 @@ using AutoGrader.Models.Users;
 using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AutoGrader.Controllers
@@ -32,6 +29,7 @@ namespace AutoGrader.Controllers
         public IActionResult StudentHome(User user)
         {
             StudentDataService studentDataService = new StudentDataService(dbContext);
+            //student = studentDataService.GetStudentById(User.)
             student = studentDataService.GetStudentByUsername(UserManager.GetUserName(User));
             ViewData["Id"] = student.Id;
             StudentClassDataService studentClassDataService = new StudentClassDataService(dbContext);

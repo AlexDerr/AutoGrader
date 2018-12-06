@@ -29,7 +29,6 @@ namespace AutoGrader.DataAccess.Services
             var studentClasses = autoGraderDbContext.StudentClasses.Where(e => e.StudentId == studentId).ToList();
             List<Class> classes = new List<Class>();
 
-
             foreach (StudentClass student in studentClasses)
             {
                 classes.Add(student.Class);
