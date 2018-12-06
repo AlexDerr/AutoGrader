@@ -19,7 +19,7 @@ namespace AutoGrader.Models.Users
             StudentClasses = new List<StudentClass>();
         }
 
-        public IEnumerable<StudentClass> StudentClasses { get; set; }
+        public List<StudentClass> StudentClasses { get; set; }
         public int Id { get; set; }
     }
 }

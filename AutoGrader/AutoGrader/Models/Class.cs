@@ -32,6 +32,6 @@ namespace AutoGrader.Models
         public int InstructorId { get; set; }
         public List<Assignment.Assignment> Assignments { get; set; }
 
-        public IEnumerable<StudentClass> StudentsEnrolled { get; set; }
+        public List<StudentClass> StudentsEnrolled { get; set; }
     }
 }
