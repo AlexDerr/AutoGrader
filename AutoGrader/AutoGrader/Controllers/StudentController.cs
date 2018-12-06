@@ -29,7 +29,6 @@ namespace AutoGrader.Controllers
         public IActionResult StudentHome(User user)
         {
             StudentDataService studentDataService = new StudentDataService(dbContext);
-            //student = studentDataService.GetStudentById(User.)
             student = studentDataService.GetStudentByUsername(UserManager.GetUserName(User));
             ViewData["Id"] = student.Id;
             StudentClassDataService studentClassDataService = new StudentClassDataService(dbContext);
