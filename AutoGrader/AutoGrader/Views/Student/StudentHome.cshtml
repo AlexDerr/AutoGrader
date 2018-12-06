@@ -21,20 +21,17 @@
 		</tr>
 	</thead>
 	<tbody>
-		@if (Model != null)
+		@foreach (var item in Model)
 		{
-			@foreach (var item in Model)
-			{
-				<tr>
-					<td>
-						@Html.DisplayFor(modelItem => item.Name)
-					</td>
-					<td>
-						<a asp-controller="Student" asp-action="ViewAssignments" asp-route-id="@item.Id, @ViewData["Id"]">View Assignments</a>
-						@*<a asp-action="Details" asp-route-id="@item.Id">Leave Class</a> |*@
-					</td>
-				</tr>
-			}
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					<a asp-action="ViewAssignments" asp-route-id="@item.Id">View Assignments</a>
+					@*<a asp-action="Details" asp-route-id="@item.Id">Leave Class</a> |*@
+				</td>
+			</tr>
 		}
 	</tbody>
 </table>

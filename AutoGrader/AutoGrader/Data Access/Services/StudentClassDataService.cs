@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoGrader.DataAccess.Services.ClassServices;
 using AutoGrader.Models;
 using AutoGrader.Models.Users;
 
@@ -17,8 +18,8 @@ namespace AutoGrader.DataAccess.Services
 
             autoGraderDbContext.StudentClasses.Add(sc);
 
-            student.StudentClasses.Prepend(sc);
-            c.StudentsEnrolled.Prepend(sc);
+            student.StudentClasses.Add(sc);
+            c.StudentsEnrolled.Add(sc);
 
             autoGraderDbContext.Students.Update(student);
             autoGraderDbContext.Classes.Update(c);
@@ -29,12 +30,15 @@ namespace AutoGrader.DataAccess.Services
             var studentClasses = autoGraderDbContext.StudentClasses.Where(e => e.StudentId == studentId).ToList();
             List<Class> classes = new List<Class>();
 
-            foreach (StudentClass student in studentClasses)
+            ClassDataService classDataService = new ClassDataService(autoGraderDbContext);
+
+            foreach(var item in studentClasses)
             {
-                classes.Add(student.Class);
+                item.Class = classDataService.GetClassById(item.ClassId);
+                classes.Add(item.Class);
             }
 
-            return classes.AsEnumerable();
+            return classes;
         }
     }
 }
