@@ -40,5 +40,17 @@ namespace AutoGrader.DataAccess.Services
 
             return classes;
         }
+
+        public void RemoveStudentClass(Student student, Class c)
+        {
+            StudentClass sc = autoGraderDbContext.StudentClasses.FirstOrDefault(e => e.StudentId == student.Id && e.ClassId == c.Id);
+            autoGraderDbContext.StudentClasses.Remove(sc);
+
+            c.StudentsEnrolled.Remove(sc);
+            student.StudentClasses.Remove(sc);
+
+            autoGraderDbContext.Students.Update(student);
+            autoGraderDbContext.Classes.Update(c);
+        }
     }
 }
