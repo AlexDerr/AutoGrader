@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoGrader.DataAccess;
 using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
@@ -51,6 +48,16 @@ namespace AutoGrader.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult EditAssignment(int id)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            Assignment assignment = assignmentDataService.GetAssignmentById(id);
+
+            
+
+            return View(assignment);
+        }
+
         public IActionResult SubmitAssignment(int Id)
         {
             SubmissionInputViewModel model = new SubmissionInputViewModel
@@ -95,6 +102,16 @@ namespace AutoGrader.Controllers
             await dbContext.SaveChangesAsync();
 
             return RedirectToAction("StudentHome", "Student");
+        }
+
+        public IActionResult ViewSubmissions(int assignmentId, int studentId)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            var submissions = assignmentDataService.GetStudentSubmissionsOnAssignment(studentId, assignmentId);
+            var assignmentName = assignmentDataService.GetAssignmentById(assignmentId).Name;
+            ViewData["AssignmentName"] = assignmentName;
+
+            return View(submissions);
         }
     }
 }

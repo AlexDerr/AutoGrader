@@ -53,7 +53,7 @@
             </td>
             <td>
                 <a asp-controller="Instructor" asp-route-id="@item.Id" asp-action="InstructorGradeByAssignment">Grades</a> |
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-controller="Assignment" asp-action="EditAssignment" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

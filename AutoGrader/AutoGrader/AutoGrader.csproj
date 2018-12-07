@@ -3,6 +3,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Data Access\Services\New Folder\**" />
+    <Content Remove="Data Access\Services\New Folder\**" />
+    <EmbeddedResource Remove="Data Access\Services\New Folder\**" />
+    <None Remove="Data Access\Services\New Folder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.NETCore.DotNetHost" Version="2.1.3" />
@@ -18,7 +24,6 @@
     <Folder Include="Data Access\Services\SubmissionServices\" />
     <Folder Include="Data Access\Services\ClassServices\" />
     <Folder Include="Data Access\Services\TestCaseServices\" />
-    <Folder Include="Data Access\Services\New Folder\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="runner.cs" />
@@ -26,6 +31,5 @@
     <Compile Remove="Data Access\Services\SubmissionServices\SubmissionOutputService.cs" />
     <Compile Remove="runnerCsharpToBash.cs" />
     <Compile Remove="Data Access\Services\TestCaseServices\TestCase.cs" />
-    <Compile Remove="Migrations\Authentication\20181126050857_Test.Designer.cs" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,37 @@
+﻿@model AutoGrader.Models.Submission.Submission
+
+@{
+    ViewData["Title"] = "Submission Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Submission Detail</h2>
+
+<div>
+    <h4>Submission</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grade)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SubmissionTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SubmissionTime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SubmissionId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

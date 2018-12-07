@@ -32,6 +32,7 @@
                 @Html.DisplayNameFor(model => model.Languages)
             </th>
             <th></th>
+            <th></th>
             <th>
                 Best Submission
             </th>
@@ -81,6 +82,9 @@
                         <a asp-controller="Assignment" asp-action="SubmitAssignment" asp-route-id="@item.Id">Submit</a>
                     }
                 }
+            </td>
+            <td>
+
             </td>
         </tr>
 }

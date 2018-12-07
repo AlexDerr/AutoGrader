@@ -1,0 +1,64 @@
+﻿@model IEnumerable<AutoGrader.Models.Submission.Submission>
+
+@{
+    ViewData["Title"] = "Submissions for " + ViewData["AssignmentName"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Submissions for @ViewData["AssignmentName"]</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Submission ID
+            </th>
+            <th>
+                Submission Time
+            </th>
+            <th>
+                Grade
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubmissionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubmissionTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grade)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.SubmissionId">Details</a> |
+            </td>
+        </tr>
+        <tr>
+            @{ 
+                var text = "";
+                foreach (var test in item.Output.TestCases)
+                {
+                    if (test.Pass)
+                    {
+                        text = "Pass";
+                    }
+                    else
+                    {
+                        text = "Fail";
+                    }
+                }
+            }
+            @text
+        </tr>
+        <tr></tr>
+}
+    </tbody>
+</table>

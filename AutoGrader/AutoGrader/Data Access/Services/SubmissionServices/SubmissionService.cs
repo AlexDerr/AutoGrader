@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
 
 namespace AutoGrader.DataAccess

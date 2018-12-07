@@ -4,15 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoGrader.DataAccess;
 using AutoGrader.Models.Assignment;
-using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using ShellHelper;
-using AutoGrader.Methods.GraderMethod;
 using AutoGrader.Models;
 using AutoGrader.Models.Users;
 using AutoGrader.DataAccess.Services.ClassServices;
-using AutoGrader.Methods.ClassMethod;
 
 namespace AutoGrader.Controllers
 {
@@ -91,11 +87,5 @@ namespace AutoGrader.Controllers
 
             return View(students);
         }
-
-        //public IActionResult InstructorGrade(User user)
-        //{
-        // 
-        //    //return View(students);
-        //}
     }
 }

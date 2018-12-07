@@ -1,8 +1,4 @@
-﻿using AutoGrader.Models.ViewModels;
-using Microsoft.AspNetCore.Http;
-using System;
-
-namespace AutoGrader.Models.Submission
+﻿  namespace AutoGrader.Models.Submission
 {
     public class SubmissionInput
     {
