@@ -49,7 +49,6 @@ namespace AutoGrader.Controllers
             student = studentDataService.GetStudentByUsername(UserManager.GetUserName(User));
 
             Class c = classDataService.GetClassByKey(ClassKey);
-            //student = studentDataService.GetStudentByUsername(user.UserName);
 
             if(c != null)
             {
@@ -74,6 +73,23 @@ namespace AutoGrader.Controllers
             ViewData.Add("StudentId", student.Id);
 
             return View(assignments);
+        }
+
+        public async Task<IActionResult> LeaveClass(int classId)
+        {
+            StudentClassDataService studentClassDataService = new StudentClassDataService(dbContext);
+
+            StudentDataService studentDataService = new StudentDataService(dbContext);
+            ClassDataService classDataService = new ClassDataService(dbContext);
+
+            student = studentDataService.GetStudentByUsername(UserManager.GetUserName(User));
+            Class c = classDataService.GetClassById(classId);
+
+            studentClassDataService.RemoveStudentClass(student, c);
+
+            await dbContext.SaveChangesAsync();
+
+            return RedirectToAction("StudentHome", "Student");
         }
     }
 }

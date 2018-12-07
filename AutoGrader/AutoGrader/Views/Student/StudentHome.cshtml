@@ -9,29 +9,41 @@
 
 @using AutoGrader.Models.ViewModels
 
-@Html.Partial("JoinClass", new JoinClassViewModel())
 
-<table class="table">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Name)
-			</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
+@if (Model.Count() != 0)
+{
+	<table class="table">
+		<thead>
 			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Name)
-				</td>
-				<td>
-					<a asp-action="ViewAssignments" asp-route-classId="@item.Id">View Assignments</a>
-					@*<a asp-action="Details" asp-route-id="@item.Id">Leave Class</a> |*@
-				</td>
+				<th>
+					@Html.DisplayNameFor(model => model.Name)
+				</th>
+				<th></th>
 			</tr>
-		}
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Name)
+					</td>
+					<td>
+						<a asp-action="ViewAssignments" asp-route-classId="@item.Id">View Assignments</a> |
+						<a asp-action="LeaveClass" asp-route-classId="@item.Id">Leave Class</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<br />
+	<h4 class="danger">You are not currently enrolled in any classes.</h4>
+}
+
+<br />
+<h4>Join a New Class</h4>
+
+@Html.Partial("JoinClass", new JoinClassViewModel())
