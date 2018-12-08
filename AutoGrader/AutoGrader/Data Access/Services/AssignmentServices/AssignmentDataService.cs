@@ -44,6 +44,11 @@ namespace AutoGrader.DataAccess
                 .ToList();
         }
 
+        public IEnumerable<TestCaseSpecification> GetTestCases(int assignmentId)
+        {
+            return autoGraderDbContext.TestCaseSpecifications.ToList().Where(e => e.AssignmentId == assignmentId);
+        }
+
         //public IEnumerable<Assignment> GetAssignmentsByUserId(int UserId)
         //{
         //    yield return GetAssignments().FirstOrDefault(e => e.ClassId.Students.FirstOrDefault(f => f.Id == UserId).Id == UserId);

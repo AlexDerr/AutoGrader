@@ -8,6 +8,7 @@ using ShellHelper;
 using AutoGrader.Methods.GraderMethod;
 using AutoGrader.Models;
 using AutoGrader.DataAccess.Services.ClassServices;
+using System.Collections.Generic;
 
 namespace AutoGrader.Controllers
 {
@@ -53,7 +54,12 @@ namespace AutoGrader.Controllers
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
             Assignment assignment = assignmentDataService.GetAssignmentById(id);
 
-            
+            IEnumerable<TestCaseSpecification> testCases = assignmentDataService.GetTestCases(assignment.Id);
+
+            foreach(var test in testCases)
+            {
+                assignment.TestCases.Add(test);
+            }
 
             return View(assignment);
         }
