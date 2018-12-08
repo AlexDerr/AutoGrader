@@ -56,11 +56,6 @@ namespace AutoGrader.Controllers
 
             IEnumerable<TestCaseSpecification> testCases = assignmentDataService.GetTestCases(assignment.Id);
 
-            foreach(var test in testCases)
-            {
-                assignment.TestCases.Add(test);
-            }
-
             return View(assignment);
         }
 
