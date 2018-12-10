@@ -17,13 +17,13 @@
             @ViewData["Assignmentname"]
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SubmissionId)
+            Submission ID
         </dt>
         <dd>
             @Html.DisplayFor(model => model.SubmissionId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SubmissionTime)
+            Submission Time
         </dt>
         <dd>
             @Html.DisplayFor(model => model.SubmissionTime)
@@ -89,5 +89,5 @@
 }
 <h4>Source Code</h4>
 <div>
-    <textarea draggable="false" readonly="readonly" rows="15" style="width:100%; resize:none;">@Model.Input.SourceCode</textarea>
+    <textarea draggable="false" readonly="readonly" rows="15" style="width:100%; resize:none; font-family: 'Courier New'">@Model.Input.SourceCode</textarea>
 </div>
