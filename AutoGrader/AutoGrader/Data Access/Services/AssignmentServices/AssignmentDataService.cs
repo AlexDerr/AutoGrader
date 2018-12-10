@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
+using AutoGrader.Models.ViewModels;
 
 namespace AutoGrader.DataAccess
 {
@@ -49,9 +50,17 @@ namespace AutoGrader.DataAccess
             return autoGraderDbContext.TestCaseSpecifications.ToList().Where(e => e.AssignmentId == assignmentId);
         }
 
-        //public IEnumerable<Assignment> GetAssignmentsByUserId(int UserId)
+        //public void UpdateAssignment(Assignment a, AssignmentViewModel model)
         //{
-        //    yield return GetAssignments().FirstOrDefault(e => e.ClassId.Students.FirstOrDefault(f => f.Id == UserId).Id == UserId);
+        //    a.Name = model.Name;
+        //    a.StartDate = model.StartDate;
+        //    a.EndDate = model.EndDate;
+        //    a.Description = model.Description;
+        //    a.MemoryLimit = model.MemoryLimit;
+        //    a.TimeLimit = model.TimeLimit;
+        //    a.ClassId = model.ClassId;
+        //    a.TestCases = model.TestCases;
+        //    autoGraderDbContext.Assignments.Update(a);
         //}
     }
 }
