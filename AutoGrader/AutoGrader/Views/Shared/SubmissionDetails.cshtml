@@ -49,7 +49,7 @@
         <dd>
             @{
                 string text;
-                if (Model.Output.Runtime == 0)
+                if (Model.Output.Runtime == -1)
                 {
                     text = "Code did not compile.";
                 }
@@ -69,7 +69,6 @@
             int i = 1;
             foreach (var test in Model.Output.TestCases)
             {
-                string text;
                 @if (test.Pass)
                 {
                     text = "Pass";
