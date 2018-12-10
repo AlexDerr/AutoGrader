@@ -4,6 +4,7 @@ using System.Linq;
 using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoGrader.DataAccess
 {
@@ -18,12 +19,16 @@ namespace AutoGrader.DataAccess
 
         public Assignment GetAssignmentById(int id)
         {
-            return GetAssignments().FirstOrDefault(e => e.Id == id);
+            return autoGraderDbContext.Assignments
+                .Include(a => a.Submissions)
+                .FirstOrDefault(e => e.Id == id);
         }
 
         public IEnumerable<Assignment> GetAssignmentsByClassId(int id)
         {
-            return GetAssignments().Where(e => e.ClassId == id);
+            return autoGraderDbContext.Assignments
+                .Include(a => a.Submissions)
+                .Where(e => e.ClassId == id);
         }
 
         public void AddAssignment(Assignment assignment)
@@ -34,15 +39,19 @@ namespace AutoGrader.DataAccess
         public Submission GetTopSubmissionForStudent(int assignmentId, int studentId)
         {
             return autoGraderDbContext.Assignments.FirstOrDefault(a => a.Id == assignmentId)
-            .Submissions.OrderByDescending(s => s.Grade).FirstOrDefault();
+            .Submissions
+            .Where(s => s.UserId == studentId)
+            .OrderByDescending(s => s.Grade).FirstOrDefault();
         }
 
 
         public List<Submission> GetStudentSubmissionsOnAssignment(int studentId, int assignmentId)
         {
             return autoGraderDbContext.Submissions.Where(s => s.UserId == studentId)
-                .Where(a => a.AssignmentId == assignmentId)
-                .ToList();
+            .Where(a => a.AssignmentId == assignmentId)
+            .Include(s => s.Input)
+            .Include(s => s.Output)
+            .ToList();
         }
 
         public IEnumerable<TestCaseSpecification> GetTestCases(int assignmentId)

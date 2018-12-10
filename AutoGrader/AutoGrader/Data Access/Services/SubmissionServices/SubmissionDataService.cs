@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoGrader.Models.Submission;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoGrader.DataAccess
 {
@@ -15,7 +16,15 @@ namespace AutoGrader.DataAccess
 
         public Submission GetSubmissionById(int id)
         {
-            return GetSubmissions().FirstOrDefault(e => e.SubmissionId == id);
+            return autoGraderDbContext.Submissions
+                .Include(s => s.Input)
+                .Include(s => s.Output)
+                    .ThenInclude(o => o.TestCases)
+                .FirstOrDefault(e => e.SubmissionId == id);
+
+
+            //return GetSubmissions()
+            //.FirstOrDefault(e => e.SubmissionId == id);
         }
 
         public void AddSubmission(Submission submission)
