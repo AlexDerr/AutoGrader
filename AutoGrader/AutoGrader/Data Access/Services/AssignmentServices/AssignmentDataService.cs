@@ -21,6 +21,7 @@ namespace AutoGrader.DataAccess
         {
             return autoGraderDbContext.Assignments
                 .Include(a => a.Submissions)
+                .Include(a => a.TestCases)
                 .FirstOrDefault(e => e.Id == id);
         }
 
