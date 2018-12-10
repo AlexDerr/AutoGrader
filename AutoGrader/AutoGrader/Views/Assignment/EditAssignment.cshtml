@@ -1,8 +1,8 @@
-﻿@model AutoGrader.Models.Assignment.Assignment
+﻿@model AutoGrader.Models.ViewModels.AssignmentViewModel
 
 @{
-    ViewData["Title"] = "Edit Assignment";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Edit Assignment";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit @Model.Name</h2>
@@ -10,73 +10,67 @@
 <h4>Assignment</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditAssignment">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemoryLimit" class="control-label"></label>
-                <input asp-for="MemoryLimit" class="form-control" />
-                <span asp-validation-for="MemoryLimit" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeLimit" class="control-label"></label>
-                <input asp-for="TimeLimit" class="form-control" />
-                <span asp-validation-for="TimeLimit" class="text-danger"></span>
-            </div>
-            @{
-                for (int i = 0; i < Model.TestCases.Count; i++)
-                {
-                    <div class="editrow">
-                        <div class="edititem">
-                            <div class="editor-label">
-                                @Html.LabelFor(m => m.TestCases[i].Input)
-                            </div>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(m => m.TestCases[i].Input)
-                                @Html.ValidationMessageFor(m => m.TestCases[i].Input)
-                            </div>
-                        </div>
-                        <div class="edititem">
-                            <div class="editor-label">
-                                @Html.LabelFor(m => m.TestCases[i].ExpectedOutput)
-                            </div>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(m => m.TestCases[i].ExpectedOutput)
-                                @Html.ValidationMessageFor(m => m.TestCases[i].ExpectedOutput)
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            }
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+	<div class="col-md-4">
+		<form asp-action="EditAssignment">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="StartDate" class="control-label"></label>
+				<input asp-for="StartDate" class="form-control" />
+				<span asp-validation-for="StartDate" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="EndDate" class="control-label"></label>
+				<input asp-for="EndDate" class="form-control" />
+				<span asp-validation-for="EndDate" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Description" class="control-label"></label>
+				<input asp-for="Description" class="form-control" />
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="MemoryLimit" class="control-label"></label>
+				<input asp-for="MemoryLimit" class="form-control" />
+				<span asp-validation-for="MemoryLimit" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="TimeLimit" class="control-label"></label>
+				<input asp-for="TimeLimit" class="form-control" />
+				<span asp-validation-for="TimeLimit" class="text-danger"></span>
+			</div>
+			@*@@{
+				for (int i = 0; i < Model.TestCases.Count; i++)
+				{
+					int j = i + 1;
+					<div class="form-group">
+						<label asp-for="TestCases[i].Input" class="control-label">Input @j</label>
+						<textarea asp-for="TestCases[i].Input" class="form-control" style="height: 100px; width: 200px"></textarea>
+						<span asp-validation-for="TestCases" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="TestCases[i].ExpectedOutput" class="control-label">Output @j</label>
+						<textarea asp-for="TestCases[i].ExpectedOutput" class="form-control" style="height: 100px; width: 200px"></textarea>
+						<span asp-validation-for="TestCases" class="text-danger"></span>
+					</div>
+				}
+			}*@
+			<div class="hidden">
+				<label asp-for="ClassId" class="control-label"></label>
+				<textarea asp-for="ClassId" class="form-control">@Model.ClassId</textarea>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-default" asp-route-assignmentId="@ViewData["AssignmentId"]" />
+			</div>
+		</form>
+</div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+	<a asp-controller="Instructor" asp-action="InstructorHome">Back to List</a>
 </div>
 
