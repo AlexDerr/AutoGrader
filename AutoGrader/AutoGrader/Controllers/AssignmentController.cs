@@ -115,6 +115,7 @@ namespace AutoGrader.Controllers
                 submission.Input.Language = input.Language;
                 submission.AssignmentId = input.AssignmentId;
                 submission.UserId = input.UserId;
+                submission.SubmissionTime = DateTime.Now;
 
                 SubmissionDataService submissionService = new SubmissionDataService(dbContext);
                 submissionService.AddSubmission(submission);
@@ -132,8 +133,10 @@ namespace AutoGrader.Controllers
                 {
                     submission.RunAndCompare();
                     submission.GradeTestCases();
+                    submission.MaxRunTime();
                 }
 
+                dbContext.Submissions.Update(submission);
                 dbContext.Assignments.Update(assignment);
             }
 
