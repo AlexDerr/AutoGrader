@@ -102,7 +102,7 @@ namespace AutoGrader.Controllers
 
                 if (result == null)
                 {
-                    ViewData[student.FirstName + student.LastName] = 0;
+                    ViewData[student.FirstName + student.LastName] = 0.0;
                 }
                 else
                 {

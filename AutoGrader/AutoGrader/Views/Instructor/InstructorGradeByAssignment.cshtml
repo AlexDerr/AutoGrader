@@ -28,7 +28,10 @@
                         @student.FirstName @student.LastName
                     </td>
                     <td>
-                        @ViewData[student.FirstName + student.LastName]%
+                        @{ 
+                            var grade = (double)ViewData[student.FirstName + student.LastName] * 100;
+                        }
+                        @grade%
                     </td>
                     <td>
                         <a asp-controller="Assignment" asp-action="ViewAllSubmissions" asp-route-assignmentId="@ViewData["AssignmentId"]" asp-route-studentId="@student.Id">View All Submissions</a>

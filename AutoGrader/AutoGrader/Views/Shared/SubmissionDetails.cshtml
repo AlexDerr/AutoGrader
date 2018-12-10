@@ -32,7 +32,10 @@
             @Html.DisplayNameFor(model => model.Grade)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Grade)%
+            @{
+                var grade = Model.Grade * 100;
+            }
+            @grade%
         </dd>
         <dt>
             Compiled
