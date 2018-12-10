@@ -115,6 +115,7 @@ namespace AutoGrader.Controllers
                 submission.Input.Language = input.Language;
                 submission.AssignmentId = input.AssignmentId;
                 submission.UserId = input.UserId;
+                submission.SubmissionTime = DateTime.Now;
 
                 SubmissionDataService submissionService = new SubmissionDataService(dbContext);
                 submissionService.AddSubmission(submission);
@@ -132,12 +133,16 @@ namespace AutoGrader.Controllers
                 {
                     submission.RunAndCompare();
                     submission.GradeTestCases();
+                    submission.MaxRunTime();
                 }
 
+                dbContext.Submissions.Update(submission);
                 dbContext.Assignments.Update(assignment);
-            }
 
-            await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
+
+                return RedirectToAction("SubmissionDetails", "Assignment", new { id = submission.SubmissionId });
+            }
 
             return RedirectToAction("StudentHome", "Student");
         }
@@ -162,16 +167,6 @@ namespace AutoGrader.Controllers
             var name = student.FirstName + " " + student.LastName;
             ViewData["StudentName"] = name;
 
-            // TEST:
-            //Submission temp = new Submission()
-            //{
-            //    SubmissionId = 6969,
-            //    SubmissionTime = DateTime.Now,
-            //    Grade = 50,
-            //};
-
-            //submissions.Add(temp);
-
             return View(submissions);
         }
 
@@ -183,28 +178,6 @@ namespace AutoGrader.Controllers
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
             ViewData["AssignmentName"] = assignmentDataService.GetAssignmentById(submission.AssignmentId).Name;
 
-            // TEST:
-            //    ViewData["AssignmentName"] = "This dumb shit assignment";
-            //    Submission temp = new Submission()
-            //    {
-            //        UserId = 0,
-            //        SubmissionId = 6969,
-            //        SubmissionTime = DateTime.Now,
-            //        Grade = 50,
-            //    };
-
-            //    temp.Input.SourceCode = "int main()\n{\n\n}";
-            //    temp.Input.Language = "C++";
-
-            //    TestCaseReport test = new TestCaseReport();
-
-            //    test.Pass = false;
-
-            //    temp.Output.TestCases.Add(test);
-            //    temp.Output.TestCases.Add(test);
-
-            //    return View(temp);
-            //}
             return View(submission);
         }
     }

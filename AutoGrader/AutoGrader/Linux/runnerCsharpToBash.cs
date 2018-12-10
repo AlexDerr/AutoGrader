@@ -225,8 +225,8 @@ namespace ShellHelper
 
         public static Submission GradeTestCases(this Submission obj){
             
-            int correct = 0;
-            int total = obj.Output.TestCases.Count;
+            double correct = 0;
+            double total = obj.Output.TestCases.Count;
             for(int testCaseNumber = 0; testCaseNumber < total; testCaseNumber++){
                 if(obj.Output.TestCases[testCaseNumber].Pass == true){
                     correct++;
@@ -234,6 +234,17 @@ namespace ShellHelper
             }
 
             obj.Grade = correct/total;
+
+            return obj;
+        }
+
+        public static Submission MaxRunTime(this Submission obj){
+            obj.Output.Runtime = obj.Output.TestCases[0].Runtime;
+            for(int testCaseNumber = 1; testCaseNumber < obj.Output.TestCases.Count; testCaseNumber++){
+                if(obj.Output.TestCases[testCaseNumber].Runtime > obj.Output.Runtime){
+                    obj.Output.Runtime = obj.Output.TestCases[testCaseNumber].Runtime;
+                }
+            }
 
             return obj;
         }
