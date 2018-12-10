@@ -8,6 +8,7 @@
 <h2>Submissions for @ViewData["StudentName"]</h2>
 <br />
 <h4>Assignment: @ViewData["AssignmentName"]</h4>
+
 @if (Model.Count() != 0)
 {
     <table class="table">
@@ -36,7 +37,10 @@
                         @Html.DisplayFor(modelItem => item.SubmissionTime)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Grade)%
+                        @{
+                            var grade = item.Grade * 100;
+                        }
+                        @grade%
                     </td>
                     <td>
                         <a asp-controller="Assignment" asp-action="SubmissionDetails" asp-route-id="@item.SubmissionId">Details</a>
