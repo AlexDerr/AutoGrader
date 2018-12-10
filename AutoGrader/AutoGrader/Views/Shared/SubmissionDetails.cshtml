@@ -47,7 +47,18 @@
             Runtime
         </dt>
         <dd>
-            @Model.Output.Runtime ms
+            @{
+                string text;
+                if (Model.Output.Runtime == 0)
+                {
+                    text = "Code did not compile.";
+                }
+                else
+                {
+                    text = Model.Output.Runtime + " ms";
+                }
+            }
+            text
         </dd>
     </dl>
 </div>
