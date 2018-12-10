@@ -9,20 +9,24 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="SubmitAssignment" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="SourceCode" class="control-label"></label>
-                <textarea asp-for="SourceCode" class="form-control" style="height: 400px; width: 500px"></textarea>
-                <span asp-validation-for="SourceCode" class="text-danger"></span>
-            </div>
-            <div class="hidden">
-                <label asp-for="AssignmentId" class="control-label"></label>
-                <textarea asp-for="AssignmentId" class="form-control" >@Model.AssignmentId</textarea>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-default" />
-            </div>
-        </form>
+		<form asp-action="SubmitAssignment" method="post">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="SourceCode" class="control-label"></label>
+				<textarea asp-for="SourceCode" class="form-control" style="height: 400px; width: 500px"></textarea>
+				<span asp-validation-for="SourceCode" class="text-danger"></span>
+			</div>
+			<div class="hidden">
+				<label asp-for="AssignmentId" class="control-label"></label>
+				<textarea asp-for="AssignmentId" class="form-control">@Model.AssignmentId</textarea>
+			</div>
+			<div class="hidden">
+				<label asp-for="Language" class="control-label"></label>
+				<textarea asp-for="Language" class="form-control">@Model.Language</textarea>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Submit" class="btn btn-default" />
+			</div>
+		</form>
     </div>
 </div>

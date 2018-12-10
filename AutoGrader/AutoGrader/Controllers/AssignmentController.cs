@@ -56,14 +56,36 @@ namespace AutoGrader.Controllers
 
             IEnumerable<TestCaseSpecification> testCases = assignmentDataService.GetTestCases(assignment.Id);
 
-            return View(assignment);
+            AssignmentViewModel model = new AssignmentViewModel();
+
+            ViewData["AssignmentId"] = assignment.Id;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAssignment(AssignmentViewModel model, int assignmentId)
+        {
+
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            Assignment assignment = assignmentDataService.GetAssignmentById(assignmentId);
+            //assignmentDataService.UpdateAssignment(assignment, model);
+
+            await dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Details", "Instructor", new { id = assignment.ClassId});
         }
 
         public IActionResult SubmitAssignment(int Id)
         {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+
+            Assignment assignment = assignmentDataService.GetAssignmentById(Id);
+
             SubmissionInputViewModel model = new SubmissionInputViewModel
             {
-                AssignmentId = Id
+                AssignmentId = Id,
+                Language = assignment.Languages[0]
             };
 
             return View(model);
@@ -77,6 +99,7 @@ namespace AutoGrader.Controllers
                 Submission submission = new Submission();
 
                 submission.Input.SourceCode = input.SourceCode;
+                submission.Input.Language = input.Language;
                 submission.AssignmentId = input.AssignmentId;
 
                 SubmissionService submissionService = new SubmissionService(dbContext);
@@ -88,10 +111,10 @@ namespace AutoGrader.Controllers
                 Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
 
                 assignment.Submissions.Add(submission);
-                
+
                 GraderMethod.GradeSubmission(submission, dbContext);
 
-                if(submission.Compile())
+                if (submission.Compile())
                 {
                     submission.RunAndCompare();
                     submission.GradeTestCases();
