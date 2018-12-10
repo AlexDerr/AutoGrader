@@ -10,5 +10,7 @@ namespace AutoGrader.Models.ViewModels
         public string Language { get; set; }
 
         public int AssignmentId { get; set; }
+
+        public int UserId { get; set; }
     }
 }

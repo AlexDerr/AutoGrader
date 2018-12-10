@@ -88,7 +88,7 @@ namespace AutoGrader.Controllers
             return RedirectToAction("Details", "Instructor", new { id = assignment.ClassId });
         }
 
-        public IActionResult SubmitAssignment(int Id)
+        public IActionResult SubmitAssignment(int Id, int studentId)
         {
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
 
@@ -97,7 +97,8 @@ namespace AutoGrader.Controllers
             SubmissionInputViewModel model = new SubmissionInputViewModel
             {
                 AssignmentId = Id,
-                Language = assignment.Languages[0]
+                Language = assignment.Languages[0],
+                UserId = studentId
             };
 
             return View(model);
@@ -113,6 +114,7 @@ namespace AutoGrader.Controllers
                 submission.Input.SourceCode = input.SourceCode;
                 submission.Input.Language = input.Language;
                 submission.AssignmentId = input.AssignmentId;
+                submission.UserId = input.UserId;
 
                 SubmissionDataService submissionService = new SubmissionDataService(dbContext);
                 submissionService.AddSubmission(submission);
