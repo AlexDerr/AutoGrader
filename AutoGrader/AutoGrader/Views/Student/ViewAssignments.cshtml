@@ -77,7 +77,7 @@
                     <a asp-controller="Assignment" asp-action="AssignmentDetails" asp-route-id="@item.Id">Details</a> |
                     @{
                         string text = "|";
-                        if (DateTime.Now < item.EndDate)
+                        if (DateTime.Now < item.EndDate && DateTime.Now > item.StartDate)
                         {
                             <a asp-controller="Assignment" asp-action="ViewAllSubmissions" asp-route-assignmentId="@item.Id" asp-route-studentId="@ViewData["StudentId"]">View Submissions</a>
                             @text
