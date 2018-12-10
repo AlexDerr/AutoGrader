@@ -55,9 +55,20 @@ namespace AutoGrader.Controllers
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
             Assignment assignment = assignmentDataService.GetAssignmentById(id);
 
-            IEnumerable<TestCaseSpecification> testCases = assignmentDataService.GetTestCases(assignment.Id);
-
-            AssignmentViewModel model = new AssignmentViewModel();
+            EditAssignmentViewModel model = new EditAssignmentViewModel()
+            {
+                ClassId = assignment.ClassId,
+                Description = assignment.Description,
+                EndDate = assignment.EndDate,
+                StartDate = assignment.StartDate,
+                Languages = assignment.Languages,
+                MemoryLimit = assignment.MemoryLimit,
+                Name = assignment.Name,
+                TestCase1Input = assignment.TestCases[0].Input,
+                TestCase1Output = assignment.TestCases[0].ExpectedOutput,
+                TestCase2Input = assignment.TestCases[1].Input,
+                TestCase2Output = assignment.TestCases[1].ExpectedOutput
+            };
 
             ViewData["AssignmentId"] = assignment.Id;
 
@@ -65,12 +76,12 @@ namespace AutoGrader.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAssignment(AssignmentViewModel model, int assignmentId)
+        public async Task<IActionResult> EditAssignment(EditAssignmentViewModel model, int assignmentId)
         {
 
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
             Assignment assignment = assignmentDataService.GetAssignmentById(assignmentId);
-            //assignmentDataService.UpdateAssignment(assignment, model);
+            assignmentDataService.UpdateAssignment(model, assignment);
 
             await dbContext.SaveChangesAsync();
 

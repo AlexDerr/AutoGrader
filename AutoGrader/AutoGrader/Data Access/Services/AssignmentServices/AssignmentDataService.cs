@@ -21,6 +21,7 @@ namespace AutoGrader.DataAccess
         {
             return autoGraderDbContext.Assignments
                 .Include(a => a.Submissions)
+                .Include(a => a.TestCases)
                 .FirstOrDefault(e => e.Id == id);
         }
 
@@ -72,17 +73,18 @@ namespace AutoGrader.DataAccess
             autoGraderDbContext.TestCaseSpecifications.RemoveRange(assignment.TestCases);
         }
 
-        //public IEnumerable<Assignment> GetAssignmentsByUserId(int UserId)
-        //{
-        //    a.Name = model.Name;
-        //    a.StartDate = model.StartDate;
-        //    a.EndDate = model.EndDate;
-        //    a.Description = model.Description;
-        //    a.MemoryLimit = model.MemoryLimit;
-        //    a.TimeLimit = model.TimeLimit;
-        //    a.ClassId = model.ClassId;
-        //    a.TestCases = model.TestCases;
-        //    autoGraderDbContext.Assignments.Update(a);
-        //}
+        public void UpdateAssignment(EditAssignmentViewModel model, Assignment a)
+        {
+            a.Name = model.Name;
+            a.StartDate = model.StartDate;
+            a.EndDate = model.EndDate;
+            a.Description = model.Description;
+            a.MemoryLimit = model.MemoryLimit;
+            a.TimeLimit = model.TimeLimit;
+            a.ClassId = model.ClassId;
+            a.TestCases = model.IO;
+
+            autoGraderDbContext.Assignments.Update(a);
+        }
     }
 }
