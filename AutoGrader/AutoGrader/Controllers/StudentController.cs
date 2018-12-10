@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AutoGrader.Controllers
 {
@@ -65,7 +67,7 @@ namespace AutoGrader.Controllers
         public IActionResult ViewAssignments(int classId)
         {
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            IEnumerable<Assignment> assignments = assignmentDataService.GetAssignmentsByClassId(classId);
+            IEnumerable<Assignment> assignments = assignmentDataService.GetAssignmentsByClassId(classId).Reverse();
 
             StudentDataService studentDataService = new StudentDataService(dbContext);
             student = studentDataService.GetStudentByUsername(UserManager.GetUserName(User));
