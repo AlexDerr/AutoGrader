@@ -141,7 +141,7 @@ namespace AutoGrader.Controllers
 
                 await dbContext.SaveChangesAsync();
 
-                return RedirectToAction("SubmissoinDetails", "Assignment", new { id = submission.SubmissionId });
+                return RedirectToAction("SubmissionDetails", "Assignment", new { id = submission.SubmissionId });
             }
 
             return RedirectToAction("StudentHome", "Student");
