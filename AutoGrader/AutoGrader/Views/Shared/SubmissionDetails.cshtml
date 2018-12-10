@@ -1,0 +1,90 @@
+﻿@model AutoGrader.Models.Submission.Submission
+
+@{
+    ViewData["Title"] = "Submission Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Submission Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Assignment Name
+        </dt>
+        <dd>
+            @ViewData["Assignmentname"]
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SubmissionId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SubmissionId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SubmissionTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SubmissionTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grade)%
+        </dd>
+        <dt>
+            Compiled
+        </dt>
+        <dd>
+            @Model.Output.Compiled.ToString()
+        </dd>
+        <dt>
+            Runtime
+        </dt>
+        <dd>
+            @Model.Output.Runtime ms
+        </dd>
+    </dl>
+</div>
+<br />
+<div>
+    <dl class="dl-horizontal">
+        @{
+            int i = 1;
+            foreach (var test in Model.Output.TestCases)
+            {
+                string text;
+                @if (test.Pass)
+                {
+                    text = "Pass";
+                }
+                else
+                {
+                    text = "Fail";
+                }
+
+                <dt>
+                    Test Case @i:
+                </dt>
+                <dd>
+                    @text
+                </dd>
+                i++;
+            }
+        }
+    </dl>
+</div>
+
+@if (Model.Output.CompileOutput != "")
+{
+    <h4>Compiler Output</h4>
+    <div>
+        <textarea draggable="false" readonly="readonly" rows="8" style="width:100%; resize:none;">@Model.Output.CompileOutput</textarea>
+    </div>
+}
+<h4>Source Code</h4>
+<div>
+    <textarea draggable="false" readonly="readonly" rows="15" style="width:100%; resize:none;">@Model.Input.SourceCode</textarea>
+</div>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AutoGrader.Models.Submission.Submission>
+
+@{
+    ViewData["Title"] = "Submissions for " + ViewData["StudentName"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Submissions for @ViewData["StudentName"]</h2>
+<br />
+<h4>Assignment: @ViewData["AssignmentName"]</h4>
+@if (Model.Count() != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Submission ID
+                </th>
+                <th>
+                    Submission Time
+                </th>
+                <th>
+                    Grade
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubmissionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubmissionTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Grade)%
+                    </td>
+                    <td>
+                        <a asp-controller="Assignment" asp-action="SubmissionDetails" asp-route-id="@item.SubmissionId">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+    <h4 class="danger">No submissions on this assignment.</h4>
+}

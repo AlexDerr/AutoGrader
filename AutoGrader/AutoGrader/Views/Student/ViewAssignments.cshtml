@@ -7,86 +7,95 @@
 
 <h2>Assignments</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemoryLimit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLimit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Languages)
-            </th>
-            <th></th>
-            <th></th>
-            <th>
-                Best Submission
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemoryLimit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeLimit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Languages)
-            </td>
-            <td>
-                @{
-                    double best = 0;
-                    foreach (var submisison in item.Submissions)
-                    {
-                        if (Convert.ToInt32(ViewData["StudentId"].ToString()) == submisison.UserId && submisison.Grade > best)
+@if (Model.Count() != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MemoryLimit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeLimit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Languages)
+                </th>
+                <th>
+                    Best Submission
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MemoryLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Languages)
+                </td>
+                <td>
+                    @{
+                        double best = 0;
+                        foreach (var submisison in item.Submissions)
                         {
-                            best = submisison.Grade;
+                            if (Convert.ToInt32(ViewData["StudentId"].ToString()) == submisison.UserId && submisison.Grade > best)
+                            {
+                                best = submisison.Grade;
+                            }
                         }
                     }
-                }
-                @best%
-            </td>
-            <td>
-                @{
-                    if (DateTime.Now < item.EndDate)
-                    {
-                        <a asp-controller="Assignment" asp-action="SubmitAssignment" asp-route-id="@item.Id">Submit</a>
+                    @best%
+                </td>
+                <td>
+                    <a asp-controller="Assignment" asp-action="AssignmentDetails" asp-route-id="@item.Id">Details</a> |
+                    @{
+                        string text = "|";
+                        if (DateTime.Now < item.EndDate)
+                        {
+                            <a asp-controller="Assignment" asp-action="ViewAllSubmissions" asp-route-assignmentId="@item.Id" asp-route-studentId="@ViewData["StudentId"]">View Submissions</a>
+                            @text
+                            <a asp-controller="Assignment" asp-action="SubmitAssignment" asp-route-id="@item.Id">Submit</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Assignment" asp-action="ViewAllSubmissions" asp-route-assignmentId="@item.Id" asp-route-studentId="@ViewData["StudentId"]">View Submissions</a>
+                        }
                     }
-                }
-            </td>
-            <td>
-
-            </td>
-        </tr>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <br />
+    <h4 class="danger">No assignments in this class.</h4>
+}

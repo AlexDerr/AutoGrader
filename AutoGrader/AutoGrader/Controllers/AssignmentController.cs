@@ -9,6 +9,7 @@ using AutoGrader.Methods.GraderMethod;
 using AutoGrader.Models;
 using AutoGrader.DataAccess.Services.ClassServices;
 using System.Collections.Generic;
+using System;
 
 namespace AutoGrader.Controllers
 {
@@ -59,6 +60,17 @@ namespace AutoGrader.Controllers
             return View(assignment);
         }
 
+        public async Task<ActionResult> DeleteAssignment(int assignmentId)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            Assignment assignment = assignmentDataService.GetAssignmentById(assignmentId);
+
+            assignmentDataService.DeleteAssignment(assignment);
+            await dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Details", "Instructor", new { id = assignment.ClassId });
+        }
+
         public IActionResult SubmitAssignment(int Id)
         {
             SubmissionInputViewModel model = new SubmissionInputViewModel
@@ -79,7 +91,7 @@ namespace AutoGrader.Controllers
                 submission.Input.SourceCode = input.SourceCode;
                 submission.AssignmentId = input.AssignmentId;
 
-                SubmissionService submissionService = new SubmissionService(dbContext);
+                SubmissionDataService submissionService = new SubmissionDataService(dbContext);
                 submissionService.AddSubmission(submission);
                 await dbContext.SaveChangesAsync(); // SubmissionId now set on local submission
 
@@ -88,10 +100,10 @@ namespace AutoGrader.Controllers
                 Assignment assignment = assignmentDataService.GetAssignmentById(submission.AssignmentId);
 
                 assignment.Submissions.Add(submission);
-                
+
                 GraderMethod.GradeSubmission(submission, dbContext);
 
-                if(submission.Compile())
+                if (submission.Compile())
                 {
                     submission.RunAndCompare();
                     submission.GradeTestCases();
@@ -105,14 +117,70 @@ namespace AutoGrader.Controllers
             return RedirectToAction("StudentHome", "Student");
         }
 
-        public IActionResult ViewSubmissions(int assignmentId, int studentId)
+        public IActionResult AssignmentDetails(int id)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            Assignment assignment = assignmentDataService.GetAssignmentById(id);
+
+            return View(assignment);
+        }
+
+        public IActionResult ViewAllSubmissions(int assignmentId, int studentId)
         {
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
             var submissions = assignmentDataService.GetStudentSubmissionsOnAssignment(studentId, assignmentId);
             var assignmentName = assignmentDataService.GetAssignmentById(assignmentId).Name;
             ViewData["AssignmentName"] = assignmentName;
 
+            StudentDataService studentDataService = new StudentDataService(dbContext);
+            var student = studentDataService.GetStudentById(studentId);
+            var name = student.FirstName + " " + student.LastName;
+            ViewData["StudentName"] = name;
+
+            // TEST:
+            //Submission temp = new Submission()
+            //{
+            //    SubmissionId = 6969,
+            //    SubmissionTime = DateTime.Now,
+            //    Grade = 50,
+            //};
+
+            //submissions.Add(temp);
+
             return View(submissions);
+        }
+
+        public IActionResult SubmissionDetails(int id)
+        {
+            SubmissionDataService submissionDataService = new SubmissionDataService(dbContext);
+            var submission = submissionDataService.GetSubmissionById(id);
+
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            ViewData["AssignmentName"] = assignmentDataService.GetAssignmentById(submission.AssignmentId).Name;
+
+            // TEST:
+            //    ViewData["AssignmentName"] = "This dumb shit assignment";
+            //    Submission temp = new Submission()
+            //    {
+            //        UserId = 0,
+            //        SubmissionId = 6969,
+            //        SubmissionTime = DateTime.Now,
+            //        Grade = 50,
+            //    };
+
+            //    temp.Input.SourceCode = "int main()\n{\n\n}";
+            //    temp.Input.Language = "C++";
+
+            //    TestCaseReport test = new TestCaseReport();
+
+            //    test.Pass = false;
+
+            //    temp.Output.TestCases.Add(test);
+            //    temp.Output.TestCases.Add(test);
+
+            //    return View(temp);
+            //}
+            return View(submission);
         }
     }
 }

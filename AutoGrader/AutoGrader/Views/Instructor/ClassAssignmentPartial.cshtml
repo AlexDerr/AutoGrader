@@ -1,62 +1,76 @@
 ﻿@model IEnumerable<AutoGrader.Models.Assignment.Assignment>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemoryLimit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLimit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Languages)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemoryLimit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeLimit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Languages)
-            </td>
-            <td>
-                <a asp-controller="Instructor" asp-route-id="@item.Id" asp-action="InstructorGradeByAssignment">Grades</a> |
-                <a asp-controller="Assignment" asp-action="EditAssignment" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@if (Model.Count() != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MemoryLimit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeLimit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Languages)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MemoryLimit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TimeLimit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Languages)
+                    </td>
+                    <td>
+                        <a asp-controller="Instructor" asp-route-id="@item.Id" asp-action="InstructorGradeByAssignment">Grades</a> |
+                        <a asp-controller="Assignment" asp-action="EditAssignment" asp-route-id="@item.Id">Edit</a> |
+                        @Html.ActionLink(
+                            "Delete",
+                            "DeleteAssignment",
+                            "Assignment",
+                            new { assignmentId = item.Id },
+                            new { onclick = "return confirm('Are you sure you want to delete this class')" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <br />
+    <h4 class="danger">No assignments in this class.</h4>
+}
