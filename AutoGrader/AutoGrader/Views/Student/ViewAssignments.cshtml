@@ -82,7 +82,7 @@
                         {
                             <a asp-controller="Assignment" asp-action="ViewAllSubmissions" asp-route-assignmentId="@item.Id" asp-route-studentId="@ViewData["StudentId"]">View Submissions</a>
                             @text
-                            <a asp-controller="Assignment" asp-action="SubmitAssignment" asp-route-id="@item.Id">Submit</a>
+                            <a asp-controller="Assignment" asp-action="SubmitAssignment" asp-route-id="@item.Id" asp-route-studentId="@ViewData["StudentId"]">Submit</a>
                         }
                         else
                         {
