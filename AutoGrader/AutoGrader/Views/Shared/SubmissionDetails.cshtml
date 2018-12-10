@@ -47,7 +47,18 @@
             Runtime
         </dt>
         <dd>
-            @Model.Output.Runtime ms
+            @{
+                string text;
+                if (Model.Output.Runtime == -1)
+                {
+                    text = "Code did not compile.";
+                }
+                else
+                {
+                    text = Model.Output.Runtime + " ms";
+                }
+            }
+            text
         </dd>
     </dl>
 </div>
@@ -58,7 +69,6 @@
             int i = 1;
             foreach (var test in Model.Output.TestCases)
             {
-                string text;
                 @if (test.Pass)
                 {
                     text = "Pass";
