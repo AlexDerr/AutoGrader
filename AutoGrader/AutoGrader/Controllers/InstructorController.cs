@@ -57,9 +57,33 @@ namespace AutoGrader.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult EditClass(int id)
+        {
+            ClassDataService classDataService = new ClassDataService(dbContext);
+            Class c = classDataService.GetClassById(id);
+
+            EditClassViewModel model = new EditClassViewModel()
+            {
+                Name = c.Name,
+                ClassId = c.Id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditClass(EditClassViewModel model)
+        {
+            ClassDataService classDataService = new ClassDataService(dbContext);
+            classDataService.UpdateClass(model);
+
+            await dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<ActionResult> DeleteClass(bool confirm, int classId)
         {
-            // TODO: Delete class 
             ClassDataService classDataService = new ClassDataService(dbContext);
 
             classDataService.DeleteClass(classId);
