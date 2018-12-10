@@ -25,10 +25,10 @@ namespace AutoGrader.Models.ViewModels
 
         public List<TestCaseSpecification> IO { get; set; }
 
-        [Required, DisplayName("Memory Limit (kB)")]
+        [Required, DisplayName("Memory Limit")]
         public int MemoryLimit { get; set; }
 
-        [Required, DisplayName("Time Limit (ms)")]
+        [Required, DisplayName("Time Limit")]
         public int TimeLimit { get; set; }
 
         [Required]
