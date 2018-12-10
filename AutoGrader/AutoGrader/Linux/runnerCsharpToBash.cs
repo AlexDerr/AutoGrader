@@ -225,8 +225,8 @@ namespace ShellHelper
 
         public static Submission GradeTestCases(this Submission obj){
             
-            int correct = 0;
-            int total = obj.Output.TestCases.Count;
+            double correct = 0;
+            double total = obj.Output.TestCases.Count;
             for(int testCaseNumber = 0; testCaseNumber < total; testCaseNumber++){
                 if(obj.Output.TestCases[testCaseNumber].Pass == true){
                     correct++;
