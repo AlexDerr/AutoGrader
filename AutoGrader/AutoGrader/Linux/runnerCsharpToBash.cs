@@ -238,5 +238,16 @@ namespace ShellHelper
             return obj;
         }
 
+        public static Submission MaxRunTime(this Submission obj){
+            obj.Output.Runtime = obj.Output.TestCases[0].Runtime;
+            for(int testCaseNumber = 1; testCaseNumber < obj.Output.TestCases.Count; testCaseNumber++){
+                if(obj.Output.TestCases[testCaseNumber].Runtime > obj.Output.Runtime){
+                    obj.Output.Runtime = obj.Output.TestCases[testCaseNumber].Runtime;
+                }
+            }
+
+            return obj;
+        }
+
     }
 }

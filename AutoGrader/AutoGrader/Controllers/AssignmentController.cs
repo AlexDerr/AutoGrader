@@ -133,6 +133,7 @@ namespace AutoGrader.Controllers
                 {
                     submission.RunAndCompare();
                     submission.GradeTestCases();
+                    submission.MaxRunTime();
                 }
 
                 dbContext.Submissions.Update(submission);
