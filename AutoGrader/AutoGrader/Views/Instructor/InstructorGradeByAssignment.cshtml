@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AutoGrader.Models.StudentClass>
+﻿@model IEnumerable<AutoGrader.Models.Users.Student>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,28 +6,40 @@
 
 <h2>Grades for @ViewData["AssignmentName"].ToString()</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Student List
-            </th>
-            <th>
-                Best Submission
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var student in Model)
+@if (Model.Count() != 0)
 {
-    <tr>
-        <td>
-            @student.Student.FirstName @student.Student.LastName
-        </td>
-        <td>
-            @ViewData[student.Student.FirstName + student.Student.LastName]
-        </td>
-    </tr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Student List
+                </th>
+                <th>
+                    Best Submission
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>
+                        @student.FirstName @student.LastName
+                    </td>
+                    <td>
+                        @ViewData[student.FirstName + student.LastName]%
+                    </td>
+                    <td>
+                        <a asp-controller="Assignment" asp-action="ViewAllSubmissions" asp-route-assignmentId="@ViewData["AssignmentId"]" asp-route-studentId="@student.Id">View All Submissions</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <br />
+    <h4 class="danger">No students in this class.</h4>
+}

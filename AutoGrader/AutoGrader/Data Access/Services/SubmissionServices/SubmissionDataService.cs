@@ -4,9 +4,9 @@ using AutoGrader.Models.Submission;
 
 namespace AutoGrader.DataAccess
 {
-    public class SubmissionService : Service
+    public class SubmissionDataService : Service
     {
-        public SubmissionService(AutoGraderDbContext dbContext) : base(dbContext) { }
+        public SubmissionDataService(AutoGraderDbContext dbContext) : base(dbContext) { }
 
         public IEnumerable<Submission> GetSubmissions()
         {

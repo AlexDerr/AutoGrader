@@ -50,5 +50,32 @@ namespace AutoGrader.DataAccess.Services.ClassServices
             autoGraderDbContext.Classes.Update(classSection);
             classSection.Assignments.Add(assignment);
         }
+
+        public void DeleteClass(int classId)
+        {
+            Class c = GetClassById(classId);
+
+            autoGraderDbContext.Classes.Remove(c);
+
+            IEnumerable<Assignment> assignments = autoGraderDbContext.Assignments.ToList().Where(e => e.ClassId == classId);
+            foreach(var item in assignments)
+            {
+                foreach (var sub in item.Submissions)
+                {
+                    autoGraderDbContext.Submissions.Remove(sub);
+                    autoGraderDbContext.SubmissionInputs.Remove(sub.Input);
+                    autoGraderDbContext.SubmissionOutputs.Remove(sub.Output);
+                    autoGraderDbContext.TestCaseReports.RemoveRange(sub.Output.TestCases);
+                }
+                autoGraderDbContext.Assignments.Remove(item);
+                autoGraderDbContext.TestCaseSpecifications.RemoveRange(item.TestCases);
+            }
+
+            IEnumerable<StudentClass> studentClasses = autoGraderDbContext.StudentClasses.ToList().Where(e => e.ClassId == classId);
+            foreach(var item in studentClasses)
+            {
+                autoGraderDbContext.StudentClasses.Remove(item);
+            }
+        }
     }
 }

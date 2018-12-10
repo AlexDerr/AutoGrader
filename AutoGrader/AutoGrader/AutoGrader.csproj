@@ -21,7 +21,6 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Data Access\Services\AssignmentServices\" />
-    <Folder Include="Data Access\Services\SubmissionServices\" />
     <Folder Include="Data Access\Services\ClassServices\" />
     <Folder Include="Data Access\Services\TestCaseServices\" />
   </ItemGroup>

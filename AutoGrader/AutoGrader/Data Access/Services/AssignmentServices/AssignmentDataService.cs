@@ -50,7 +50,20 @@ namespace AutoGrader.DataAccess
             return autoGraderDbContext.TestCaseSpecifications.ToList().Where(e => e.AssignmentId == assignmentId);
         }
 
-        //public void UpdateAssignment(Assignment a, AssignmentViewModel model)
+        public void DeleteAssignment(Assignment assignment)
+        {
+            foreach (var sub in assignment.Submissions)
+            {
+                autoGraderDbContext.Submissions.Remove(sub);
+                autoGraderDbContext.SubmissionInputs.Remove(sub.Input);
+                autoGraderDbContext.SubmissionOutputs.Remove(sub.Output);
+                autoGraderDbContext.TestCaseReports.RemoveRange(sub.Output.TestCases);
+            }
+            autoGraderDbContext.Assignments.Remove(assignment);
+            autoGraderDbContext.TestCaseSpecifications.RemoveRange(assignment.TestCases);
+        }
+
+        //public IEnumerable<Assignment> GetAssignmentsByUserId(int UserId)
         //{
         //    a.Name = model.Name;
         //    a.StartDate = model.StartDate;

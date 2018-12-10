@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using AutoGrader.Models;
 using AutoGrader.Models.Users;
 using AutoGrader.DataAccess.Services.ClassServices;
+using AutoGrader.DataAccess.Services;
+using AutoGrader.Models.Submission;
 
 namespace AutoGrader.Controllers
 {
@@ -55,6 +57,17 @@ namespace AutoGrader.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<ActionResult> DeleteClass(bool confirm, int classId)
+        {
+            // TODO: Delete class 
+            ClassDataService classDataService = new ClassDataService(dbContext);
+
+            classDataService.DeleteClass(classId);
+            await dbContext.SaveChangesAsync();
+    
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult Details(int id)
         {
             ClassDataService classDataService = new ClassDataService(dbContext);
@@ -74,15 +87,27 @@ namespace AutoGrader.Controllers
 
             ViewData["Title"] = "Grades: " + assignment.Name;
             ViewData["AssignmentName"] = assignment.Name;
+            ViewData["AssignmentId"] = assignment.Id;
 
-            ClassDataService classDatService = new ClassDataService(dbContext);
-            Class c = classDatService.GetClassById(assignment.ClassId);
+            ClassDataService classDataService = new ClassDataService(dbContext);
+            Class c = classDataService.GetClassById(assignment.ClassId);
 
-            var students = c.StudentsEnrolled;
+
+            StudentClassDataService studentDataService = new StudentClassDataService(dbContext);
+            var students = studentDataService.GetStudentsByClassid(c.Id);
 
             foreach (var student in students)
             {
-                ViewData[student.Student.FirstName + student.Student.LastName] = assignmentDataService.GetTopSubmissionForStudent(assignment.Id, student.Student.Id).Grade;
+                var result = assignmentDataService.GetTopSubmissionForStudent(assignment.Id, student.Id);
+
+                if (result == null)
+                {
+                    ViewData[student.FirstName + student.LastName] = 0;
+                }
+                else
+                {
+                    ViewData[student.FirstName + student.LastName] = result.Grade;
+                }
             }
 
             return View(students);

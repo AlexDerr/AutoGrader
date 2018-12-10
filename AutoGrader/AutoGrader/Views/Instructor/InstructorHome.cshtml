@@ -1,38 +1,62 @@
 ﻿@model IEnumerable<AutoGrader.Models.Class>
 
 @{
-	ViewData["Title"] = "InstructorHome";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "InstructorHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script type="text/javascript">
+function() {
+    var status = '@ViewBag.Status';
+    if (status) {
+        alert("success");
+    } else {
+        alert("error");
+    }
+}
+</script>
 
 <h2>Instructor Home</h2>
 
-<p>
-    <a asp-action="CreateClass" asp-route-id="@ViewData["InstructorId"]">Create New Class</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Class List
-                @*@Html.DisplayNameFor(model => model.Name)*@
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-controller="Assignment" asp-action="CreateAssignment" asp-route-id="@item.Id">Add New Assignment</a> |
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@if (Model.Count() != 0)
+{
+    <p>
+        <a asp-action="CreateClass" asp-route-id="@ViewData["InstructorId"]">Create New Class</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Class List
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-controller="Assignment" asp-action="CreateAssignment" asp-route-id="@item.Id">Add New Assignment</a> |
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        @Html.ActionLink(
+                            "Delete",
+                            "DeleteClass",
+                            "Instructor",
+                            new { confirm = true, classId = item.Id },
+                            new { onclick = "return confirm('Are you sure you want to delete this class')" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <br />
+    <h4 class="danger">You currently have no classes.</h4>
+}

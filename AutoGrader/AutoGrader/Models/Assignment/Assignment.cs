@@ -1,10 +1,7 @@
-﻿using AutoGrader.Models;
-using AutoGrader.Models.ViewModels;
-using Microsoft.AspNetCore.Http;
+﻿using AutoGrader.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AutoGrader.Models.Assignment
 {
