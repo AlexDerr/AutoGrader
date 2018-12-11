@@ -88,7 +88,7 @@ namespace AutoGrader.Controllers
 
             classDataService.DeleteClass(classId);
             await dbContext.SaveChangesAsync();
-    
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -145,16 +145,48 @@ namespace AutoGrader.Controllers
             return View(assignment);
         }
 
-        //public IActionResult AddExistingAssignment(int classId)
-        //{
-        //    ClassDataService classDataService = new ClassDataService(dbContext);
-        //    var c = classDataService.GetClassById(classId);
+        public IActionResult AddExistingAssignment(int classId, int instructorId)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            var assignments = assignmentDataService.GetAssignmentsByInstructorId(instructorId);
 
-        //    var assingments = 
+            ClassDataService classDataService = new ClassDataService(dbContext);
+            var c = classDataService.GetClassById(classId);
+            ViewData["ClassName"] = c.Name;
+            ViewData["ClassId"] = c.Id;
 
-        //    ViewData["ClassName"] = c.Name;
+            return View(assignments);
+        }
 
-        //    return View(c);
-        //}
+        public async Task<IActionResult> AddSelectedAssignment(int classId, int assignmentId)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            var assignment = assignmentDataService.GetAssignmentById(assignmentId);
+
+            var newAssignment = new Assignment
+            {
+                Submissions = new List<Submission>(),
+
+                Name = assignment.Name,
+                StartDate = assignment.StartDate,
+                EndDate = assignment.EndDate,
+                Description = assignment.Description,
+                MemoryLimit = assignment.MemoryLimit,
+                TimeLimit = assignment.TimeLimit,
+                Languages = assignment.Languages,
+                ClassId = classId,
+                TestCases = assignment.TestCases,
+            };
+
+            assignmentDataService.AddAssignment(newAssignment);
+
+            ClassDataService classDataService = new ClassDataService(dbContext);
+            var c = classDataService.GetClassById(classId);
+            c.Assignments.Add(newAssignment);
+
+            await dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
