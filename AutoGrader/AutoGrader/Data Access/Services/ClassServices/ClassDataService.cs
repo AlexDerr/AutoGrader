@@ -5,6 +5,7 @@ using AutoGrader.Models;
 using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Users;
 using AutoGrader.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoGrader.DataAccess.Services.ClassServices
 {
@@ -19,7 +20,8 @@ namespace AutoGrader.DataAccess.Services.ClassServices
 
         public Class GetClassById(int id)
         {
-            return GetClasses().FirstOrDefault(e => e.Id == id);
+            return autoGraderDbContext.Classes.Include(c => c.Assignments)
+                .FirstOrDefault(e => e.Id == id);
         }
 
         public Class GetClassByKey(string key)

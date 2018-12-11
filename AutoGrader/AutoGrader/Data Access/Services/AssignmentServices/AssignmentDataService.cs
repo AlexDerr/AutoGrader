@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoGrader.Models;
 using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Submission;
 using AutoGrader.Models.ViewModels;
@@ -83,8 +84,25 @@ namespace AutoGrader.DataAccess
             a.TimeLimit = model.TimeLimit;
             a.ClassId = model.ClassId;
             a.TestCases = model.IO;
+            a.Languages = model.Languages;
 
             autoGraderDbContext.Assignments.Update(a);
+        }
+
+        public IEnumerable<Assignment> GetAssignmentsByInstructorId(int id)
+        {
+            IEnumerable<Class> classes = autoGraderDbContext.Classes.Where(f => f.InstructorId == id).Include(f => f.Assignments);
+            List<Assignment> assignments = new List<Assignment>();
+
+            foreach(var item in classes)
+            {
+                foreach(var ass in item.Assignments)
+                {
+                    assignments.Add(ass);
+                }
+            }
+
+            return assignments;
         }
     }
 }

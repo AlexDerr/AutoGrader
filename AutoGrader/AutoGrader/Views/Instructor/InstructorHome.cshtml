@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AutoGrader.Models.Class>
 
 @{
-    ViewData["Title"] = "InstructorHome";
+    ViewData["Title"] = "Instructor Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -42,8 +42,9 @@ function() {
                     </td>
                     <td>
                         <a asp-controller="Assignment" asp-action="CreateAssignment" asp-route-id="@item.Id">Add New Assignment</a> |
-                        <a asp-action="EditClass" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Instructor" asp-action="AddExistingAssignment" asp-route-classid="@item.Id" asp-route-instructorId="@ViewData["InstructorId"]">Add Existing Assignment</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="EditClass" asp-route-id="@item.Id">Edit</a> |
                         @Html.ActionLink(
                             "Delete",
                             "DeleteClass",

@@ -248,6 +248,12 @@ namespace ShellHelper
 
             return obj;
         }
+        
+        
+        public static void deleteJunkFiles(this Submission obj){
+            ("rm " + obj.SubmissionId + ".*").Bash();
+            ("rm " + obj.SubmissionId + "input.txt").Bash();
+        }
 
     }
 }
