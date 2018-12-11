@@ -155,6 +155,7 @@ namespace AutoGrader.Controllers
                 assignment.Submissions.Add(submission);
 
                 GraderMethod.GradeSubmission(submission, dbContext);
+                submission.Output.Runtime = assignment.TimeLimit;
 
                 if (submission.Compile())
                 {
