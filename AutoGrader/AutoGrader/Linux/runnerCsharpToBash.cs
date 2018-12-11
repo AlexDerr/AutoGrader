@@ -167,7 +167,8 @@ namespace ShellHelper
                             runTime = current.UserProcessorTime.TotalMilliseconds;
                             if(current.UserProcessorTime.TotalMilliseconds > obj.Output.Runtime || current.WorkingSet64/1000 > obj.Output.MemoryLimit){
                                 runTime = current.UserProcessorTime.TotalMilliseconds;
-                                current.Close();
+                                current.Kill();
+                                myProcess.Close();
                                 break;
                            }
                         }
@@ -217,6 +218,10 @@ namespace ShellHelper
                 obj.Output.TestCases[TestCaseNumber].Pass = true;
             }
             else{
+                obj.Output.TestCases[TestCaseNumber].Pass = false;
+            }
+
+            if(obj.Output.TestCases[TestCaseNumber].Runtime > obj.Output.Runtime) {
                 obj.Output.TestCases[TestCaseNumber].Pass = false;
             }
 
