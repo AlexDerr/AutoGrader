@@ -250,9 +250,9 @@ namespace ShellHelper
         }
         
         
-        public static deleteJunkFiles(this Submission obj){
-            ("rm " + obj.SubmissionId + ".*").bash();
-            ("rm " + obj.SubmissionId + "input.txt").bash();
+        public static void deleteJunkFiles(this Submission obj){
+            ("rm " + obj.SubmissionId + ".*").Bash();
+            ("rm " + obj.SubmissionId + "input.txt").Bash();
         }
 
     }
