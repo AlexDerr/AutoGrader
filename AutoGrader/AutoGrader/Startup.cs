@@ -38,6 +38,10 @@ namespace AutoGrader
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddEntityFrameworkNpgsql().AddDbContext<AutoGraderDbContext>(contextOptions => contextOptions.UseNpgsql(Configuration.GetConnectionString("Default")));
 
+            var connection = @"User ID=postgres;Password=postgres;Host=localhost;Port=5432;Database=autograderdb;Integrated Security=true; Pooling=true;";
+            services.AddDbContext<AutoGraderDbContext>
+                (options => options.UseSqlServer(connection));
+
             services.AddScoped<AssignmentDataService, AssignmentDataService>();
             services.AddScoped<Submission, Submission>();
         }

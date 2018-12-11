@@ -10,6 +10,7 @@ using AutoGrader.Models;
 using AutoGrader.DataAccess.Services.ClassServices;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace AutoGrader.Controllers
 {
@@ -55,9 +56,20 @@ namespace AutoGrader.Controllers
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
             Assignment assignment = assignmentDataService.GetAssignmentById(id);
 
-            IEnumerable<TestCaseSpecification> testCases = assignmentDataService.GetTestCases(assignment.Id);
-
-            AssignmentViewModel model = new AssignmentViewModel();
+            EditAssignmentViewModel model = new EditAssignmentViewModel()
+            {
+                ClassId = assignment.ClassId,
+                Description = assignment.Description,
+                EndDate = assignment.EndDate,
+                StartDate = assignment.StartDate,
+                Languages = assignment.Languages,
+                MemoryLimit = assignment.MemoryLimit,
+                Name = assignment.Name,
+                TestCase1Input = assignment.TestCases[0].Input,
+                TestCase1Output = assignment.TestCases[0].ExpectedOutput,
+                TestCase2Input = assignment.TestCases[1].Input,
+                TestCase2Output = assignment.TestCases[1].ExpectedOutput
+            };
 
             ViewData["AssignmentId"] = assignment.Id;
 
@@ -65,12 +77,12 @@ namespace AutoGrader.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAssignment(AssignmentViewModel model, int assignmentId)
+        public async Task<IActionResult> EditAssignment(EditAssignmentViewModel model, int assignmentId)
         {
 
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
             Assignment assignment = assignmentDataService.GetAssignmentById(assignmentId);
-            //assignmentDataService.UpdateAssignment(assignment, model);
+            assignmentDataService.UpdateAssignment(model, assignment);
 
             await dbContext.SaveChangesAsync();
 
@@ -115,6 +127,7 @@ namespace AutoGrader.Controllers
                 submission.Input.Language = input.Language;
                 submission.AssignmentId = input.AssignmentId;
                 submission.UserId = input.UserId;
+                submission.SubmissionTime = DateTime.Now;
 
                 SubmissionDataService submissionService = new SubmissionDataService(dbContext);
                 submissionService.AddSubmission(submission);
@@ -132,12 +145,16 @@ namespace AutoGrader.Controllers
                 {
                     submission.RunAndCompare();
                     submission.GradeTestCases();
+                    submission.MaxRunTime();
                 }
 
+                dbContext.Submissions.Update(submission);
                 dbContext.Assignments.Update(assignment);
-            }
 
-            await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
+
+                return RedirectToAction("SubmissionDetails", "Assignment", new { id = submission.SubmissionId });
+            }
 
             return RedirectToAction("StudentHome", "Student");
         }
@@ -153,7 +170,7 @@ namespace AutoGrader.Controllers
         public IActionResult ViewAllSubmissions(int assignmentId, int studentId)
         {
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            var submissions = assignmentDataService.GetStudentSubmissionsOnAssignment(studentId, assignmentId);
+            IEnumerable<Submission> submissions = assignmentDataService.GetStudentSubmissionsOnAssignment(studentId, assignmentId).Reverse();
             var assignmentName = assignmentDataService.GetAssignmentById(assignmentId).Name;
             ViewData["AssignmentName"] = assignmentName;
 
@@ -161,16 +178,6 @@ namespace AutoGrader.Controllers
             var student = studentDataService.GetStudentById(studentId);
             var name = student.FirstName + " " + student.LastName;
             ViewData["StudentName"] = name;
-
-            // TEST:
-            //Submission temp = new Submission()
-            //{
-            //    SubmissionId = 6969,
-            //    SubmissionTime = DateTime.Now,
-            //    Grade = 50,
-            //};
-
-            //submissions.Add(temp);
 
             return View(submissions);
         }
@@ -183,28 +190,6 @@ namespace AutoGrader.Controllers
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
             ViewData["AssignmentName"] = assignmentDataService.GetAssignmentById(submission.AssignmentId).Name;
 
-            // TEST:
-            //    ViewData["AssignmentName"] = "This dumb shit assignment";
-            //    Submission temp = new Submission()
-            //    {
-            //        UserId = 0,
-            //        SubmissionId = 6969,
-            //        SubmissionTime = DateTime.Now,
-            //        Grade = 50,
-            //    };
-
-            //    temp.Input.SourceCode = "int main()\n{\n\n}";
-            //    temp.Input.Language = "C++";
-
-            //    TestCaseReport test = new TestCaseReport();
-
-            //    test.Pass = false;
-
-            //    temp.Output.TestCases.Add(test);
-            //    temp.Output.TestCases.Add(test);
-
-            //    return View(temp);
-            //}
             return View(submission);
         }
     }

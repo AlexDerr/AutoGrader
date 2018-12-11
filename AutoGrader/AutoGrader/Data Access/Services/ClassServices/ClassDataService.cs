@@ -4,6 +4,7 @@ using System.Linq;
 using AutoGrader.Models;
 using AutoGrader.Models.Assignment;
 using AutoGrader.Models.Users;
+using AutoGrader.Models.ViewModels;
 
 namespace AutoGrader.DataAccess.Services.ClassServices
 {
@@ -76,6 +77,13 @@ namespace AutoGrader.DataAccess.Services.ClassServices
             {
                 autoGraderDbContext.StudentClasses.Remove(item);
             }
+        }
+
+        public void UpdateClass(EditClassViewModel model)
+        {
+            Class c = GetClassById(model.ClassId);
+            c.Name = model.Name;
+            autoGraderDbContext.Classes.Update(c);
         }
     }
 }

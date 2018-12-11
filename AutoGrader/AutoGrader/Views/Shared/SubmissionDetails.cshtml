@@ -17,13 +17,13 @@
             @ViewData["Assignmentname"]
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SubmissionId)
+            Submission ID
         </dt>
         <dd>
             @Html.DisplayFor(model => model.SubmissionId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SubmissionTime)
+            Submission Time
         </dt>
         <dd>
             @Html.DisplayFor(model => model.SubmissionTime)
@@ -47,7 +47,18 @@
             Runtime
         </dt>
         <dd>
-            @Model.Output.Runtime ms
+            @{
+                string text;
+                if (Model.Output.Runtime == -1)
+                {
+                    text = "Code did not compile.";
+                }
+                else
+                {
+                    text = Model.Output.Runtime + " ms";
+                }
+            }
+            @text
         </dd>
     </dl>
 </div>
@@ -58,7 +69,6 @@
             int i = 1;
             foreach (var test in Model.Output.TestCases)
             {
-                string text;
                 @if (test.Pass)
                 {
                     text = "Pass";
@@ -87,7 +97,7 @@
         <textarea draggable="false" readonly="readonly" rows="8" style="width:100%; resize:none;">@Model.Output.CompileOutput</textarea>
     </div>
 }
-<h4>Source Code</h4>
+<h4>Source Code (@Model.Input.Language)</h4>
 <div>
-    <textarea draggable="false" readonly="readonly" rows="15" style="width:100%; resize:none;">@Model.Input.SourceCode</textarea>
+    <textarea draggable="false" readonly="readonly" rows="15" style="width:100%; resize:none; font-family: 'Courier New'">@Model.Input.SourceCode</textarea>
 </div>
