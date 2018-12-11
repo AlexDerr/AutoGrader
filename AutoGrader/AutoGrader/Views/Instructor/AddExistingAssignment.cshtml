@@ -1,0 +1,67 @@
+﻿@model IEnumerable<AutoGrader.Models.Assignment.Assignment>
+
+@{
+    ViewData["Title"] = "Add Existing Assignment to " + ViewData["ClassName"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Existing Assignment to @ViewData["ClassName"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemoryLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Languages)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemoryLimit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeLimit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Languages)
+            </td>
+            <td>
+                <a asp-controller="Instructor" asp-action="AddSelectedAssignment" asp-route-classId="@ViewData["ClassId"]" asp-route-assignmentId="@item.Id">Select</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
