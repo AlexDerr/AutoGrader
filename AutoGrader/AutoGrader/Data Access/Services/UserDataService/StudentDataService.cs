@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoGrader.Models;
 using AutoGrader.Models.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoGrader.DataAccess
 {
@@ -17,7 +18,9 @@ namespace AutoGrader.DataAccess
 
         public Student GetStudentById(int id)
         {
-            return GetStudents().FirstOrDefault(e => e.Id == id);
+            return autoGraderDbContext.Students
+                .Include(s => s.StudentClasses)
+                .FirstOrDefault(e => e.Id == id);
         }
 
         public Student GetStudentByUsername(string username)

@@ -11,6 +11,8 @@ using AutoGrader.DataAccess.Services.ClassServices;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using AutoGrader.Models.Users;
+using Microsoft.AspNetCore.Identity;
 
 namespace AutoGrader.Controllers
 {
@@ -110,7 +112,8 @@ namespace AutoGrader.Controllers
             {
                 AssignmentId = Id,
                 Language = assignment.Languages[0],
-                UserId = studentId
+                UserId = studentId,
+                ClassId = assignment.ClassId
             };
 
             return View(model);
@@ -119,7 +122,22 @@ namespace AutoGrader.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitAssignment(SubmissionInputViewModel input)
         {
-            if (ModelState.IsValid)
+            StudentDataService studentDataService = new StudentDataService(dbContext);
+            Student student = studentDataService.GetStudentById(input.UserId);
+
+            bool hasAccess = false;
+
+            foreach(StudentClass studentClass in student.StudentClasses)
+            {
+                if(studentClass.ClassId == input.ClassId)
+                {
+                    hasAccess = true;
+                }
+            }
+
+
+
+            if (ModelState.IsValid && hasAccess)
             {
                 Submission submission = new Submission();
 
