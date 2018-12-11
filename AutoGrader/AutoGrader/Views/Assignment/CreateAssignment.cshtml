@@ -88,16 +88,15 @@
                     for (var i = 0; i < x; i++) {
                         temp +=
                             '<div class="form-group">' +
-                            '<label class="control-label" for="TestCases"> Test Case Input ' + (i + 1) + '</label>' +
-                            '<input class="form-control" type="text" id="TestCases_' + i + '_" name="TestCases[' + i + '].Input" value>' +
+                            '<label class="control-label" for="TestCases_' + i + '__Input"> Test Case Input ' + (i + 1) + '</label>' +
+                            '<textarea class="form-control" style="height: 100px; width: 200px" id="TestCases_' + i + '__Input" name="TestCases[' + i + '].Input"> </textarea>' +
                             '<span class="text-danger field-validation-valid" data-valmsg-for="TestCases" data-valmsg-replace="true"></span>' +
                             '</div>' +
                             '<div class="form-group">' +
-                            '<label class="control-label" for="TestCases"> Test Case Output ' + (i + 1) + '</label>' +
-                            '<input class="form-control" type="text" id="TestCases_' + i + '_" name="TestCases[' + i + '].ExpectedOutput" value>' +
+                            '<label class="control-label" for="TestCases_' + i + '__ExpectedOutput"> Test Case Output ' + (i + 1) + '</label>' +
+                            '<textarea class="form-control" style="height: 100px; width: 200px" id="TestCases_' + i + '__ExpectedOutput" name="TestCases[' + i + '].ExpectedOutput"> </textarea>' +
                             '<span class="text-danger field-validation-valid" data-valmsg-for="TestCases" data-valmsg-replace="true"></span>' +
                             '</div>';
-
                     }
                     document.getElementById("TestCaseList").innerHTML = temp;
                 }
