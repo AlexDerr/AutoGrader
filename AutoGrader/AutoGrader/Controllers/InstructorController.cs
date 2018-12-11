@@ -136,5 +136,25 @@ namespace AutoGrader.Controllers
 
             return View(students);
         }
+
+        public IActionResult InstructorAssignmentDetails(int id)
+        {
+            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
+            var assignment = assignmentDataService.GetAssignmentById(id);
+
+            return View(assignment);
+        }
+
+        //public IActionResult AddExistingAssignment(int classId)
+        //{
+        //    ClassDataService classDataService = new ClassDataService(dbContext);
+        //    var c = classDataService.GetClassById(classId);
+
+        //    var assingments = 
+
+        //    ViewData["ClassName"] = c.Name;
+
+        //    return View(c);
+        //}
     }
 }
