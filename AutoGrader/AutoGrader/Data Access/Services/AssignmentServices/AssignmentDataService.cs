@@ -83,6 +83,7 @@ namespace AutoGrader.DataAccess
             a.TimeLimit = model.TimeLimit;
             a.ClassId = model.ClassId;
             a.TestCases = model.IO;
+            a.Languages = model.Languages;
 
             autoGraderDbContext.Assignments.Update(a);
         }
