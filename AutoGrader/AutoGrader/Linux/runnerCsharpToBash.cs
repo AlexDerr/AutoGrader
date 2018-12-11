@@ -96,7 +96,7 @@ namespace ShellHelper
         }
 
         public static bool IsCompiled(this Submission obj){
-            if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionId + " | wc -l").Bash() ) >= 2){
+            if ( System.Convert.ToInt32( ("ls | grep ^" + obj.SubmissionId + ". | wc -l").Bash() ) >= 2){
                 obj.Output.Compiled = true;
             }
             else {
