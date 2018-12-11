@@ -11,55 +11,134 @@
 <hr />
 <div class="row">
 	<div class="col-md-4">
-		<form asp-action="EditAssignment">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
-				<label asp-for="Name" class="control-label"></label>
-				<input asp-for="Name" class="form-control" />
-				<span asp-validation-for="Name" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="StartDate" class="control-label"></label>
-				<input asp-for="StartDate" class="form-control" />
-				<span asp-validation-for="StartDate" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="EndDate" class="control-label"></label>
-				<input asp-for="EndDate" class="form-control" />
-				<span asp-validation-for="EndDate" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Description" class="control-label"></label>
-				<input asp-for="Description" class="form-control" />
-				<span asp-validation-for="Description" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="MemoryLimit" class="control-label"></label>
-				<input asp-for="MemoryLimit" class="form-control" />
-				<span asp-validation-for="MemoryLimit" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="TimeLimit" class="control-label"></label>
-				<input asp-for="TimeLimit" class="form-control" />
-				<span asp-validation-for="TimeLimit" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label class="control-label">Languages</label><br/>
-				<select asp-for="Languages" class="form-control" style="color: black">
-					<option value="C">C</option>
-					<option value="C++">C++</option>
-					<option value="Java">Java</option>
-				</select>
-				<span asp-validation-for="Languages" class="text-danger"></span>
-			</div>
-			<div class="hidden">
-				<label asp-for="ClassId" class="control-label"></label>
-				<textarea asp-for="ClassId" class="form-control">@Model.ClassId</textarea>
-			</div>
-			<div class="form-group">
-				<button class="btn btn-default" asp-controller="Instructor" asp-action="Details" asp-route-id="@Model.ClassId" style="margin-right: 15px">Cancel</button>
-				<input type="submit" value="Save" class="btn btn-default" asp-route-assignmentId="@ViewData["AssignmentId"]" />
-			</div>
-		</form>
-	</div>
+        <form asp-action="EditAssignment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemoryLimit" class="control-label"></label>
+                <input asp-for="MemoryLimit" class="form-control" />
+                <span asp-validation-for="MemoryLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLimit" class="control-label"></label>
+                <input asp-for="TimeLimit" class="form-control" />
+                <span asp-validation-for="TimeLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Languages</label><br />
+                <select asp-for="Languages" class="form-control" style="color: black">
+                    <option value="C">C</option>
+                    <option value="C++">C++</option>
+                    <option value="Java">Java</option>
+                </select>
+                <span asp-validation-for="Languages" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="TestCase1Input" class="control-label"></label>
+                <input asp-for="TestCase1Input" class="form-control" />
+                <span asp-validation-for="TestCase1Input" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TestCase1Output" class="control-label"></label>
+                <input asp-for="TestCase1Output" class="form-control" />
+                <span asp-validation-for="TestCase1Output" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TestCase2Input" class="control-label"></label>
+                <input asp-for="TestCase2Input" class="form-control" />
+                <span asp-validation-for="TestCase2Input" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TestCase2Output" class="control-label"></label>
+                <input asp-for="TestCase2Output" class="form-control" />
+                <span asp-validation-for="TestCase2Output" class="text-danger"></span>
+            </div>*@
+
+            @*@{
+            for (int i = 0; i < Model.TestCases.Count; i++)
+            {
+            int j = i + 1;
+            <div class="form-group">
+                <label asp-for="TestCases[i].Input" class="control-label">Input @j</label>
+                <textarea asp-for="TestCases[i].Input" class="form-control" style="height: 100px; width: 200px"></textarea>
+                <span asp-validation-for="TestCases" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TestCases[i].ExpectedOutput" class="control-label">Output @j</label>
+                <textarea asp-for="TestCases[i].ExpectedOutput" class="form-control" style="height: 100px; width: 200px"></textarea>
+                <span asp-validation-for="TestCases" class="text-danger"></span>
+            </div>
+            }
+            }*@
+
+            <div class="form-group">
+                <label asp-for="NumberOfTestCases" class="control-label"></label>
+                <input asp-for="NumberOfTestCases" class="form-control" onchange="TestCasesOnChange()" id="NumberOfTestCases" />
+                <span asp-validation-for="NumberOfTestCases" class="text-danger"></span>
+            </div>
+
+            <div id="TestCaseList" onchange="TestCaseListChange()">
+            </div>
+
+            <script type="text/javascript">
+                function TestCasesOnChange() {
+                    var x = document.getElementById("NumberOfTestCases").value;
+                    var temp = "";
+                    for (var i = 0; i < x; i++) {
+                        temp +=
+                            '<div class="form-group">' +
+                            '<label class="control-label" for="TestCases_' + i + '__Input"> Test Case Input ' + (i + 1) + '</label>' +
+                            '<textarea class="form-control" style="height: 100px; width: 200px" id="TestCases_' + i + '__Input" name="TestCases[' + i + '].Input"> </textarea>' +
+                            '<span class="text-danger field-validation-valid" data-valmsg-for="TestCases" data-valmsg-replace="true"></span>' +
+                            '</div>' +
+                            '<div class="form-group">' +
+                            '<label class="control-label" for="TestCases_' + i + '__ExpectedOutput"> Test Case Output ' + (i + 1) + '</label>' +
+                            '<textarea class="form-control" style="height: 100px; width: 200px" id="TestCases_' + i + '__ExpectedOutput" name="TestCases[' + i + '].ExpectedOutput"> </textarea>' +
+                            '<span class="text-danger field-validation-valid" data-valmsg-for="TestCases" data-valmsg-replace="true"></span>' +
+                            '</div>';
+                    }
+                    document.getElementById("TestCaseList").innerHTML = temp;
+                }
+                TestCasesOnChange();
+                function TestCaseListChange() {
+                    var x = document.getElementById("NumberOfTestCases").value;
+                    var temp, i, testss;
+                    for (i = 0; i < x; i++) {
+                        temp = 'TestCases_' + i + '__Input';
+                        testss = 'Model.TestCases[' + i + '].Input';
+                    }
+                }
+                TestCaseListChange();
+            </script>
+
+
+            <div class="hidden">
+                <label asp-for="ClassId" class="control-label"></label>
+                <textarea asp-for="ClassId" class="form-control">@Model.ClassId</textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" asp-controller="Instructor" asp-action="Details" asp-route-id="@Model.ClassId" style="margin-right: 15px">Cancel</button>
+                <input type="submit" value="Save" class="btn btn-default" asp-route-assignmentId="@ViewData[" AssignmentId"]" />
+            </div>
+        </form>
+</div>
 </div>

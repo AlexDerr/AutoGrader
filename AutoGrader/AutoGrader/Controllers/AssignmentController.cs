@@ -67,10 +67,12 @@ namespace AutoGrader.Controllers
                 Languages = assignment.Languages,
                 MemoryLimit = assignment.MemoryLimit,
                 Name = assignment.Name,
-                TestCase1Input = assignment.TestCases[0].Input,
-                TestCase1Output = assignment.TestCases[0].ExpectedOutput,
-                TestCase2Input = assignment.TestCases[1].Input,
-                TestCase2Output = assignment.TestCases[1].ExpectedOutput
+                NumberOfTestCases = assignment.TestCases.Count,
+                TestCases = assignment.TestCases
+                //TestCase1Input = assignment.TestCases[0].Input,
+                //TestCase1Output = assignment.TestCases[0].ExpectedOutput,
+                //TestCase2Input = assignment.TestCases[1].Input,
+                //TestCase2Output = assignment.TestCases[1].ExpectedOutput
             };
 
             ViewData["AssignmentId"] = assignment.Id;
