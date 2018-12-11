@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoGrader.DataAccess.Services.ClassServices;
 using AutoGrader.Models;
@@ -60,6 +61,14 @@ namespace AutoGrader.DataAccess.Services
 
             autoGraderDbContext.Students.Update(student);
             autoGraderDbContext.Classes.Update(c);
+        }
+
+        public bool InClass(Student student, Class c)
+        {
+            if (autoGraderDbContext.StudentClasses.FirstOrDefault(e => e.StudentId == student.Id && e.ClassId == c.Id) != null)
+                return true;
+            else
+                return false;
         }
 
         public IEnumerable<Student> GetStudentsByClassid(int classId)
