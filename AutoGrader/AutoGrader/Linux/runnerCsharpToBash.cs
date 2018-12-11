@@ -167,7 +167,7 @@ namespace ShellHelper
                             runTime = current.UserProcessorTime.TotalMilliseconds;
                             if(current.UserProcessorTime.TotalMilliseconds > obj.Output.Runtime || current.WorkingSet64/1000 > obj.Output.MemoryLimit){
                                 runTime = current.UserProcessorTime.TotalMilliseconds;
-                                myProcess.Close();
+                                current.Close();
                                 break;
                            }
                         }
