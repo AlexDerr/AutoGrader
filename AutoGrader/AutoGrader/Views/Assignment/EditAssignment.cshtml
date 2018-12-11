@@ -52,42 +52,6 @@
 				</select>
 				<span asp-validation-for="Languages" class="text-danger"></span>
 			</div>
-			<div class="form-group">
-				<label asp-for="TestCase1Input" class="control-label"></label>
-				<input asp-for="TestCase1Input" class="form-control" />
-				<span asp-validation-for="TestCase1Input" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="TestCase1Output" class="control-label"></label>
-				<input asp-for="TestCase1Output" class="form-control" />
-				<span asp-validation-for="TestCase1Output" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="TestCase2Input" class="control-label"></label>
-				<input asp-for="TestCase2Input" class="form-control" />
-				<span asp-validation-for="TestCase2Input" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="TestCase2Output" class="control-label"></label>
-				<input asp-for="TestCase2Output" class="form-control" />
-				<span asp-validation-for="TestCase2Output" class="text-danger"></span>
-			</div>
-			@*@{
-			for (int i = 0; i < Model.TestCases.Count; i++)
-			{
-				int j = i + 1;
-				<div class="form-group">
-					<label asp-for="TestCases[i].Input" class="control-label">Input @j</label>
-					<textarea asp-for="TestCases[i].Input" class="form-control" style="height: 100px; width: 200px"></textarea>
-					<span asp-validation-for="TestCases" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="TestCases[i].ExpectedOutput" class="control-label">Output @j</label>
-					<textarea asp-for="TestCases[i].ExpectedOutput" class="form-control" style="height: 100px; width: 200px"></textarea>
-					<span asp-validation-for="TestCases" class="text-danger"></span>
-				</div>
-			}
-		}*@
 			<div class="hidden">
 				<label asp-for="ClassId" class="control-label"></label>
 				<textarea asp-for="ClassId" class="form-control">@Model.ClassId</textarea>
