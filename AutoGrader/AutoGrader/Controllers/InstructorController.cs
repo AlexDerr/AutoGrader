@@ -98,7 +98,7 @@ namespace AutoGrader.Controllers
             Class c = classDataService.GetClassById(id);
 
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            var list = assignmentDataService.GetAssignments().Where(e => e.ClassId == c.Id);
+            var list = assignmentDataService.GetAssignments().Where(e => e.ClassId == c.Id).Reverse();
             ViewData["Assignments"] = list;
 
             return View(c);
@@ -148,7 +148,7 @@ namespace AutoGrader.Controllers
         public IActionResult AddExistingAssignment(int classId, int instructorId)
         {
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            var assignments = assignmentDataService.GetAssignmentsByInstructorId(instructorId);
+            var assignments = assignmentDataService.GetAssignmentsByInstructorId(instructorId).Reverse();
 
             ClassDataService classDataService = new ClassDataService(dbContext);
             var c = classDataService.GetClassById(classId);
