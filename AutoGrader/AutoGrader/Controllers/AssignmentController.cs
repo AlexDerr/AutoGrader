@@ -168,6 +168,8 @@ namespace AutoGrader.Controllers
 
                 await dbContext.SaveChangesAsync();
 
+                submission.deleteJunkFiles();
+
                 return RedirectToAction("SubmissionDetails", "Assignment", new { id = submission.SubmissionId });
             }
 
