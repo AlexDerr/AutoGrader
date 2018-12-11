@@ -135,8 +135,6 @@ namespace AutoGrader.Controllers
                 }
             }
 
-
-
             if (ModelState.IsValid && hasAccess)
             {
                 Submission submission = new Submission();
@@ -174,7 +172,7 @@ namespace AutoGrader.Controllers
                 return RedirectToAction("SubmissionDetails", "Assignment", new { id = submission.SubmissionId });
             }
 
-            return RedirectToAction("StudentHome", "Student");
+            return RedirectToAction("UnAuthorized", "Home");
         }
 
         public IActionResult AssignmentDetails(int id)
