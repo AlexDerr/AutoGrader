@@ -20,13 +20,10 @@
                 End Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Memory Limit
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MemoryLimit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLimit)
+                Time Limit
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Languages)
@@ -47,9 +44,6 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.MemoryLimit)
             </td>
             <td>
@@ -59,6 +53,7 @@
                 @Html.DisplayFor(modelItem => item.Languages)
             </td>
             <td>
+                <a asp-controller="Instructor" asp-action="InstructorAssignmentDetails" asp-route-id="@item.Id">Details</a> |
                 <a asp-controller="Instructor" asp-action="AddSelectedAssignment" asp-route-classId="@ViewData["ClassId"]" asp-route-assignmentId="@item.Id">Select</a>
             </td>
         </tr>
