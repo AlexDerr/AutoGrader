@@ -77,7 +77,7 @@ namespace AutoGrader.Controllers
             return View(assignments);
         }
 
-        public async Task<IActionResult> LeaveClass(int classId)
+        public async Task<IActionResult> LeaveClass(bool confirm, int classId)
         {
             StudentClassDataService studentClassDataService = new StudentClassDataService(dbContext);
 
