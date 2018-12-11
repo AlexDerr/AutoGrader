@@ -83,7 +83,12 @@ namespace AutoGrader.DataAccess
             a.MemoryLimit = model.MemoryLimit;
             a.TimeLimit = model.TimeLimit;
             a.ClassId = model.ClassId;
-            a.TestCases = model.IO;
+            a.TestCases.RemoveAll(item => item.ID > 0);
+            foreach(var item in model.TestCases)
+            {
+                item.AssignmentId = a.Id;
+                a.TestCases.Add(item);
+            }
             a.Languages = model.Languages;
 
             autoGraderDbContext.Assignments.Update(a);

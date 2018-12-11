@@ -1,87 +1,93 @@
 ﻿@model AutoGrader.Models.Assignment.Assignment
 
 @{
-    ViewData["Title"] = "Details for " + Model.Name;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Details for " + Model.Name;
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Details for @Model.Name</h2>
 
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            Start date
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt>
-            End Date
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            Memory Limit
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MemoryLimit)
-        </dd>
-        <dt>
-            Time Limit
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TimeLimit)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Languages)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Languages)
-        </dd>
-    </dl>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+		<dt>
+			Start date
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.StartDate)
+		</dd>
+		<dt>
+			End Date
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.EndDate)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+		<dt>
+			Memory Limit
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.MemoryLimit)
+		</dd>
+		<dt>
+			Time Limit
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.TimeLimit)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Languages)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Languages)
+		</dd>
+	</dl>
 </div>
 <br />
 <div>
-    <h4>Test Cases</h4>
-    <table cellspacing="500">
-        @{
-            int i = 1;
-            foreach (var item in Model.TestCases)
-            {
-                <tr>
-                    <td>
-                        <label class="control-label">Test Case @i Input</label>
-                    </td>
-                    <td>
-                        <label class="control-label">Test Case @i  Output</label>
-                    </td>
-                </tr>
+	<h4>Test Cases</h4>
+	<table cellspacing="500">
+		@{
+			int i = 1;
+			foreach (var item in Model.TestCases)
+			{
+				<tr>
+					<td>
+						<label class="control-label">Test Case @i Input</label>
+					</td>
+					<td>
+						<label class="control-label">Test Case @i  Output</label>
+					</td>
+					<td>
+						<label class="control-label">Test Case @i  Feedback</label>
+					</td>
+				</tr>
 
-                <tr>
-                    <td>
-                        <textarea draggable="false" readonly="readonly" rows="5" style="resize:none; margin-right:10px;" disabled="disabled">@item.Input</textarea>
-                    </td>
-                    <td>
-                        <textarea draggable="false" readonly="readonly" rows="5" style="resize:none;" disabled="disabled">@item.ExpectedOutput</textarea>
-                    </td>
-                </tr>
-                i++;
-            }
-        }
-    </table>
+				<tr>
+					<td>
+						<textarea draggable="false" readonly="readonly" rows="5" style="resize:none; margin-right:10px;" disabled="disabled">@item.Input</textarea>
+					</td>
+					<td>
+						<textarea draggable="false" readonly="readonly" rows="5" style="resize:none; margin-right:10px;" disabled="disabled">@item.ExpectedOutput</textarea>
+					</td>
+					<td>
+						<textarea draggable="false" readonly="readonly" rows="5" style="resize:none; margin-right:10px;" disabled="disabled">@item.Feedback</textarea>
+					</td>
+				</tr>
+				i++;
+			}
+		}
+	</table>
 </div>
 
