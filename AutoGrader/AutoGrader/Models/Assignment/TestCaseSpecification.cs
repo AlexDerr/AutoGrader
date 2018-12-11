@@ -6,6 +6,13 @@
         {
         }
 
+        public TestCaseSpecification(TestCaseSpecification test)
+        {
+            this.Input = test.Input;
+            this.ExpectedOutput = test.ExpectedOutput;
+            this.Feedback = test.Feedback;
+        }
+
         public TestCaseSpecification(string Input, string Output)
         {
             this.Input = Input;
