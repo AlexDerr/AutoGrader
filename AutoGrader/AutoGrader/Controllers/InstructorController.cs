@@ -175,10 +175,17 @@ namespace AutoGrader.Controllers
                 TimeLimit = assignment.TimeLimit,
                 Languages = assignment.Languages,
                 ClassId = classId,
-                TestCases = assignment.TestCases,
             };
 
             assignmentDataService.AddAssignment(newAssignment);
+
+            foreach (var test in assignment.TestCases)
+            {
+                var testCase = new TestCaseSpecification(test);
+                testCase.AssignmentId = newAssignment.Id;
+
+                newAssignment.TestCases.Add(testCase);
+            }
 
             ClassDataService classDataService = new ClassDataService(dbContext);
             var c = classDataService.GetClassById(classId);

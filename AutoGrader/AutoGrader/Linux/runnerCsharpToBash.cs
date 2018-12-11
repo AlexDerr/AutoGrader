@@ -96,7 +96,7 @@ namespace ShellHelper
         }
 
         public static bool IsCompiled(this Submission obj){
-            if ( System.Convert.ToInt32( ("ls | grep " + obj.SubmissionId + " | wc -l").Bash() ) >= 2){
+            if ( System.Convert.ToInt32( ("ls | grep ^" + obj.SubmissionId + ". | wc -l").Bash() ) >= 2){
                 obj.Output.Compiled = true;
             }
             else {
@@ -167,7 +167,7 @@ namespace ShellHelper
                             runTime = current.UserProcessorTime.TotalMilliseconds;
                             if(current.UserProcessorTime.TotalMilliseconds > obj.Output.Runtime || current.WorkingSet64/1000 > obj.Output.MemoryLimit){
                                 runTime = current.UserProcessorTime.TotalMilliseconds;
-                                myProcess.Close();
+                                current.Close();
                                 break;
                            }
                         }
