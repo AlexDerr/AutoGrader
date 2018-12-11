@@ -30,7 +30,7 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="Description" class="control-label"></label>
-				<input asp-for="Description" class="form-control" />
+				<textarea asp-for="Description" class="form-control" style="height: 120px; width: 300px"></textarea>
 				<span asp-validation-for="Description" class="text-danger"></span>
 			</div>
 			<div class="form-group">
@@ -69,17 +69,17 @@
                         temp +=
                             '<div class="form-group">' +
                             '<label class="control-label" for="TestCases_' + i + '__Input"> Test Case ' + (i + 1) + ' Input</label>' +
-                            '<textarea class="form-control" style="height: 100px; width: 200px" id="TestCases_' + i + '__Input" name="TestCases[' + i + '].Input"> </textarea>' +
+                            '<textarea class="form-control" style="height: 120px; width: 200px" id="TestCases_' + i + '__Input" name="TestCases[' + i + '].Input"> </textarea>' +
                             '<span class="text-danger field-validation-valid" data-valmsg-for="TestCases" data-valmsg-replace="true"></span>' +
                             '</div>' +
                             '<div class="form-group">' +
                             '<label class="control-label" for="TestCases_' + i + '__ExpectedOutput"> Test Case ' + (i + 1) + ' Output</label>' +
-                            '<textarea class="form-control" style="height: 100px; width: 200px" id="TestCases_' + i + '__ExpectedOutput" name="TestCases[' + i + '].ExpectedOutput"> </textarea>' +
+                            '<textarea class="form-control" style="height: 120px; width: 200px" id="TestCases_' + i + '__ExpectedOutput" name="TestCases[' + i + '].ExpectedOutput"> </textarea>' +
                             '<span class="text-danger field-validation-valid" data-valmsg-for="TestCases" data-valmsg-replace="true"></span>' +
                             '</div>' +
 							'<div class="form-group">' +
 							'<label class="control-label" for="Feedback"> Feedback for Test Case ' + (i + 1) + '</label>' +
-							'<textarea class="form-control" type="text" id="Feedbackl_' + i + '_" name="TestCases[' + i + '].Feedback"></textarea>' +
+							'<textarea class="form-control" style="height: 120px; width: 300px" type="text" id="Feedbackl_' + i + '_" name="TestCases[' + i + '].Feedback"></textarea>' +
 							'<span class="text-danger field-validation-valid" data-valmsg-for="TestCases" data-valmsg-replace="true"></span>' +
 							'</div>';
                     }
@@ -92,7 +92,7 @@
 				<textarea asp-for="ClassId" class="form-control">@Model.ClassId</textarea>
 			</div>
 			<div class="form-group">
-				<button class="btn btn-default" asp-controller="Instructor" asp-action="Details" asp-route-id="@Model.ClassId" style="margin-right: 15px">Cancel</button>
+				<button class="btn btn-default" asp-controller="Home" asp-action="Index" asp-route-id="@Model.ClassId" style="margin-right: 15px">Cancel</button>
 				<input type="submit" value="Create" class="btn btn-default" />
 			</div>
 		</form>
