@@ -52,14 +52,17 @@ namespace AutoGrader.Controllers
 
             Class c = classDataService.GetClassByKey(ClassKey);
 
-            StudentClassDataService studentClassDataService = new StudentClassDataService(dbContext);
-            bool inClass = studentClassDataService.InClass(student, c);
 
-            if (c != null && !inClass)
+            if (c != null)
             {
-                studentClassDataService.AddStudentClass(student, c);
+                StudentClassDataService studentClassDataService = new StudentClassDataService(dbContext);
+                bool inClass = studentClassDataService.InClass(student, c);
 
-                await dbContext.SaveChangesAsync();
+                if (!inClass)
+                {
+                    studentClassDataService.AddStudentClass(student, c);
+                    await dbContext.SaveChangesAsync();
+                }
             }
 
             return RedirectToAction("StudentHome", "Student");
