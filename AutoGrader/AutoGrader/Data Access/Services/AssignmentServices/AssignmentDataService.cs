@@ -46,7 +46,7 @@ namespace AutoGrader.DataAccess
         }
 
 
-        public List<Submission> GetStudentSubmissionsOnAssignment(int studentId, int assignmentId)
+        public IEnumerable<Submission> GetStudentSubmissionsOnAssignment(int studentId, int assignmentId)
         {
             return autoGraderDbContext.Submissions.Where(s => s.UserId == studentId)
             .Where(a => a.AssignmentId == assignmentId)

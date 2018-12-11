@@ -10,6 +10,7 @@ using AutoGrader.Models;
 using AutoGrader.DataAccess.Services.ClassServices;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace AutoGrader.Controllers
 {
@@ -169,7 +170,7 @@ namespace AutoGrader.Controllers
         public IActionResult ViewAllSubmissions(int assignmentId, int studentId)
         {
             AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            var submissions = assignmentDataService.GetStudentSubmissionsOnAssignment(studentId, assignmentId);
+            IEnumerable<Submission> submissions = assignmentDataService.GetStudentSubmissionsOnAssignment(studentId, assignmentId).Reverse();
             var assignmentName = assignmentDataService.GetAssignmentById(assignmentId).Name;
             ViewData["AssignmentName"] = assignmentName;
 
