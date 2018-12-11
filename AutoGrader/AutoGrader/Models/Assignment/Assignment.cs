@@ -28,8 +28,9 @@ namespace AutoGrader.Models.Assignment
             this.TimeLimit = model.TimeLimit;
             this.Languages = model.Languages;
             this.ClassId = model.ClassId;
-            this.TestCases.Add(new TestCaseSpecification(model.TestCase1Input, model.TestCase1Output));
-            this.TestCases.Add(new TestCaseSpecification(model.TestCase2Input, model.TestCase2Output));
+            this.TestCases = model.TestCases;
+//            this.TestCases.Add(new TestCaseSpecification(model.TestCase1Input, model.TestCase1Output));
+//            this.TestCases.Add(new TestCaseSpecification(model.TestCase2Input, model.TestCase2Output));
         }
 
         public int Id { get; set; }
