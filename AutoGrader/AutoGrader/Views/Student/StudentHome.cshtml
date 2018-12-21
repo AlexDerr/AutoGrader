@@ -29,14 +29,13 @@
 						@Html.DisplayFor(modelItem => item.Name)
 					</td>
                     <td>
-                        <a asp-action="ViewAssignments" asp-route-classId="@item.Id">View Assignments</a> |
+                        <a asp-controller="Assignment" asp-action="ViewAssignments" asp-route-classId="@item.Id">View Assignments</a> |
                         @Html.ActionLink(
                             "Delete",
                             "LeaveClass",
                             "Student",
                             new { confirm = true, classId = item.Id },
                             new { onclick = "return confirm('Are you sure you want to leave this class?')" })
-                        @*<a asp-action="LeaveClass" asp-route-classId="@item.Id">Leave Class</a>*@
                     </td>
 				</tr>
 			}

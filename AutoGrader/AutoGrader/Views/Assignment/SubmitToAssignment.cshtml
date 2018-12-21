@@ -1,0 +1,41 @@
+﻿@model AutoGrader.Models.ViewModels.SubmissionInputViewModel
+
+@{
+    ViewData["Title"] = "Submit Assignemnt";
+}
+
+<h2>Submit Assignment</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SubmitToAssignment" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SourceCode" class="control-label"></label>
+                (@Model.Language)
+                <textarea asp-for="SourceCode" class="form-control" style="height: 400px; width: 500px; font-family: 'Courier New'"></textarea>
+                <span asp-validation-for="SourceCode" class="text-danger"></span>
+            </div>
+            <div class="hidden">
+                <label asp-for="AssignmentId" class="control-label"></label>
+                <textarea asp-for="AssignmentId" class="form-control">@Model.AssignmentId</textarea>
+            </div>
+            <div class="hidden">
+                <label asp-for="Language" class="control-label"></label>
+                <textarea asp-for="Language" class="form-control">@Model.Language</textarea>
+            </div>
+            <div class="hidden">
+                <label asp-for="UserId" class="control-label"></label>
+                <textarea asp-for="UserId" class="form-control">@Model.UserId</textarea>
+            </div>
+            <div class="hidden">
+                <label asp-for="ClassId" class="control-label"></label>
+                <textarea asp-for="ClassId" class="form-control">@Model.ClassId</textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>

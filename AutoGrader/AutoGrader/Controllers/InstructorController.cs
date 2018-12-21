@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoGrader.DataAccess;
-using AutoGrader.Models.Assignment;
 using AutoGrader.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using AutoGrader.Models;
 using AutoGrader.Models.Users;
 using AutoGrader.DataAccess.Services.ClassServices;
-using AutoGrader.DataAccess.Services;
-using AutoGrader.Models.Submission;
 
 namespace AutoGrader.Controllers
 {
@@ -92,7 +89,7 @@ namespace AutoGrader.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Details(int id)
+        public IActionResult ClassDetails(int id)
         {
             ClassDataService classDataService = new ClassDataService(dbContext);
             Class c = classDataService.GetClassById(id);
@@ -102,98 +99,6 @@ namespace AutoGrader.Controllers
             ViewData["Assignments"] = list;
 
             return View(c);
-        }
-
-        public IActionResult InstructorGradeByAssignment(int id)
-        {
-            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            Assignment assignment = assignmentDataService.GetAssignmentById(id);
-
-            ViewData["Title"] = "Grades: " + assignment.Name;
-            ViewData["AssignmentName"] = assignment.Name;
-            ViewData["AssignmentId"] = assignment.Id;
-
-            ClassDataService classDataService = new ClassDataService(dbContext);
-            Class c = classDataService.GetClassById(assignment.ClassId);
-
-
-            StudentClassDataService studentDataService = new StudentClassDataService(dbContext);
-            var students = studentDataService.GetStudentsByClassid(c.Id);
-
-            foreach (var student in students)
-            {
-                var result = assignmentDataService.GetTopSubmissionForStudent(assignment.Id, student.Id);
-
-                if (result == null)
-                {
-                    ViewData[student.FirstName + student.LastName] = 0.0;
-                }
-                else
-                {
-                    ViewData[student.FirstName + student.LastName] = result.Grade;
-                }
-            }
-
-            return View(students);
-        }
-
-        public IActionResult InstructorAssignmentDetails(int id)
-        {
-            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            var assignment = assignmentDataService.GetAssignmentById(id);
-
-            return View(assignment);
-        }
-
-        public IActionResult AddExistingAssignment(int classId, int instructorId)
-        {
-            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            var assignments = assignmentDataService.GetAssignmentsByInstructorId(instructorId).Reverse();
-
-            ClassDataService classDataService = new ClassDataService(dbContext);
-            var c = classDataService.GetClassById(classId);
-            ViewData["ClassName"] = c.Name;
-            ViewData["ClassId"] = c.Id;
-
-            return View(assignments);
-        }
-
-        public async Task<IActionResult> AddSelectedAssignment(int classId, int assignmentId)
-        {
-            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            var assignment = assignmentDataService.GetAssignmentById(assignmentId);
-
-            var newAssignment = new Assignment
-            {
-                Submissions = new List<Submission>(),
-
-                Name = assignment.Name,
-                StartDate = assignment.StartDate,
-                EndDate = assignment.EndDate,
-                Description = assignment.Description,
-                MemoryLimit = assignment.MemoryLimit,
-                TimeLimit = assignment.TimeLimit,
-                Languages = assignment.Languages,
-                ClassId = classId,
-            };
-
-            assignmentDataService.AddAssignment(newAssignment);
-
-            foreach (var test in assignment.TestCases)
-            {
-                var testCase = new TestCaseSpecification(test);
-                testCase.AssignmentId = newAssignment.Id;
-
-                newAssignment.TestCases.Add(testCase);
-            }
-
-            ClassDataService classDataService = new ClassDataService(dbContext);
-            var c = classDataService.GetClassById(classId);
-            c.Assignments.Add(newAssignment);
-
-            await dbContext.SaveChangesAsync();
-
-            return RedirectToAction("Index", "Home");
         }
     }
 }

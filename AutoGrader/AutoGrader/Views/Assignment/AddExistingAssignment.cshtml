@@ -53,8 +53,8 @@
                 @Html.DisplayFor(modelItem => item.Languages)
             </td>
             <td>
-                <a asp-controller="Instructor" asp-action="InstructorAssignmentDetails" asp-route-id="@item.Id">Details</a> |
-                <a asp-controller="Instructor" asp-action="AddSelectedAssignment" asp-route-classId="@ViewData["ClassId"]" asp-route-assignmentId="@item.Id">Select</a>
+                <a asp-controller="Assignment" asp-action="InstructorAssignmentDetails" asp-route-id="@item.Id">Details</a> |
+                <a asp-controller="Assignment" asp-action="AddSelectedAssignment" asp-route-classId="@ViewData["ClassId"]" asp-route-assignmentId="@item.Id">Select</a>
             </td>
         </tr>
 }

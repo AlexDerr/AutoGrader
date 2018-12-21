@@ -34,7 +34,7 @@
                         @grade%
                     </td>
                     <td>
-                        <a asp-controller="Assignment" asp-action="ViewAllSubmissions" asp-route-assignmentId="@ViewData["AssignmentId"]" asp-route-studentId="@student.Id">View All Submissions</a>
+                        <a asp-controller="Submission" asp-action="ViewAllSubmissionsOnAssignment" asp-route-assignmentId="@ViewData["AssignmentId"]" asp-route-studentId="@student.Id">View All Submissions</a>
                     </td>
                 </tr>
             }

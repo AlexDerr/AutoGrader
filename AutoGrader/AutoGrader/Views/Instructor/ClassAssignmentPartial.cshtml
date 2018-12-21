@@ -55,8 +55,8 @@
                         @Html.DisplayFor(modelItem => item.Languages)
                     </td>
                     <td>
-                        <a asp-controller="Instructor" asp-action="InstructorAssignmentDetails" asp-route-id="@item.Id">Details</a> |
-                        <a asp-controller="Instructor" asp-route-id="@item.Id" asp-action="InstructorGradeByAssignment">Grades</a> |
+                        <a asp-controller="Assignment" asp-action="InstructorAssignmentDetails" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="Assignment" asp-route-id="@item.Id" asp-action="GradesByAssignment">Grades</a> |
                         <a asp-controller="Assignment" asp-action="EditAssignment" asp-route-id="@item.Id">Edit</a> |
                         @Html.ActionLink(
                             "Delete",

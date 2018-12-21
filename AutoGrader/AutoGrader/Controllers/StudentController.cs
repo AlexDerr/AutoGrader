@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace AutoGrader.Controllers
@@ -66,19 +65,6 @@ namespace AutoGrader.Controllers
             }
 
             return RedirectToAction("StudentHome", "Student");
-        }
-
-        public IActionResult ViewAssignments(int classId)
-        {
-            AssignmentDataService assignmentDataService = new AssignmentDataService(dbContext);
-            IEnumerable<Assignment> assignments = assignmentDataService.GetAssignmentsByClassId(classId).Reverse();
-
-            StudentDataService studentDataService = new StudentDataService(dbContext);
-            student = studentDataService.GetStudentByUsername(UserManager.GetUserName(User));
-
-            ViewData.Add("StudentId", student.Id);
-
-            return View(assignments);
         }
 
         public async Task<IActionResult> LeaveClass(bool confirm, int classId)

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AutoGrader.Models.Assignment.Assignment>
 
 @{
-    ViewData["Title"] = "ViewAssignments";
+    ViewData["Title"] = "View Assignments";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -75,18 +75,18 @@
                     @best%
                 </td>
                 <td>
-                    <a asp-controller="Assignment" asp-action="AssignmentDetails" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Assignment" asp-action="StudentAssignmentDetails" asp-route-id="@item.Id">Details</a> |
                     @{
                         string text = "|";
                         if (DateTime.Now < item.EndDate && DateTime.Now > item.StartDate)
                         {
-                            <a asp-controller="Assignment" asp-action="ViewAllSubmissions" asp-route-assignmentId="@item.Id" asp-route-studentId="@ViewData["StudentId"]">View Submissions</a>
+                            <a asp-controller="Submission" asp-action="ViewAllSubmissionsOnAssignment" asp-route-assignmentId="@item.Id" asp-route-studentId="@ViewData["StudentId"]">View Submissions</a>
                             @text
-                            <a asp-controller="Assignment" asp-action="SubmitAssignment" asp-route-id="@item.Id" asp-route-studentId="@ViewData["StudentId"]">Submit</a>
+                            <a asp-controller="Assignment" asp-action="SubmitToAssignment" asp-route-id="@item.Id" asp-route-studentId="@ViewData["StudentId"]">Submit</a>
                         }
                         else
                         {
-                            <a asp-controller="Assignment" asp-action="ViewAllSubmissions" asp-route-assignmentId="@item.Id" asp-route-studentId="@ViewData["StudentId"]">View Submissions</a>
+                            <a asp-controller="Submission" asp-action="ViewAllSubmissionsOnAssignment" asp-route-assignmentId="@item.Id" asp-route-studentId="@ViewData["StudentId"]">View Submissions</a>
                         }
                     }
                 </td>

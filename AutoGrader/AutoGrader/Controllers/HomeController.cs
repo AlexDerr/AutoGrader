@@ -2,10 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using AutoGrader.Models;
 using Microsoft.AspNetCore.Http;
-using AutoGrader.Models.Submission;
-using AutoGrader.Models.ViewModels;
-using System;
-using ShellHelper;
 using Microsoft.AspNetCore.Identity;
 using AutoGrader.Data_Access.Services.UserDataService;
 using AutoGrader.DataAccess;
@@ -44,15 +40,11 @@ namespace AutoGrader.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
